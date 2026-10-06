@@ -1,5 +1,10 @@
 # 🎵 Stellar Music — Frontend (`stellar-music-frontend`)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ab1b7042-2733-4165-9c7a-4751372be07c/deploy-status)](https://stellar-music-app.netlify.app)
+[![Stellar Network](https://img.shields.io/badge/Stellar-Testnet-blue.svg)](https://stellar.org)
+
+> **🚀 Live Web Application**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
+
 Modern decentralized music streaming web application with real **Stellar Testnet** wallet integration, verifiable **Music Pass** access, and **Collaborator Revenue Split Agreements**.
 
 ## 📌 Architectural Responsibility & Core Principle
