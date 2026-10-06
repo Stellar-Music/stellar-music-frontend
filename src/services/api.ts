@@ -221,4 +221,77 @@ export const api = {
     if (!res.ok) throw new Error(data.error || 'Failed to load splits dashboard');
     return data.data;
   },
+
+  // =========================================================================
+  // LEVEL 3: AUTOMATED SETTLEMENT & REALTIME EARNINGS API
+  // =========================================================================
+
+  async getRevenuePools(): Promise<any[]> {
+    const res = await fetch(`${API_BASE}/revenue/pools`);
+    const data = await res.json();
+    return data.data || [];
+  },
+
+  async getSettlements(trackId?: string): Promise<any[]> {
+    const url = trackId ? `${API_BASE}/settlements?track_id=${trackId}` : `${API_BASE}/settlements`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.data || [];
+  },
+
+  async getSettlementById(id: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/settlements/${id}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to fetch settlement');
+    return data.data;
+  },
+
+  async reconcileSettlement(id: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/settlements/reconcile/${id}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to reconcile settlement');
+    return data.data;
+  },
+
+  async executeTrackSettlement(trackId: string, amount: number, poolId?: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/settlements/track/${trackId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount, pool_id: poolId }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Settlement execution failed');
+    return data.data;
+  },
+
+  async runAutomatedSettlement(): Promise<any> {
+    const res = await fetch(`${API_BASE}/settlements/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Automated settlement run failed');
+    return data.data;
+  },
+
+  async getContributorEarnings(wallet: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/earnings/contributor/${encodeURIComponent(wallet)}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to fetch contributor earnings');
+    return data.data;
+  },
+
+  async getArtistRevenue(wallet: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/earnings/artist/${encodeURIComponent(wallet)}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to fetch artist revenue');
+    return data.data;
+  },
+
+  async getTrackRevenue(trackId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/revenue/track/${trackId}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to fetch track revenue');
+    return data.data;
+  },
 };

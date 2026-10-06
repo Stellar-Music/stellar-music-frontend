@@ -8,11 +8,14 @@ import { AudioPlayerBar } from './components/AudioPlayerBar';
 import { RevenueSplitModal } from './components/RevenueSplitModal';
 import { SplitAgreementModal } from './components/SplitAgreementModal';
 import { ContributorDashboardModal } from './components/ContributorDashboardModal';
+import { ContributorEarningsModal } from './components/ContributorEarningsModal';
+import { ArtistRevenueModal } from './components/ArtistRevenueModal';
+import { TrackRevenueModal } from './components/TrackRevenueModal';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
 import { Track, Artist } from './types';
-import { Sparkles, Search, Shield, Music2, PieChart } from 'lucide-react';
+import { Sparkles, Search, Shield, Music2, PieChart, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address } = useWallet();
@@ -31,6 +34,10 @@ export const App: React.FC = () => {
   const [splitModalTrack, setSplitModalTrack] = useState<Track | null>(null);
   const [agreementModalTrack, setAgreementModalTrack] = useState<Track | null>(null);
   const [isSplitsDashboardOpen, setIsSplitsDashboardOpen] = useState(false);
+  const [isEarningsOpen, setIsEarningsOpen] = useState(false);
+  const [isArtistRevenueOpen, setIsArtistRevenueOpen] = useState(false);
+  const [revenueTrackId, setRevenueTrackId] = useState<string | null>(null);
+  const [settlementToast, setSettlementToast] = useState<{ message: string; txHash?: string } | null>(null);
 
   const fetchTracks = async () => {
     try {
@@ -77,6 +84,33 @@ export const App: React.FC = () => {
     fetchUserPasses();
   }, [address]);
 
+  // Realtime SSE listener for on-chain settlement notifications
+  useEffect(() => {
+    let es: EventSource | null = null;
+    try {
+      es = new EventSource('/api/realtime/events');
+      es.onmessage = (event) => {
+        try {
+          const payload = JSON.parse(event.data);
+          if (payload.type === 'SETTLEMENT_EXECUTED' || payload.type === 'SETTLEMENT_RECONCILED') {
+            setSettlementToast({
+              message: `Settlement Executed: ${payload.data.gross_amount} XLM distributed on Stellar!`,
+              txHash: payload.data.tx_hash,
+            });
+            setTimeout(() => setSettlementToast(null), 8000);
+          }
+        } catch {
+          // ignore parsing error
+        }
+      };
+    } catch {
+      // ignore
+    }
+    return () => {
+      es?.close();
+    };
+  }, []);
+
   const genres = ['All', 'Synthwave', 'Ambient', 'Afrobeats', 'Electronic', 'Lo-Fi'];
 
   return (
@@ -85,7 +119,55 @@ export const App: React.FC = () => {
         onOpenPublish={() => setIsPublishOpen(true)}
         onOpenWallet={() => setIsWalletOpen(true)}
         onOpenSplits={() => setIsSplitsDashboardOpen(true)}
+        onOpenEarnings={() => setIsEarningsOpen(true)}
+        onOpenArtistRevenue={() => setIsArtistRevenueOpen(true)}
       />
+
+      {/* Realtime Settlement Toast */}
+      {settlementToast && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '80px',
+            right: '24px',
+            zIndex: 100,
+            padding: '12px 18px',
+            borderRadius: 'var(--radius-md)',
+            background: 'rgba(16, 185, 129, 0.95)',
+            backdropFilter: 'blur(10px)',
+            color: '#070913',
+            boxShadow: '0 8px 32px rgba(16, 185, 129, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            animation: 'fadeIn 0.3s ease-out',
+            fontWeight: 600,
+            fontSize: '0.88rem',
+          }}
+        >
+          <CheckCircle2 size={18} />
+          <span>{settlementToast.message}</span>
+          {settlementToast.txHash && (
+            <a
+              href={`https://stellar.expert/explorer/testnet/tx/${settlementToast.txHash}`}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '3px',
+                color: '#070913',
+                textDecoration: 'underline',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+              }}
+            >
+              <span>Explorer</span>
+              <ExternalLink size={12} />
+            </a>
+          )}
+        </div>
+      )}
 
       <main style={{ maxWidth: '1300px', margin: '0 auto', width: '100%', padding: '32px 24px' }}>
         {/* Hero Section */}
@@ -103,7 +185,7 @@ export const App: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
               <span className="badge badge-testnet">
                 <Sparkles size={13} />
-                <span>Level 2: Collaborator Revenue Split Agreements</span>
+                <span>Level 3: Automated Multi-Recipient Revenue Settlement</span>
               </span>
             </div>
 
@@ -113,7 +195,7 @@ export const App: React.FC = () => {
               lineHeight: 1.15,
               marginBottom: '16px',
             }}>
-              Decentralized Music Streaming & <span className="text-gradient">Revenue Agreements</span>
+              Decentralized Music Streaming & <span className="text-gradient">Automated Settlement</span>
             </h1>
 
             <p style={{
@@ -230,6 +312,7 @@ export const App: React.FC = () => {
                     hasPass={hasPass}
                     onOpenPurchaseModal={(t) => setPurchaseTrack(t)}
                     onOpenSplitAgreement={(t) => setAgreementModalTrack(t)}
+                    onOpenTrackRevenue={(id) => setRevenueTrackId(id)}
                   />
                 );
               })}
@@ -383,6 +466,29 @@ export const App: React.FC = () => {
           onClose={() => setIsSplitsDashboardOpen(false)}
           onSelectTrackForAgreement={(t) => setAgreementModalTrack(t)}
           onSelectTrackForCreateSplit={(t) => setSplitModalTrack(t)}
+        />
+      )}
+
+      {isEarningsOpen && (
+        <ContributorEarningsModal
+          onClose={() => setIsEarningsOpen(false)}
+          onOpenTrackRevenue={(id) => setRevenueTrackId(id)}
+        />
+      )}
+
+      {isArtistRevenueOpen && (
+        <ArtistRevenueModal
+          tracks={tracks}
+          onClose={() => setIsArtistRevenueOpen(false)}
+          onOpenTrackRevenue={(id) => setRevenueTrackId(id)}
+          onOpenCreateSplit={(t) => setSplitModalTrack(t)}
+        />
+      )}
+
+      {revenueTrackId && (
+        <TrackRevenueModal
+          trackId={revenueTrackId}
+          onClose={() => setRevenueTrackId(null)}
         />
       )}
     </div>

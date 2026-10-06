@@ -8,9 +8,16 @@ interface TrackCardProps {
   hasPass: boolean;
   onOpenPurchaseModal: (track: Track) => void;
   onOpenSplitAgreement?: (track: Track) => void;
+  onOpenTrackRevenue?: (trackId: string) => void;
 }
 
-export const TrackCard: React.FC<TrackCardProps> = ({ track, hasPass, onOpenPurchaseModal, onOpenSplitAgreement }) => {
+export const TrackCard: React.FC<TrackCardProps> = ({
+  track,
+  hasPass,
+  onOpenPurchaseModal,
+  onOpenSplitAgreement,
+  onOpenTrackRevenue,
+}) => {
   const { currentTrack, isPlaying, playTrack, togglePlayPause } = usePlayer();
   const isCurrent = currentTrack?.id === track.id;
   const isCurrentlyPlaying = isCurrent && isPlaying;
@@ -174,6 +181,27 @@ export const TrackCard: React.FC<TrackCardProps> = ({ track, hasPass, onOpenPurc
             >
               <PieChart size={13} color="var(--accent-cyan)" />
               <span>Split</span>
+            </button>
+          )}
+
+          {onOpenTrackRevenue && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenTrackRevenue(track.id);
+              }}
+              className="btn btn-secondary btn-sm"
+              style={{
+                padding: '4px 8px',
+                fontSize: '0.72rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+              title="Audit track streaming revenue pool & on-chain settlements"
+            >
+              <span style={{ color: 'var(--accent-emerald)', fontWeight: 700 }}>$</span>
+              <span>Audit</span>
             </button>
           )}
 

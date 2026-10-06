@@ -6,9 +6,17 @@ interface NavbarProps {
   onOpenPublish: () => void;
   onOpenWallet: () => void;
   onOpenSplits: () => void;
+  onOpenEarnings: () => void;
+  onOpenArtistRevenue: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPublish, onOpenWallet, onOpenSplits }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenPublish,
+  onOpenWallet,
+  onOpenSplits,
+  onOpenEarnings,
+  onOpenArtistRevenue,
+}) => {
   const { address, balance, isConnected, disconnect, refreshBalance, fundWithFriendbot, isConnecting } = useWallet();
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -68,14 +76,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPublish, onOpenWallet, onO
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            onClick={onOpenEarnings}
+            className="btn btn-secondary btn-sm"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            title="Contributor royalty earnings and payout receipts"
+          >
+            <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.9rem' }}>$</span>
+            <span>Earnings</span>
+          </button>
+
+          <button
+            onClick={onOpenArtistRevenue}
+            className="btn btn-secondary btn-sm"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            title="Artist revenue pools & automated settlements"
+          >
+            <Sparkles size={15} color="var(--accent-cyan)" />
+            <span>Settlement</span>
+          </button>
+
           <button
             onClick={onOpenSplits}
             className="btn btn-secondary btn-sm"
             style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
           >
-            <Sparkles size={16} color="var(--accent-cyan)" />
-            <span>Revenue Splits</span>
+            <span>Splits</span>
           </button>
 
           <button
