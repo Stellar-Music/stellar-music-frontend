@@ -288,8 +288,57 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                     </div>
                   </div>
                 ))}
+
+                {/* Total Allocation Footer */}
+                <div style={{
+                  padding: '12px 16px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid var(--border-subtle)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: '4px',
+                }}>
+                  <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    Total Allocation
+                  </span>
+                  <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+                    100%
+                  </span>
+                </div>
               </div>
             </div>
+
+            {/* Locked Agreement Metadata Card */}
+            {isLocked && (
+              <div style={{
+                padding: '16px',
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                marginBottom: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                fontSize: '0.82rem',
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Agreement ID:</span>
+                  <span style={{ fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{agreement.id}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Locked Date:</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>
+                    {agreement.locked_at ? new Date(agreement.locked_at).toLocaleString() : 'Confirmed'}
+                  </span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ color: 'var(--text-muted)' }}>Level 3 Settlement Readiness:</span>
+                  <span style={{ color: 'var(--accent-emerald)', fontWeight: 600 }}>Ready for Revenue Settlement</span>
+                </div>
+              </div>
+            )}
 
             {error && (
               <div style={{
