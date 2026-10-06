@@ -5,11 +5,14 @@ import { MusicPassModal } from './components/MusicPassModal';
 import { PublishTrackModal } from './components/PublishTrackModal';
 import { WalletModal } from './components/WalletModal';
 import { AudioPlayerBar } from './components/AudioPlayerBar';
+import { RevenueSplitModal } from './components/RevenueSplitModal';
+import { SplitAgreementModal } from './components/SplitAgreementModal';
+import { ContributorDashboardModal } from './components/ContributorDashboardModal';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
 import { Track, Artist } from './types';
-import { Sparkles, Search, Shield, Music2 } from 'lucide-react';
+import { Sparkles, Search, Shield, Music2, PieChart } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address } = useWallet();
@@ -25,6 +28,9 @@ export const App: React.FC = () => {
   const [purchaseTrack, setPurchaseTrack] = useState<Track | null>(null);
   const [isPublishOpen, setIsPublishOpen] = useState(false);
   const [isWalletOpen, setIsWalletOpen] = useState(false);
+  const [splitModalTrack, setSplitModalTrack] = useState<Track | null>(null);
+  const [agreementModalTrack, setAgreementModalTrack] = useState<Track | null>(null);
+  const [isSplitsDashboardOpen, setIsSplitsDashboardOpen] = useState(false);
 
   const fetchTracks = async () => {
     try {
@@ -78,6 +84,7 @@ export const App: React.FC = () => {
       <Navbar
         onOpenPublish={() => setIsPublishOpen(true)}
         onOpenWallet={() => setIsWalletOpen(true)}
+        onOpenSplits={() => setIsSplitsDashboardOpen(true)}
       />
 
       <main style={{ maxWidth: '1300px', margin: '0 auto', width: '100%', padding: '32px 24px' }}>
@@ -96,7 +103,7 @@ export const App: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
               <span className="badge badge-testnet">
                 <Sparkles size={13} />
-                <span>Level 1: Programmable Stellar Payments</span>
+                <span>Level 2: Collaborator Revenue Split Agreements</span>
               </span>
             </div>
 
@@ -106,7 +113,7 @@ export const App: React.FC = () => {
               lineHeight: 1.15,
               marginBottom: '16px',
             }}>
-              Decentralized Music Streaming Powered by <span className="text-gradient">Stellar</span>
+              Decentralized Music Streaming & <span className="text-gradient">Revenue Agreements</span>
             </h1>
 
             <p style={{
@@ -115,16 +122,17 @@ export const App: React.FC = () => {
               lineHeight: 1.6,
               marginBottom: '28px',
             }}>
-              Direct artist payments. Verifiable on-chain Music Passes. Stream high-fidelity audio with zero intermediary cuts, backed by real Stellar Testnet transactions.
+              Multi-party cryptographic revenue sharing agreements. Define contributor splits, collect Stellar wallet approvals, and lock immutable financial terms before Level 3 settlement.
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
               <button
-                onClick={() => setIsWalletOpen(true)}
+                onClick={() => setIsSplitsDashboardOpen(true)}
                 className="btn btn-primary"
-                style={{ padding: '12px 24px', fontSize: '0.95rem' }}
+                style={{ padding: '12px 24px', fontSize: '0.95rem', gap: '8px' }}
               >
-                Connect Testnet Wallet
+                <PieChart size={18} />
+                <span>Revenue Splits & Agreements</span>
               </button>
 
               <button
@@ -221,6 +229,7 @@ export const App: React.FC = () => {
                     track={track}
                     hasPass={hasPass}
                     onOpenPurchaseModal={(t) => setPurchaseTrack(t)}
+                    onOpenSplitAgreement={(t) => setAgreementModalTrack(t)}
                   />
                 );
               })}
@@ -346,6 +355,35 @@ export const App: React.FC = () => {
 
       {isWalletOpen && (
         <WalletModal onClose={() => setIsWalletOpen(false)} />
+      )}
+
+      {splitModalTrack && (
+        <RevenueSplitModal
+          track={splitModalTrack}
+          onClose={() => setSplitModalTrack(null)}
+          onSplitCreated={() => {
+            fetchTracks();
+          }}
+        />
+      )}
+
+      {agreementModalTrack && (
+        <SplitAgreementModal
+          track={agreementModalTrack}
+          onClose={() => setAgreementModalTrack(null)}
+          onAgreementUpdated={() => {
+            fetchTracks();
+          }}
+        />
+      )}
+
+      {isSplitsDashboardOpen && (
+        <ContributorDashboardModal
+          tracks={tracks}
+          onClose={() => setIsSplitsDashboardOpen(false)}
+          onSelectTrackForAgreement={(t) => setAgreementModalTrack(t)}
+          onSelectTrackForCreateSplit={(t) => setSplitModalTrack(t)}
+        />
       )}
     </div>
   );

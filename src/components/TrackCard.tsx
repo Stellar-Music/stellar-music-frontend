@@ -1,15 +1,16 @@
 import React from 'react';
 import { Track } from '../types';
 import { usePlayer } from '../context/PlayerContext';
-import { Play, Pause, Lock, CheckCircle2, Clock } from 'lucide-react';
+import { Play, Pause, Lock, CheckCircle2, Clock, PieChart } from 'lucide-react';
 
 interface TrackCardProps {
   track: Track;
   hasPass: boolean;
   onOpenPurchaseModal: (track: Track) => void;
+  onOpenSplitAgreement?: (track: Track) => void;
 }
 
-export const TrackCard: React.FC<TrackCardProps> = ({ track, hasPass, onOpenPurchaseModal }) => {
+export const TrackCard: React.FC<TrackCardProps> = ({ track, hasPass, onOpenPurchaseModal, onOpenSplitAgreement }) => {
   const { currentTrack, isPlaying, playTrack, togglePlayPause } = usePlayer();
   const isCurrent = currentTrack?.id === track.id;
   const isCurrentlyPlaying = isCurrent && isPlaying;
@@ -154,7 +155,28 @@ export const TrackCard: React.FC<TrackCardProps> = ({ track, hasPass, onOpenPurc
           <span>{formatDuration(track.duration_seconds)}</span>
         </div>
 
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {onOpenSplitAgreement && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenSplitAgreement(track);
+              }}
+              className="btn btn-secondary btn-sm"
+              style={{
+                padding: '4px 8px',
+                fontSize: '0.72rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+              title="View or manage collaborator revenue split"
+            >
+              <PieChart size={13} color="var(--accent-cyan)" />
+              <span>Split</span>
+            </button>
+          )}
+
           {isUnlocked ? (
             <span className="badge badge-pass-granted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <CheckCircle2 size={13} />

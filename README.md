@@ -1,79 +1,89 @@
 # 🎵 Stellar Music — Frontend (`stellar-music-frontend`)
 
-Modern decentralized music streaming web application with real **Stellar Testnet** wallet integration and verifiable **Music Pass** access.
+Modern decentralized music streaming web application with real **Stellar Testnet** wallet integration, verifiable **Music Pass** access, and **Collaborator Revenue Split Agreements**.
 
 ## 📌 Architectural Responsibility & Core Principle
 
-* **Frontend provides the user experience, audio streaming player, and wallet interaction.**
-* **Real Stellar Testnet Transactions**: Does not simulate blockchain payments with mock balances or fake hashes. Payments are signed cryptographically and submitted to the public Stellar Testnet ledger.
+* **Frontend provides the user experience, audio streaming player, split agreement orchestration, and wallet interaction.**
+* **Real Stellar Testnet Transactions**: Does not simulate blockchain payments or signatures with mock balances or fake hashes. Payments and agreements are signed cryptographically and reconciled against public Stellar records.
 * **Modern Music Product Experience**: Designed as a sleek, premium streaming application (dark glassmorphism, responsive playback, vibrant glowing accents) rather than a cluttered blockchain dashboard.
+* **Level 2 Principle**: Clear distinction between **Financial Agreement** (`Define → Review → Sign → Lock`) and **Revenue Settlement** (Level 3 automated revenue pools).
 
 ```
-       [ Listener User ]
-               │
-        (Signs Payment)
-               ▼
-   ┌───────────────────────────┐
-   │    Stellar Web Frontend   │
-   │  - Audio Player Engine    │──────► [ Stellar Horizon Testnet ]
-   │  - Wallet Integration     │        (Real Ledger Payment)
-   │  - 8-State Music Pass UI  │
-   └─────────────┬─────────────┘
-                 │ (Submit Tx Hash for Verification)
-                 ▼
-     [ Stellar Music Backend ]
+       [ Artist / Collaborator ]
+                  │
+        (Defines Split Terms)
+                  ▼
+   ┌─────────────────────────────┐
+   │    Stellar Web Frontend     │
+   │  - Audio Player Engine      │──────► [ Stellar Horizon Testnet / Soroban ]
+   │  - Revenue Split Modals     │        (Real Ledger Payment & Contract Approvals)
+   │  - Multi-Party Signing Flow │
+   │  - Contributor Dashboard    │
+   └──────────────┬──────────────┘
+                  │ (API Sync & Signature Recording)
+                  ▼
+      [ Stellar Music Backend ]
 ```
 
 ---
 
-## 🎧 Level 1 User Journey
+## 🎧 Level 2 User Journey
 
 ```
-   1. Artist Publishes Track (Metadata, audio, cover art, price in XLM)
+   1. Artist Selects Track (From catalog or discovery grid)
              ↓
-   2. Listener Discovers Track (Landing page, genre filters, search)
+   2. Create Revenue Split (Add contributors, roles, percentages)
              ↓
-   3. Connect Stellar Wallet (Freighter or 1-Click Testnet Keypair)
+   3. Live 100.0% Allocation Validation (Enforced in UI, backend, contract)
              ↓
-   4. Purchase Music Pass (Review payment details & destination)
+   4. Generate Agreement & Deterministic SHA-256 Hash
              ↓
-   5. Sign & Submit Real Transaction to Stellar Testnet Horizon
+   5. Contributors Review Exact Agreement Terms
              ↓
-   6. Ledger Confirmation & Backend Independent Reconciliation
+   6. Connect Stellar Wallet & Cryptographically Sign
              ↓
-   7. Access Granted & Streaming Unlocked
+   7. Real-Time Tracking: All Required Signatures Collected
              ↓
-   8. High-Fidelity Audio Stream & Streaming Accounting Recorded
+   8. Agreement Automatically LOCKS & Becomes Immutable
+             ↓
+   9. Ready for Level 3 Automated Settlement
 ```
 
 ---
 
 ## 🌟 Core Features
 
-### 1. Landing & Discovery Page
-* Platform introduction highlighting decentralized non-custodial streaming.
-* Filter by genres: `Synthwave`, `Ambient`, `Afrobeats`, `Electronic`, `Lo-Fi`.
-* Real-time search across tracks and artist names.
-* Track cards displaying album artwork, artist, duration, price pill, and pass access status (`Free Stream`, `Pass Granted`, or `Pass Required`).
+### 1. Collaborator Revenue Split Definition
+* Extensible contributor roles (`Artist`, `Producer`, `Songwriter`, `Composer`, `Engineer`, `Label`, `Other`).
+* Real-time visual progress bar enforcing exactly **100.0%** total allocation.
+* Stellar public key format validation (`G...`).
+* Rejection of duplicate contributor entries or empty allocations.
 
-### 2. High-Fidelity Audio Player
+### 2. Multi-Party Split Agreement Review & Signing
+* Full breakdown of participating contributors, assigned roles, and share percentages.
+* **Deterministic Agreement Hash (SHA-256)** display card with 1-click clipboard copy.
+* Explicit wallet confirmation: *"By signing, you cryptographically authorize this exact revenue split agreement terms"*.
+* Real-time signature collection progress counter (`Signed` vs `Pending`).
+* Once all required contributors sign, agreement auto-locks with an immutable green **LOCKED** banner.
+
+### 3. Splits & Collaborations Dashboard
+* **My Collaborations**: Filter agreements by `All`, `Awaiting My Signature`, `Awaiting Others`, and `Locked & Ready`.
+* **Artist Catalog**: Full overview of track agreement versions (`v1`, `v2`) with 1-click actions to view agreements or draft new revisions.
+
+### 4. High-Fidelity Audio Player (Level 1 Foundation)
 * Persistent bottom player bar with glassmorphism blurred backdrop.
 * Features: Play/Pause, 10-second skip back/forward, smooth range seek slider, current time, total duration, volume slider with mute toggle.
 * Automatically synchronized with backend streaming accounting (`/api/streams/start`, `/api/streams/:id/heartbeat`, `/api/streams/:id/end`).
 * Audio streams via HTTP Range requests (`206 Partial Content`).
 
-### 3. Artist Publishing Studio
-* Modal to publish or save drafts (`DRAFT` vs `PUBLISHED`).
-* Collects: track title, artist display name, description, genre, cover artwork file upload/preview, audio file upload, and Music Pass price in XLM.
-* Immediate validation and automatic indexing.
-
-### 4. Stellar Testnet Wallet Integration
+### 5. Stellar Testnet Wallet Integration
 * **Freighter Extension**: Integrates seamlessly with Stellar's official `@stellar/freighter-api`.
 * **1-Click Testnet Demo Keypair**: Generates an in-browser cryptographic keypair funded with 10,000 Testnet XLM via Friendbot with 1 click, allowing immediate testing without extensions.
 * Live balance polling and address truncation.
 * Clear visual identification of **Stellar Testnet**.
 
-### 5. Music Pass 8-State Purchase Flow
+### 6. Music Pass 8-State Purchase Flow
 Distinguishes states strictly to prevent misleading UI or accidental double-spends:
 1. `READY`: Wallet connected, pass price reviewed.
 2. `WALLET_REQUIRED`: Prompts listener to connect wallet before purchasing.
@@ -99,16 +109,25 @@ Copy the template configuration:
 cp .env.example .env
 ```
 
-### 3. Start Development Server
-Ensure the backend is running on `http://localhost:4000`:
+Ensure `VITE_API_BASE_URL` points to your backend instance:
+```env
+VITE_API_BASE_URL=http://localhost:4000/api
+VITE_STELLAR_NETWORK=TESTNET
+```
+
+### 3. Development Server
 ```bash
 npm run dev
 ```
 
-App will launch on `http://localhost:3000`.
-
 ### 4. Production Build
 ```bash
 npm run build
-npm run preview
 ```
+
+---
+
+## 🔒 Security Principles
+* Non-custodial: Secret keys never touch frontend logs, local storage, or network payloads.
+* Deterministic hashing: Changing any contributor or percentage immediately yields a distinct hash, preventing signature replay.
+* Locked agreements cannot be altered in frontend state; backend and smart contracts reject mutations post-lock.

@@ -5,9 +5,10 @@ import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut } f
 interface NavbarProps {
   onOpenPublish: () => void;
   onOpenWallet: () => void;
+  onOpenSplits: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPublish, onOpenWallet }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenPublish, onOpenWallet, onOpenSplits }) => {
   const { address, balance, isConnected, disconnect, refreshBalance, fundWithFriendbot, isConnecting } = useWallet();
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -68,6 +69,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPublish, onOpenWallet }) =
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <button
+            onClick={onOpenSplits}
+            className="btn btn-secondary btn-sm"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            <Sparkles size={16} color="var(--accent-cyan)" />
+            <span>Revenue Splits</span>
+          </button>
+
           <button
             onClick={onOpenPublish}
             className="btn btn-secondary btn-sm"

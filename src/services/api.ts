@@ -1,4 +1,4 @@
-import { Track, Artist, MusicPass, StreamingSession } from '../types';
+import { Track, Artist, MusicPass, StreamingSession, SplitAgreement, SplitContributor, SplitSignature, AgreementEvent, ContributorInput } from '../types';
 
 const API_BASE = '/api';
 
@@ -58,7 +58,7 @@ export const api = {
     return data.data;
   },
 
-  // Music Pass
+  // Music Pass (Level 1)
   async checkPass(trackId: string, wallet: string): Promise<boolean> {
     if (!wallet) return false;
     const res = await fetch(`${API_BASE}/passes/check/${trackId}/${wallet}`);
@@ -81,7 +81,7 @@ export const api = {
     return { pass: data.data, explorer_url: data.explorer_url };
   },
 
-  // Streaming Accounting
+  // Streaming Accounting (Level 1)
   async startStream(trackId: string, listenerWallet: string): Promise<StreamingSession> {
     const res = await fetch(`${API_BASE}/streams/start`, {
       method: 'POST',
@@ -109,7 +109,7 @@ export const api = {
     });
   },
 
-  // Wallet
+  // Wallet Faucet (Level 1)
   async fundTestnetWallet(walletAddress: string): Promise<any> {
     const res = await fetch(`${API_BASE}/wallet/fund`, {
       method: 'POST',
@@ -125,5 +125,100 @@ export const api = {
     const res = await fetch(`${API_BASE}/wallet/balance/${walletAddress}`);
     const data = await res.json();
     return data.balance || '0';
+  },
+
+  // =========================================================================
+  // LEVEL 2: REVENUE SPLIT AGREEMENT API
+  // =========================================================================
+
+  async createSplitAgreement(
+    trackId: string,
+    createdByWallet: string,
+    contributors: ContributorInput[]
+  ): Promise<{ agreement: SplitAgreement; contributors: SplitContributor[] }> {
+    const res = await fetch(`${API_BASE}/tracks/${trackId}/splits`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        created_by_wallet: createdByWallet,
+        contributors,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to create revenue split agreement');
+    return data.data;
+  },
+
+  async getTrackSplits(trackId: string): Promise<SplitAgreement[]> {
+    const res = await fetch(`${API_BASE}/tracks/${trackId}/splits`);
+    const data = await res.json();
+    return data.data || [];
+  },
+
+  async getActiveLockedSplit(trackId: string): Promise<{ agreement: SplitAgreement; contributors: SplitContributor[] } | null> {
+    const res = await fetch(`${API_BASE}/tracks/${trackId}/splits/active`);
+    if (res.status === 404) return null;
+    const data = await res.json();
+    return data.data || null;
+  },
+
+  async getSplitById(id: string): Promise<{
+    agreement: SplitAgreement;
+    contributors: SplitContributor[];
+    signatures: SplitSignature[];
+    events: AgreementEvent[];
+  }> {
+    const res = await fetch(`${API_BASE}/splits/${id}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to load agreement');
+    return data.data;
+  },
+
+  async signSplitAgreement(
+    id: string,
+    contributorWallet: string,
+    signatureRef?: string
+  ): Promise<{ agreement: SplitAgreement; isLocked: boolean }> {
+    const res = await fetch(`${API_BASE}/splits/${id}/sign`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contributor_wallet: contributorWallet,
+        signature_ref: signatureRef,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to sign agreement');
+    return data.data;
+  },
+
+  async rejectSplitAgreement(
+    id: string,
+    contributorWallet: string,
+    reason?: string
+  ): Promise<SplitAgreement> {
+    const res = await fetch(`${API_BASE}/splits/${id}/reject`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contributor_wallet: contributorWallet,
+        reason,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to reject agreement');
+    return data.data;
+  },
+
+  async getMySplits(wallet: string): Promise<{
+    awaiting_my_signature: any[];
+    awaiting_others: any[];
+    locked: any[];
+    other: any[];
+  }> {
+    const res = await fetch(`${API_BASE}/me/splits?wallet=${encodeURIComponent(wallet)}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to load splits dashboard');
+    return data.data;
   },
 };
