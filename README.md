@@ -44,6 +44,44 @@ Stellar Music provides an intuitive, high-fidelity music streaming product backe
 
 ---
 
+## 📸 Product Functionality Walkthrough
+
+### 1. Music Discovery & Range Audio Streaming
+High-fidelity streaming catalog featuring audio preview, real-time genre filtering, instant keypair wallet connection, and a persistent playback bar with seekbar and volume controls.
+![Music Discovery & Persistent Audio Player](docs/screenshots/01_music_discovery.png)
+
+---
+
+### 2. Level 1 — Non-Custodial Music Pass Access
+Listeners purchase track access passes with instant Stellar Testnet XLM transactions. Unlocks authenticated HTTP 206 Partial Content range audio playback with cryptographic replay protection.
+![Music Pass Purchase Modal](docs/screenshots/02_music_pass_modal.png)
+
+---
+
+### 3. Level 2 — Collaborator Revenue Split Studio & Multi-Party Signing
+Artists define multi-party split agreements with exact 10,000 basis points (100.00%) allocation. All contributors cryptographically sign terms bound by SHA-256 agreement hashes, locking the agreement permanently.
+![Revenue Split Studio & Agreement Status](docs/screenshots/03_revenue_split_studio.png)
+
+---
+
+### 4. Level 3 — Contributor Royalty & Earnings Dashboard
+Contributors track real-time lifetime earnings, pending pool royalties, and settled XLM across all collaborative tracks with direct links to on-chain Stellar transactions.
+![Contributor Royalty & Earnings Dashboard](docs/screenshots/04_contributor_earnings.png)
+
+---
+
+### 5. Level 3 — Artist Automated Settlement Engine
+Catalog-level financial observatory displaying gross streaming revenue, pending balances, and 1-click batch multi-recipient settlement execution across all eligible tracks.
+![Artist Revenue & Automated Settlement Engine](docs/screenshots/05_artist_revenue_engine.png)
+
+---
+
+### 6. Level 3 — Track Revenue & On-Chain Settlement Auditor
+Inspect per-track streaming revenue pools, verify immutable split terms, view the zero-leak stroop dust remainder allocation, and audit historical multi-recipient disbursement receipts.
+![Track Revenue & Settlement Auditor](docs/screenshots/06_track_revenue_audit.png)
+
+---
+
 ## 🌟 Key Features & User Experience
 
 ### 1. Music Discovery & Range Audio Streaming
@@ -75,6 +113,23 @@ Stellar Music provides an intuitive, high-fidelity music streaming product backe
 
 ### 6. Public Track Revenue & Settlement Auditor
 * Accessible from any track card to inspect gross pool intake, active locked split agreement hash, remainder dust allocation rules (Index 0 primary artist invariant), and verifiable payout ledger.
+
+---
+
+## 🛑 Client Error Handling, Toast Alerts & UX Resilience
+
+The frontend application features robust client-side validation, user feedback alerts, and error boundary containment:
+
+| Feature / Action | Error Condition | UI Message & Recovery Behavior |
+| :--- | :--- | :--- |
+| **Split Agreement Allocation** | Shares do not total 100.0% | Real-time red badge indicator: `"Total allocation must equal 100% (currently X%)"`. Save button remains disabled. |
+| **Collaborator Configuration** | Duplicate recipient address | Warning alert: `"Recipient wallet address is already added"`. Duplicates cannot be submitted. |
+| **Pass Purchase** | Insufficient balance or tx error | Error toast: `"Payment failed: [Error details]"`. User prompted to request Friendbot funding. |
+| **Audio Playback** | No valid access pass | Redirects to purchase modal: `"A confirmed Music Pass is required to stream this track"`. |
+| **Collaborator Signing** | Signer address mismatch | Error alert: `"Current wallet is not listed as an active contributor for this agreement"`. |
+| **Settlement Execution** | Agreement not yet locked | Guard modal: `"Settlement blocked: Agreement must be signed by all parties and LOCKED first"`. |
+| **Settlement Execution** | Zero pending revenue | Info banner: `"No pending revenue available in this track pool for distribution"`. |
+| **Realtime Updates** | SSE connection interruption | Automatic background reconnection with exponential backoff; no page refresh required. |
 
 ---
 
