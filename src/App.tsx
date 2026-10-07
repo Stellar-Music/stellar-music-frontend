@@ -14,6 +14,7 @@ import { TrackRevenueModal } from './components/TrackRevenueModal';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
+import { WalkthroughTab } from './components/WalkthroughTab';
 import { Track, Artist } from './types';
 import { Sparkles, Search, Shield, Music2, PieChart, CheckCircle2, ExternalLink, PlayCircle } from 'lucide-react';
 
@@ -21,11 +22,27 @@ export const App: React.FC = () => {
   const { address } = useWallet();
   const { unlockedTrackIds } = usePlayer();
 
+  const [activeTab, setActiveTab] = useState<'catalog' | 'walkthrough'>('catalog');
   const [tracks, setTracks] = useState<Track[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [userPassTrackIds, setUserPassTrackIds] = useState<Set<string>>(new Set());
+
+  // Listen to URL hash for deep linking (e.g. #walkthrough)
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#walkthrough' || hash === '#tour' || hash === '#video') {
+        setActiveTab('walkthrough');
+      } else if (hash === '#catalog' || hash === '') {
+        setActiveTab('catalog');
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Modal states
   const [purchaseTrack, setPurchaseTrack] = useState<Track | null>(null);
@@ -116,6 +133,11 @@ export const App: React.FC = () => {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingBottom: '110px' }}>
       <Navbar
+        activeTab={activeTab}
+        onSelectTab={(tab) => {
+          setActiveTab(tab);
+          window.location.hash = tab === 'walkthrough' ? '#walkthrough' : '';
+        }}
         onOpenPublish={() => setIsPublishOpen(true)}
         onOpenWallet={() => setIsWalletOpen(true)}
         onOpenSplits={() => setIsSplitsDashboardOpen(true)}
@@ -169,82 +191,92 @@ export const App: React.FC = () => {
         </div>
       )}
 
-      <main style={{ maxWidth: '1300px', margin: '0 auto', width: '100%', padding: '32px 24px' }}>
-        {/* Hero Section */}
-        <section style={{
-          position: 'relative',
-          borderRadius: 'var(--radius-lg)',
-          overflow: 'hidden',
-          padding: '60px 48px',
-          marginBottom: '48px',
-          background: 'linear-gradient(135deg, rgba(14, 18, 34, 0.9) 0%, rgba(20, 28, 54, 0.8) 100%)',
-          border: '1px solid rgba(0, 242, 254, 0.25)',
-          boxShadow: 'var(--shadow-neon)',
-        }}>
-          <div style={{ maxWidth: '720px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-              <span className="badge badge-testnet">
-                <Sparkles size={13} />
-                <span>Automated Multi-Recipient Revenue Settlement</span>
-              </span>
+      {activeTab === 'walkthrough' ? (
+        <WalkthroughTab
+          onBackToCatalog={() => {
+            setActiveTab('catalog');
+            window.location.hash = '';
+          }}
+        />
+      ) : (
+        <main style={{ maxWidth: '1300px', margin: '0 auto', width: '100%', padding: '32px 24px' }}>
+          {/* Hero Section */}
+          <section style={{
+            position: 'relative',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            padding: '60px 48px',
+            marginBottom: '48px',
+            background: 'linear-gradient(135deg, rgba(14, 18, 34, 0.9) 0%, rgba(20, 28, 54, 0.8) 100%)',
+            border: '1px solid rgba(0, 242, 254, 0.25)',
+            boxShadow: 'var(--shadow-neon)',
+          }}>
+            <div style={{ maxWidth: '720px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                <span className="badge badge-testnet">
+                  <Sparkles size={13} />
+                  <span>Automated Multi-Recipient Revenue Settlement</span>
+                </span>
+              </div>
+
+              <h1 style={{
+                fontSize: '2.8rem',
+                fontWeight: 800,
+                lineHeight: 1.15,
+                marginBottom: '16px',
+              }}>
+                Decentralized Music Streaming & <span className="text-gradient">Automated Settlement</span>
+              </h1>
+
+              <p style={{
+                fontSize: '1.05rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6,
+                marginBottom: '28px',
+              }}>
+                Multi-party cryptographic revenue sharing agreements. Define contributor splits, collect Stellar wallet approvals, and lock immutable financial terms before automated settlement.
+              </p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+                <button
+                  onClick={() => setIsSplitsDashboardOpen(true)}
+                  className="btn btn-primary"
+                  style={{ padding: '12px 24px', fontSize: '0.95rem', gap: '8px' }}
+                >
+                  <PieChart size={18} />
+                  <span>Revenue Splits & Agreements</span>
+                </button>
+
+                <button
+                  onClick={() => setIsPublishOpen(true)}
+                  className="btn btn-secondary"
+                  style={{ padding: '12px 24px', fontSize: '0.95rem' }}
+                >
+                  Publish as Artist
+                </button>
+
+                <button
+                  onClick={() => {
+                    setActiveTab('walkthrough');
+                    window.location.hash = '#walkthrough';
+                  }}
+                  className="btn btn-secondary"
+                  style={{
+                    padding: '12px 24px',
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    borderColor: 'rgba(56, 189, 248, 0.4)',
+                    color: 'var(--accent-cyan)',
+                  }}
+                >
+                  <PlayCircle size={18} />
+                  <span>Watch Walkthrough Tab</span>
+                </button>
+              </div>
             </div>
-
-            <h1 style={{
-              fontSize: '2.8rem',
-              fontWeight: 800,
-              lineHeight: 1.15,
-              marginBottom: '16px',
-            }}>
-              Decentralized Music Streaming & <span className="text-gradient">Automated Settlement</span>
-            </h1>
-
-            <p style={{
-              fontSize: '1.05rem',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.6,
-              marginBottom: '28px',
-            }}>
-              Multi-party cryptographic revenue sharing agreements. Define contributor splits, collect Stellar wallet approvals, and lock immutable financial terms before automated settlement.
-            </p>
-
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
-              <button
-                onClick={() => setIsSplitsDashboardOpen(true)}
-                className="btn btn-primary"
-                style={{ padding: '12px 24px', fontSize: '0.95rem', gap: '8px' }}
-              >
-                <PieChart size={18} />
-                <span>Revenue Splits & Agreements</span>
-              </button>
-
-              <button
-                onClick={() => setIsPublishOpen(true)}
-                className="btn btn-secondary"
-                style={{ padding: '12px 24px', fontSize: '0.95rem' }}
-              >
-                Publish as Artist
-              </button>
-
-              <a
-                href="/walkthrough.html"
-                className="btn btn-secondary"
-                style={{
-                  padding: '12px 24px',
-                  fontSize: '0.95rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  borderColor: 'rgba(56, 189, 248, 0.4)',
-                  color: 'var(--accent-cyan)',
-                  textDecoration: 'none',
-                }}
-              >
-                <PlayCircle size={18} />
-                <span>Watch Video Tour</span>
-              </a>
-            </div>
-          </div>
-        </section>
+          </section>
 
         {/* Search & Genre Filters */}
         <section style={{ marginBottom: '36px' }}>
@@ -422,12 +454,13 @@ export const App: React.FC = () => {
                 Streaming Accounting
               </div>
               <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                Playback duration is recorded through authenticated heartbeats to establish the foundation for Level 2 & 3 settlement.
+                Playback duration is recorded through authenticated heartbeats to establish the foundation for automated multi-party settlement.
               </div>
             </div>
           </div>
         </section>
       </main>
+      )}
 
       {/* Persistent Audio Player Bar */}
       <AudioPlayerBar />

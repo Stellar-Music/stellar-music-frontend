@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
-import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut, PlayCircle } from 'lucide-react';
+import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut, PlayCircle, Music2 } from 'lucide-react';
 
 interface NavbarProps {
+  activeTab?: 'catalog' | 'walkthrough';
+  onSelectTab?: (tab: 'catalog' | 'walkthrough') => void;
   onOpenPublish: () => void;
   onOpenWallet: () => void;
   onOpenSplits: () => void;
@@ -11,6 +13,8 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
+  activeTab = 'catalog',
+  onSelectTab,
   onOpenPublish,
   onOpenWallet,
   onOpenSplits,
@@ -74,6 +78,59 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Primary View Navigation Tabs */}
+        {onSelectTab && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: 'rgba(255, 255, 255, 0.04)',
+            padding: '4px',
+            borderRadius: 'var(--radius-full)',
+            border: '1px solid var(--border-subtle)',
+            gap: '4px',
+          }}>
+            <button
+              onClick={() => onSelectTab('catalog')}
+              className={`btn btn-sm ${activeTab === 'catalog' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{
+                borderRadius: 'var(--radius-full)',
+                padding: '6px 16px',
+                fontSize: '0.84rem',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: activeTab === 'catalog' ? undefined : 'none',
+                background: activeTab === 'catalog' ? undefined : 'transparent',
+              }}
+            >
+              <Music2 size={14} />
+              <span>Catalog</span>
+            </button>
+
+            <button
+              onClick={() => onSelectTab('walkthrough')}
+              className={`btn btn-sm ${activeTab === 'walkthrough' ? 'btn-primary' : 'btn-secondary'}`}
+              id="tab-btn-walkthrough"
+              style={{
+                borderRadius: 'var(--radius-full)',
+                padding: '6px 16px',
+                fontSize: '0.84rem',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                border: activeTab === 'walkthrough' ? undefined : 'none',
+                background: activeTab === 'walkthrough' ? undefined : 'transparent',
+                color: activeTab === 'walkthrough' ? undefined : 'var(--accent-cyan)',
+              }}
+            >
+              <PlayCircle size={14} />
+              <span>Walkthrough Video</span>
+            </button>
+          </div>
+        )}
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

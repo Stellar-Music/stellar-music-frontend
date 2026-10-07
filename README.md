@@ -50,7 +50,7 @@ Experience an end-to-end guided video walkthrough of the Stellar Music platform 
 
 | Platform Tour & Walkthrough | Direct Access & Controls |
 | :--- | :--- |
-| [![Stellar Music Video Walkthrough](docs/screenshots/01_music_discovery.png)](https://stellar-music-app.netlify.app/walkthrough.html) | • **[▶️ Watch Interactive Video Walkthrough (Netlify)](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[⬇️ Download Master 1080p MP4](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
+| [![Stellar Music Video Walkthrough](docs/screenshots/01_music_discovery.png)](https://stellar-music-app.netlify.app/#walkthrough) | • **[▶️ Watch on Netlify (Dedicated App Tab)](https://stellar-music-app.netlify.app/#walkthrough)**<br>• **[🌐 Open Standalone Player](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[⬇️ Download Master 1080p MP4](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Capture Type:** Live Browser Execution Recording<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
 
 ### Walkthrough Chapters
 * **0:00 — Platform Overview & Soroban Architecture**: Stellar decentralized music streaming overview.
