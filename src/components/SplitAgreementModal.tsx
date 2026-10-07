@@ -182,7 +182,7 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                     ✓ Agreement LOCKED & Immutable
                   </div>
                   <div style={{ fontSize: '0.78rem', color: '#6ee7b7' }}>
-                    All required contributors have signed. Ready for Level 3 automated settlement.
+                    All required contributors have signed. Ready for automated on-chain settlement.
                   </div>
                 </div>
               </div>
@@ -334,7 +334,7 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                   </span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>Level 3 Settlement Readiness:</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Automated Settlement Readiness:</span>
                   <span style={{ color: 'var(--accent-emerald)', fontWeight: 600 }}>Ready for Revenue Settlement</span>
                 </div>
               </div>

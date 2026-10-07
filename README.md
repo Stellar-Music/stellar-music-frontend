@@ -52,31 +52,31 @@ High-fidelity streaming catalog featuring audio preview, real-time genre filteri
 
 ---
 
-### 2. Level 1 — Non-Custodial Music Pass Access
+### 2. Non-Custodial Music Pass Access
 Listeners purchase track access passes with instant Stellar Testnet XLM transactions. Unlocks authenticated HTTP 206 Partial Content range audio playback with cryptographic replay protection.
 ![Music Pass Purchase Modal](docs/screenshots/02_music_pass_modal.png)
 
 ---
 
-### 3. Level 2 — Collaborator Revenue Split Studio & Multi-Party Signing
+### 3. Collaborator Revenue Split Studio & Multi-Party Signing
 Artists define multi-party split agreements with exact 10,000 basis points (100.00%) allocation. All contributors cryptographically sign terms bound by SHA-256 agreement hashes, locking the agreement permanently.
 ![Revenue Split Studio & Agreement Status](docs/screenshots/03_revenue_split_studio.png)
 
 ---
 
-### 4. Level 3 — Contributor Royalty & Earnings Dashboard
+### 4. Contributor Royalty & Earnings Dashboard
 Contributors track real-time lifetime earnings, pending pool royalties, and settled XLM across all collaborative tracks with direct links to on-chain Stellar transactions.
 ![Contributor Royalty & Earnings Dashboard](docs/screenshots/04_contributor_earnings.png)
 
 ---
 
-### 5. Level 3 — Artist Automated Settlement Engine
+### 5. Automated Multi-Recipient Settlement Engine
 Catalog-level financial observatory displaying gross streaming revenue, pending balances, and 1-click batch multi-recipient settlement execution across all eligible tracks.
 ![Artist Revenue & Automated Settlement Engine](docs/screenshots/05_artist_revenue_engine.png)
 
 ---
 
-### 6. Level 3 — Track Revenue & On-Chain Settlement Auditor
+### 6. Public Track Revenue & On-Chain Settlement Auditor
 Inspect per-track streaming revenue pools, verify immutable split terms, view the zero-leak stroop dust remainder allocation, and audit historical multi-recipient disbursement receipts.
 ![Track Revenue & Settlement Auditor](docs/screenshots/06_track_revenue_audit.png)
 
