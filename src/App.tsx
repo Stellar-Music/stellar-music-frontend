@@ -278,8 +278,74 @@ export const App: React.FC = () => {
             </div>
           </section>
 
-        {/* Search & Genre Filters */}
-        <section style={{ marginBottom: '36px' }}>
+          {/* Featured Video Walkthrough Showcase */}
+          <section id="walkthrough-video-section" style={{
+            marginBottom: '48px',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+            backgroundColor: '#0a0d18',
+            border: '1px solid rgba(0, 242, 254, 0.35)',
+            boxShadow: 'var(--shadow-neon)',
+          }}>
+            <div style={{
+              padding: '20px 28px',
+              borderBottom: '1px solid var(--border-subtle)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px',
+              background: 'linear-gradient(135deg, rgba(14, 18, 34, 0.95) 0%, rgba(20, 28, 54, 0.95) 100%)',
+            }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <span className="badge badge-testnet" style={{ fontSize: '0.72rem', padding: '2px 8px' }}>
+                    🎥 Live Product Video
+                  </span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>1080p Full HD • 01:14 Runtime</span>
+                </div>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0 }}>
+                  Platform Walkthrough & Automated Settlement
+                </h2>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <a
+                  href="/videos/stellar-music-walkthrough.mp4"
+                  download
+                  className="btn btn-secondary btn-sm"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <span>Download MP4</span>
+                </a>
+                <a
+                  href="/walkthrough.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary btn-sm"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                >
+                  <span>Fullscreen Player</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#000' }}>
+              <video
+                controls
+                playsInline
+                poster="/videos/poster.png"
+                style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain' }}
+              >
+                <source src="/videos/stellar-music-walkthrough.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </section>
+
+          {/* Search & Genre Filters */}
+          <section style={{ marginBottom: '36px' }}>
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
