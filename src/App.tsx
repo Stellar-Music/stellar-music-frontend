@@ -15,7 +15,7 @@ import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
 import { Track, Artist } from './types';
-import { Sparkles, Search, Shield, Music2, PieChart, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Sparkles, Search, Shield, Music2, PieChart, CheckCircle2, ExternalLink, PlayCircle } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address } = useWallet();
@@ -185,7 +185,7 @@ export const App: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
               <span className="badge badge-testnet">
                 <Sparkles size={13} />
-                <span>Level 3: Automated Multi-Recipient Revenue Settlement</span>
+                <span>Automated Multi-Recipient Revenue Settlement</span>
               </span>
             </div>
 
@@ -204,7 +204,7 @@ export const App: React.FC = () => {
               lineHeight: 1.6,
               marginBottom: '28px',
             }}>
-              Multi-party cryptographic revenue sharing agreements. Define contributor splits, collect Stellar wallet approvals, and lock immutable financial terms before Level 3 settlement.
+              Multi-party cryptographic revenue sharing agreements. Define contributor splits, collect Stellar wallet approvals, and lock immutable financial terms before automated settlement.
             </p>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
@@ -224,6 +224,24 @@ export const App: React.FC = () => {
               >
                 Publish as Artist
               </button>
+
+              <a
+                href="/walkthrough.html"
+                className="btn btn-secondary"
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '0.95rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  borderColor: 'rgba(56, 189, 248, 0.4)',
+                  color: 'var(--accent-cyan)',
+                  textDecoration: 'none',
+                }}
+              >
+                <PlayCircle size={18} />
+                <span>Watch Video Tour</span>
+              </a>
             </div>
           </div>
         </section>

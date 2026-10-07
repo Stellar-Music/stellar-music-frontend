@@ -44,6 +44,25 @@ Stellar Music provides an intuitive, high-fidelity music streaming product backe
 
 ---
 
+## 🎥 Comprehensive Video Walkthrough (with Voice-Over)
+
+Experience an end-to-end guided video walkthrough of the Stellar Music platform featuring synchronized neural voice narration, interactive UI actions, and cryptographic settlement verification on Stellar Testnet:
+
+| Platform Tour & Walkthrough | Direct Access & Controls |
+| :--- | :--- |
+| [![Stellar Music Video Walkthrough](docs/screenshots/01_music_discovery.png)](https://stellar-music-app.netlify.app/walkthrough.html) | • **[▶️ Watch Interactive Video Walkthrough (Netlify)](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[⬇️ Download Master 1080p MP4](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
+
+### Walkthrough Chapters
+* **0:00 — Platform Overview & Soroban Architecture**: Stellar decentralized music streaming overview.
+* **0:08 — Catalog Discovery & Range Audio Streaming**: HTTP 206 partial content streaming & metadata.
+* **0:18 — Non-Custodial Music Pass Purchase**: Direct 2.5 XLM wallet signing into track revenue pool.
+* **0:29 — Revenue Split Studio & 10,000 BPS Rule**: Multi-party cryptographic agreement and consensus lock.
+* **0:41 — Contributor Royalty Dashboard**: Transparent ledger tracking and Stellar Expert receipts.
+* **0:50 — Automated Settlement Engine**: Multi-party payout execution with stroop dust preservation.
+* **01:03 — Public Track Revenue Auditor**: Zero-loss reconciliation and immutable financial records.
+
+---
+
 ## 📸 Product Functionality Walkthrough
 
 ### 1. Music Discovery & Range Audio Streaming

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
-import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut } from 'lucide-react';
+import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut, PlayCircle } from 'lucide-react';
 
 interface NavbarProps {
   onOpenPublish: () => void;
@@ -113,6 +113,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             <PlusCircle size={16} color="var(--accent-cyan)" />
             <span>Publish Track</span>
           </button>
+
+          <a
+            href="/walkthrough.html"
+            className="btn btn-secondary btn-sm"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              borderColor: 'rgba(56, 189, 248, 0.4)',
+              background: 'rgba(56, 189, 248, 0.08)',
+              color: 'var(--accent-cyan)',
+              textDecoration: 'none',
+              fontWeight: 600,
+            }}
+            title="Watch full video walkthrough with voice-over"
+          >
+            <PlayCircle size={15} color="var(--accent-cyan)" />
+            <span>Tour</span>
+          </a>
 
           {!isConnected ? (
             <button

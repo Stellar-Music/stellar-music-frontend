@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stellar Music — Complete Platform Video Walkthrough</title>
+  <meta name="description" content="Watch the complete system walkthrough of Stellar Music: non-custodial music passes, 10,000 BPS revenue split agreements, and zero-loss automated Stellar stroop settlements.">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --accent: #818cf8;
+      --gold: #fbbf24;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(129, 140, 248, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(251, 191, 36, 0.05) 0px, transparent 65%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(11, 15, 25, 0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0b0f19;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-btn {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0b0f19 !important;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+    }
+
+    .nav-btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--primary);
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 30%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .video-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-wrapper {
+      position: relative;
+      background: #000;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .video-meta {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .video-specs {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .action-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-desc {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .chapter-btn {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .chapter-btn:hover {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateX(3px);
+    }
+
+    .chapter-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--primary);
+    }
+
+    .chapter-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.2rem 0.45rem;
+      border-radius: 5px;
+      color: var(--primary);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .chapter-content h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+
+    .chapter-content p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .transcript-section {
+      margin-top: 3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .transcript-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .transcript-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .transcript-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .transcript-card .step-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .transcript-card p {
+      font-size: 0.875rem;
+      color: #d1d5db;
+      font-style: italic;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: rgba(11, 15, 25, 0.95);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="/" class="brand">
+        <span>🎵 Stellar Music</span>
+        <span class="brand-badge">Walkthrough</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-btn">← Back to App</a>
+        <a href="https://github.com/Stellar-Music/stellar-music-frontend" target="_blank" rel="noopener noreferrer" class="nav-btn">GitHub</a>
+        <a href="/videos/stellar-music-walkthrough.mp4" download class="nav-btn nav-btn-primary">⬇ Download MP4</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-section">
+      <div class="hero-badge">
+        <span>⚡</span> Comprehensive System Tour with Voice-Over
+      </div>
+      <h1 class="hero-title">Automated Stellar Music Settlement</h1>
+      <p class="hero-subtitle">
+        Explore how Stellar Music integrates Soroban smart contracts, non-custodial music passes, multi-party 10,000 BPS revenue splits, and zero-loss stroop-dust settlement arithmetic.
+      </p>
+    </div>
+
+    <div class="grid-layout">
+      <!-- Video Player -->
+      <div class="video-card">
+        <div class="video-wrapper">
+          <video id="player" controls playsinline poster="/videos/poster.png">
+            <source src="/videos/stellar-music-walkthrough.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="video-meta">
+          <div class="video-specs">
+            <span class="spec-item"><span>🎬</span> 1080p Full HD</span>
+            <span class="spec-item"><span>⏱️</span> 01:14</span>
+            <span class="spec-item"><span>🎙️</span> AI Voiceover</span>
+            <span class="spec-item"><span>⛓️</span> Stellar Testnet</span>
+          </div>
+          <div class="action-group">
+            <a href="/videos/stellar-music-walkthrough.mp4" download class="action-btn">
+              <span>📥</span> Save File (2.6 MB)
+            </a>
+            <button class="action-btn" onclick="navigator.clipboard.writeText(window.location.href); alert('Walkthrough link copied to clipboard!');">
+              <span>🔗</span> Share Link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Chapter Markers -->
+      <aside class="sidebar-card">
+        <h3 class="sidebar-title"><span>📑</span> Chapters</h3>
+        <p class="sidebar-desc">Click any section to jump directly in the video.</p>
+
+        <div class="chapter-list">
+          <button class="chapter-btn" onclick="seekVideo(0)">
+            <span class="chapter-time">0:00</span>
+            <div class="chapter-content">
+              <h4>Platform Overview</h4>
+              <p>Stellar & Soroban music ecosystem introduction.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(8.4)">
+            <span class="chapter-time">0:08</span>
+            <div class="chapter-content">
+              <h4>Catalog & Audio Streaming</h4>
+              <p>High-fidelity range streaming and metadata playback.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(18.5)">
+            <span class="chapter-time">0:18</span>
+            <div class="chapter-content">
+              <h4>Music Pass Purchase</h4>
+              <p>2.5 XLM non-custodial wallet pass signing.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(29.4)">
+            <span class="chapter-time">0:29</span>
+            <div class="chapter-content">
+              <h4>Split Studio & 10,000 BPS</h4>
+              <p>Collaborative multi-party cryptographic locks.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(41.4)">
+            <span class="chapter-time">0:41</span>
+            <div class="chapter-content">
+              <h4>Contributor Earnings</h4>
+              <p>Real-time royalties and Stellar ledger explorer links.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(50.2)">
+            <span class="chapter-time">0:50</span>
+            <div class="chapter-content">
+              <h4>Automated Settlement Engine</h4>
+              <p>Stroop integer precision and zero rounding loss.</p>
+            </div>
+          </button>
+
+          <button class="chapter-btn" onclick="seekVideo(63.4)">
+            <span class="chapter-time">01:03</span>
+            <div class="chapter-content">
+              <h4>Track Revenue Auditor</h4>
+              <p>Auditable pool balances and verifiable receipts.</p>
+            </div>
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Narration Script & Platform Features -->
+    <section class="transcript-section">
+      <div class="transcript-header">
+        <div>
+          <h2>🎙️ Narration Script & System Verification</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+            Audio voiced by Microsoft Neural TTS engine synchronized to 1080p interface states.
+          </p>
+        </div>
+      </div>
+
+      <div class="transcript-grid">
+        <div class="transcript-card">
+          <div class="step-tag"><span>01</span> Architecture</div>
+          <p>"Welcome to Stellar Music, the decentralized music streaming and programmable revenue settlement platform built on the Stellar network."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>02</span> Range Streaming</div>
+          <p>"Fans discover curated independent tracks with instant preview streaming and cryptographic artist verification."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>03</span> Non-Custodial Pass</div>
+          <p>"With a single click, listeners purchase non-custodial streaming passes for two point five XLM directly into the track's revenue pool."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>04</span> 10,000 BPS Rule</div>
+          <p>"In the Revenue Split Studio, artists and collaborators define precise percentage splits, locked strictly at ten thousand basis points."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>05</span> Contributor Dashboard</div>
+          <p>"Collaborators monitor real-time royalty earnings, claim history, and direct Stellar ledger transactions from their unified dashboard."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>06</span> Settlement Engine</div>
+          <p>"The automated settlement engine calculates payouts with stroop-level integer precision, guaranteeing zero rounding dust loss."</p>
+        </div>
+        <div class="transcript-card">
+          <div class="step-tag"><span>07</span> Transparent Audit</div>
+          <p>"Every settlement is publicly auditable on the Stellar blockchain, bringing complete trust and instant liquidity to creators."</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Stellar Music &copy; 2026. Non-custodial music streaming & programmable settlement on Stellar Soroban.</p>
+  </footer>
+
+  <script>
+    const player = document.getElementById('player');
+    const buttons = document.querySelectorAll('.chapter-btn');
+
+    function seekVideo(seconds) {
+      player.currentTime = seconds;
+      player.play();
+    }
+
+    // Update active chapter based on time
+    player.addEventListener('timeupdate', () => {
+      const cur = player.currentTime;
+      const timestamps = [0, 8.4, 18.5, 29.4, 41.4, 50.2, 63.4];
+      let activeIndex = 0;
+      for (let i = 0; i < timestamps.length; i++) {
+        if (cur >= timestamps[i]) {
+          activeIndex = i;
+        }
+      }
+      buttons.forEach((btn, index) => {
+        if (index === activeIndex) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
