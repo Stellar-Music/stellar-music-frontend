@@ -2,13 +2,24 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ab1b7042-2733-4165-9c7a-4751372be07c/deploy-status)](https://stellar-music-app.netlify.app)
 [![Live Application](https://img.shields.io/badge/Live%20App-stellar--music--app.netlify.app-00f2fe?style=for-the-badge)](https://stellar-music-app.netlify.app)
-[![Stellar Network](https://img.shields.io/badge/Stellar-Testnet-blue?style=for-the-badge&logo=stellar)](https://stellar.expert/explorer/testnet)
+[![Stellar Testnet Contract](https://img.shields.io/badge/Soroban_Contract-CBUNX6PF...-brightgreen?style=for-the-badge&logo=stellar)](https://stellar.expert/explorer/testnet/contract/CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K)
 [![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 
 The decentralized music streaming web application, royalty management studio, and automated revenue settlement portal for **Stellar Music**.
 
 > **🚀 Production URL**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
+
+---
+
+## 🌐 Live Testnet Deployment
+
+The smart contracts powering Stellar Music are live on **Stellar Testnet**:
+
+| Parameter | Value | Explorer Link |
+| :--- | :--- | :--- |
+| **Contract ID** | `CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K` | [StellarExpert Contract Explorer](https://stellar.expert/explorer/testnet/contract/CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K) |
+| **Admin Account** | `GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F` | [StellarExpert Account Explorer](https://stellar.expert/explorer/testnet/account/GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F) |
 
 ---
 
@@ -50,7 +61,7 @@ Experience an end-to-end guided video walkthrough of the Stellar Music platform 
 
 | Platform Tour & Walkthrough | Direct Access & Controls |
 | :--- | :--- |
-| [![Stellar Music Video Walkthrough](docs/screenshots/01_music_discovery.png)](https://stellar-music-app.netlify.app/#walkthrough) | • **[▶️ Watch on Netlify (Dedicated App Tab)](https://stellar-music-app.netlify.app/#walkthrough)**<br>• **[🌐 Open Standalone Player](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[⬇️ Download Master 1080p MP4](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Capture Type:** Live Browser Execution Recording<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
+| <video src="https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4" controls width="100%" poster="https://raw.githubusercontent.com/Stellar-Music/stellar-music-frontend/main/docs/screenshots/01_music_discovery.png"><a href="https://stellar-music-app.netlify.app/walkthrough.html"><img src="https://raw.githubusercontent.com/Stellar-Music/stellar-music-frontend/main/docs/screenshots/01_music_discovery.png" alt="Stellar Music Walkthrough"></a></video> | • **[▶️ Watch on Standalone Netlify Player](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[🌐 Open in Stellar Music App Tab](https://stellar-music-app.netlify.app/#walkthrough)**<br>• **[🎬 Direct MP4 Video Stream](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **[🔗 GitHub Raw Video Stream](https://github.com/Stellar-Music/stellar-music-frontend/raw/main/public/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Capture Type:** Live Browser Execution Recording<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
 
 ### Walkthrough Chapters
 * **0:00 — Platform Overview & Soroban Architecture**: Stellar decentralized music streaming overview.
