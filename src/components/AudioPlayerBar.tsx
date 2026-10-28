@@ -11,6 +11,7 @@ import {
   SkipForward,
   Repeat,
   Repeat1,
+  Gauge,
 } from 'lucide-react';
 import { formatTime } from '../utils/formatters';
 import { WaveformVisualizer } from './WaveformVisualizer';
@@ -33,6 +34,8 @@ export const AudioPlayerBar: React.FC = () => {
     nextTrack,
     prevTrack,
     toggleLoopMode,
+    playbackRate,
+    setPlaybackRate,
   } = usePlayer();
 
   const [isMuted, setIsMuted] = useState(false);
@@ -437,6 +440,34 @@ export const AudioPlayerBar: React.FC = () => {
               cursor: 'pointer',
             }}
           />
+
+          {/* Playback Speed Selector */}
+          <button
+            onClick={() => {
+              const speeds = [0.75, 1.0, 1.25, 1.5];
+              const nextIdx = (speeds.indexOf(playbackRate) + 1) % speeds.length;
+              setPlaybackRate(speeds[nextIdx]);
+            }}
+            className="btn-icon"
+            title={`Playback rate: ${playbackRate}x (click to change)`}
+            style={{
+              background: playbackRate !== 1.0 ? 'rgba(0, 242, 254, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+              border: `1px solid ${playbackRate !== 1.0 ? 'var(--accent-cyan)' : 'var(--border-subtle)'}`,
+              borderRadius: '4px',
+              color: playbackRate !== 1.0 ? 'var(--accent-cyan)' : 'var(--text-secondary)',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              fontFamily: 'monospace',
+              padding: '3px 7px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '3px',
+            }}
+          >
+            <Gauge size={13} />
+            <span>{playbackRate}x</span>
+          </button>
         </div>
       </div>
 
@@ -496,6 +527,27 @@ export const AudioPlayerBar: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            onClick={() => {
+              const speeds = [0.75, 1.0, 1.25, 1.5];
+              const nextIdx = (speeds.indexOf(playbackRate) + 1) % speeds.length;
+              setPlaybackRate(speeds[nextIdx]);
+            }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: playbackRate !== 1.0 ? 'var(--accent-cyan)' : 'var(--text-muted)',
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              fontFamily: 'monospace',
+              padding: '2px 4px',
+              cursor: 'pointer',
+            }}
+            title="Cycle playback speed"
+          >
+            {playbackRate}x
+          </button>
+
           <button
             onClick={prevTrack}
             disabled={!hasPrevious}

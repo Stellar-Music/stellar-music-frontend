@@ -19,10 +19,12 @@ export interface PlayerContextType {
   loopMode: LoopMode;
   hasNext: boolean;
   hasPrevious: boolean;
+  playbackRate: number;
   playTrack: (track: Track, newQueue?: Track[]) => Promise<void>;
   togglePlayPause: () => void;
   seek: (time: number) => void;
   setVolume: (vol: number) => void;
+  setPlaybackRate: (rate: number) => void;
   unlockTrack: (trackId: string) => void;
   nextTrack: () => Promise<void>;
   prevTrack: () => Promise<void>;
@@ -42,6 +44,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolumeState] = useState(0.85);
+  const [playbackRate, setPlaybackRateState] = useState(1.0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [unlockedTrackIds, setUnlockedTrackIds] = useState<Set<string>>(new Set());
@@ -53,10 +56,20 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const queueRef = useRef<Track[]>([]);
   const queueIndexRef = useRef<number>(-1);
   const loopModeRef = useRef<LoopMode>('off');
+  const playbackRateRef = useRef<number>(1.0);
 
   queueRef.current = queue;
   queueIndexRef.current = queueIndex;
   loopModeRef.current = loopMode;
+  playbackRateRef.current = playbackRate;
+
+  const setPlaybackRate = (rate: number) => {
+    setPlaybackRateState(rate);
+    playbackRateRef.current = rate;
+    if (audioRef.current) {
+      audioRef.current.playbackRate = rate;
+    }
+  };
 
   const unlockTrack = (trackId: string) => {
     setUnlockedTrackIds((prev) => new Set(prev).add(trackId));
@@ -81,6 +94,7 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
 
     audioRef.current.src = streamUrl;
+    audioRef.current.playbackRate = playbackRateRef.current;
     setCurrentTrack(track);
     playbackSecondsRef.current = 0;
 
@@ -318,10 +332,12 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         loopMode,
         hasNext,
         hasPrevious,
+        playbackRate,
         playTrack,
         togglePlayPause,
         seek,
         setVolume,
+        setPlaybackRate,
         unlockTrack,
         nextTrack,
         prevTrack,
