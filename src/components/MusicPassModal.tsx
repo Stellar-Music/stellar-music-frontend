@@ -10,9 +10,10 @@ interface MusicPassModalProps {
   track: Track;
   onClose: () => void;
   onOpenWallet: () => void;
+  onPassPurchased?: (trackId: string, txHash: string) => void;
 }
 
-export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, onOpenWallet }) => {
+export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, onOpenWallet, onPassPurchased }) => {
   const { address, isConnected, walletType, keypair, refreshBalance } = useWallet();
   const { playTrack, unlockTrack } = usePlayer();
 
@@ -46,6 +47,10 @@ export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, 
       });
 
       setTxHash(result.hash);
+
+      // Optimistic state update: grant playback immediately upon on-chain transaction broadcast
+      unlockTrack(track.id);
+      onPassPurchased?.(track.id, result.hash);
 
       // 3. CONFIRMING state: Submit to backend for verification
       setState('CONFIRMING');

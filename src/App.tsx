@@ -633,6 +633,9 @@ export const App: React.FC = () => {
             setPurchaseTrack(null);
             setIsWalletOpen(true);
           }}
+          onPassPurchased={(trackId) => {
+            setUserPassTrackIds((prev) => new Set([...prev, trackId]));
+          }}
         />
       )}
 
