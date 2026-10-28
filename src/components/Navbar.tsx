@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
-import { Disc, Wallet, PlusCircle, ExternalLink, RefreshCw, Sparkles, LogOut, PlayCircle, Music2 } from 'lucide-react';
+import {
+  Disc,
+  Wallet,
+  PlusCircle,
+  ExternalLink,
+  RefreshCw,
+  Sparkles,
+  LogOut,
+  PlayCircle,
+  Music2,
+  Copy,
+  Check,
+} from 'lucide-react';
+import { truncateAddress } from '../utils/formatters';
 
 interface NavbarProps {
   activeTab?: 'catalog' | 'walkthrough';
@@ -21,54 +34,76 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenEarnings,
   onOpenArtistRevenue,
 }) => {
-  const { address, balance, isConnected, disconnect, refreshBalance, fundWithFriendbot, isConnecting } = useWallet();
-  const [showDropdown, setShowDropdown] = useState(false);
+  const {
+    address,
+    balance,
+    isConnected,
+    disconnect,
+    refreshBalance,
+    fundWithFriendbot,
+    isConnecting,
+  } = useWallet();
 
-  const truncateAddress = (addr: string) => {
-    return `${addr.substring(0, 4)}...${addr.substring(addr.length - 4)}`;
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
-    <header style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 40,
-      backdropFilter: 'blur(20px)',
-      WebkitBackdropFilter: 'blur(20px)',
-      backgroundColor: 'rgba(7, 9, 19, 0.8)',
-      borderBottom: '1px solid var(--border-subtle)',
-      padding: '16px 32px',
-    }}>
-      <div style={{
-        maxWidth: '1300px',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
+    <header
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 40,
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        backgroundColor: 'rgba(7, 9, 19, 0.85)',
+        borderBottom: '1px solid var(--border-subtle)',
+        padding: '16px 32px',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '1300px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         {/* Brand */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
-            background: 'var(--gradient-stellar)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 20px rgba(0, 242, 254, 0.35)',
-          }}>
+          <div
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '12px',
+              background: 'var(--gradient-stellar)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 0 20px rgba(0, 242, 254, 0.35)',
+            }}
+          >
             <Disc size={24} color="#070913" style={{ animation: 'spin 12s linear infinite' }} />
           </div>
           <div>
-            <span style={{
-              fontSize: '1.35rem',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-              background: 'var(--gradient-stellar)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
+            <span
+              style={{
+                fontSize: '1.35rem',
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+                background: 'var(--gradient-stellar)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
               Stellar Music
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
@@ -81,15 +116,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Primary View Navigation Tabs */}
         {onSelectTab && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: 'rgba(255, 255, 255, 0.04)',
-            padding: '4px',
-            borderRadius: 'var(--radius-full)',
-            border: '1px solid var(--border-subtle)',
-            gap: '4px',
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: 'rgba(255, 255, 255, 0.04)',
+              padding: '4px',
+              borderRadius: 'var(--radius-full)',
+              border: '1px solid var(--border-subtle)',
+              gap: '4px',
+            }}
+          >
             <button
               onClick={() => onSelectTab('catalog')}
               className={`btn btn-sm ${activeTab === 'catalog' ? 'btn-primary' : 'btn-secondary'}`}
@@ -221,15 +258,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {parseFloat(balance).toFixed(2)} XLM
                   </span>
                 </div>
-                <div style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  padding: '4px 10px',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  fontFamily: 'monospace',
-                }}>
-                  {truncateAddress(address!)}
+                <div
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    padding: '4px 10px',
+                    borderRadius: 'var(--radius-full)',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    fontFamily: 'monospace',
+                  }}
+                >
+                  {truncateAddress(address)}
                 </div>
               </div>
 
@@ -241,17 +280,59 @@ export const Navbar: React.FC<NavbarProps> = ({
                     position: 'absolute',
                     top: '115%',
                     right: 0,
-                    width: '260px',
-                    padding: '12px',
+                    width: '280px',
+                    padding: '14px',
                     borderRadius: 'var(--radius-md)',
                     boxShadow: 'var(--shadow-lg)',
                     zIndex: 50,
                     backgroundColor: '#0e1222',
+                    border: '1px solid rgba(0, 242, 254, 0.25)',
                   }}
                 >
-                  <div style={{ padding: '6px 8px', borderBottom: '1px solid var(--border-subtle)', marginBottom: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Connected Address</div>
-                    <div style={{ fontSize: '0.8rem', fontFamily: 'monospace', wordBreak: 'break-all', marginTop: '4px' }}>
+                  <div
+                    style={{
+                      padding: '8px',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Connected Key</span>
+                      <button
+                        onClick={handleCopy}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.06)',
+                          border: 'none',
+                          borderRadius: '4px',
+                          color: copied ? 'var(--accent-emerald)' : 'var(--accent-cyan)',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          fontSize: '0.72rem',
+                          padding: '3px 6px',
+                        }}
+                        title="Copy full address"
+                      >
+                        {copied ? <Check size={12} /> : <Copy size={12} />}
+                        <span>{copied ? 'Copied' : 'Copy'}</span>
+                      </button>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '0.76rem',
+                        fontFamily: 'monospace',
+                        wordBreak: 'break-all',
+                        color: 'var(--text-primary)',
+                      }}
+                    >
                       {address}
                     </div>
                   </div>
@@ -283,7 +364,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                     target="_blank"
                     rel="noreferrer"
                     className="btn btn-secondary btn-sm"
-                    style={{ width: '100%', marginBottom: '6px', justifyContent: 'flex-start' }}
+                    style={{
+                      width: '100%',
+                      marginBottom: '8px',
+                      justifyContent: 'flex-start',
+                      textDecoration: 'none',
+                    }}
                   >
                     <ExternalLink size={15} />
                     <span>View on Stellar Expert</span>
@@ -295,7 +381,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setShowDropdown(false);
                     }}
                     className="btn btn-secondary btn-sm"
-                    style={{ width: '100%', justifyContent: 'flex-start', color: 'var(--accent-rose)' }}
+                    style={{
+                      width: '100%',
+                      justifyContent: 'flex-start',
+                      color: 'var(--accent-rose)',
+                      borderColor: 'rgba(244, 63, 94, 0.3)',
+                    }}
                   >
                     <LogOut size={15} />
                     <span>Disconnect Wallet</span>
