@@ -4,6 +4,7 @@ import { NetworkBanner } from './components/NetworkBanner';
 import { SettlementToast, SettlementToastData } from './components/SettlementToast';
 import { GenreFilter } from './components/GenreFilter';
 import { TrackCard } from './components/TrackCard';
+import { TrackSkeleton } from './components/TrackSkeleton';
 import { MusicPassModal } from './components/MusicPassModal';
 import { PublishTrackModal } from './components/PublishTrackModal';
 import { WalletModal } from './components/WalletModal';
@@ -33,6 +34,7 @@ export const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [debouncedSearch, setDebouncedSearch] = useState<string>('');
   const [sortBy, setSortBy] = useState<'newest' | 'price_asc' | 'price_desc' | 'title'>('newest');
+  const [isLoadingTracks, setIsLoadingTracks] = useState<boolean>(true);
   const [userPassTrackIds, setUserPassTrackIds] = useState<Set<string>>(new Set());
 
   // Search debounce (300ms)
@@ -73,11 +75,14 @@ export const App: React.FC = () => {
 
   const fetchTracks = async () => {
     try {
+      setIsLoadingTracks(true);
       const genre = selectedGenre === 'All' ? undefined : selectedGenre;
       const data = await api.getTracks({ genre, search: debouncedSearch || undefined });
       setTracks(data);
     } catch {
       // Ignore initial load error
+    } finally {
+      setIsLoadingTracks(false);
     }
   };
 
@@ -423,7 +428,17 @@ export const App: React.FC = () => {
               </span>
             </div>
 
-            {sortedTracks.length === 0 ? (
+            {isLoadingTracks ? (
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                  gap: '24px',
+                }}
+              >
+                <TrackSkeleton count={8} />
+              </div>
+            ) : sortedTracks.length === 0 ? (
               <div
                 className="glass-panel"
                 style={{
