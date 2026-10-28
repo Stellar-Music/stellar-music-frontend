@@ -1,6 +1,6 @@
 import React from 'react';
 import { Artist, Track } from '../types';
-import { X, ShieldCheck, Music2, ExternalLink, Calendar, Disc3, Play } from 'lucide-react';
+import { X, ShieldCheck, Music2, ExternalLink, Disc3, Play } from 'lucide-react';
 import { CopyButton } from './CopyButton';
 import { truncateAddress } from '../utils/formatters';
 
@@ -9,7 +9,6 @@ export interface ArtistProfileModalProps {
   tracks: Track[];
   onClose: () => void;
   onPlayTrack?: (track: Track) => void;
-  onOpenPurchaseModal?: (track: Track) => void;
 }
 
 export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
@@ -17,7 +16,6 @@ export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
   tracks,
   onClose,
   onPlayTrack,
-  onOpenPurchaseModal,
 }) => {
   if (!artist) return null;
 

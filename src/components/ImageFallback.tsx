@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Disc3, Music } from 'lucide-react';
+import { Disc3 } from 'lucide-react';
 
 export interface ImageFallbackProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackTitle?: string;

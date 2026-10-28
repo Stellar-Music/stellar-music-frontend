@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Check, Sparkles, Lock, Key } from 'lucide-react';
+import { Sparkles, Lock, Key } from 'lucide-react';
 
 export interface PassBadgeProps {
   isUnlocked: boolean;

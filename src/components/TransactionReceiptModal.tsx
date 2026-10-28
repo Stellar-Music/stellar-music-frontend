@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CheckCircle2, ExternalLink, ShieldCheck, ArrowUpRight, X } from 'lucide-react';
+import React from 'react';
+import { CheckCircle2, ShieldCheck, ArrowUpRight, X } from 'lucide-react';
 import { truncateAddress } from '../utils/formatters';
 import { CopyButton } from './CopyButton';
 
@@ -24,15 +24,7 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
   memo,
   timestamp,
 }) => {
-  const [copied, setCopied] = useState(false);
-
   if (!isOpen) return null;
-
-  const handleCopyHash = () => {
-    navigator.clipboard.writeText(txHash);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const explorerUrl = `https://stellar.expert/explorer/testnet/tx/${txHash}`;
 

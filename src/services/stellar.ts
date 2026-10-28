@@ -172,9 +172,14 @@ export class StellarClient {
     keypair?: StellarSdk.Keypair | null;
   }): Promise<string> {
     if (params.walletType === 'keypair' && params.keypair) {
-      const hashBytes = Buffer.from(params.hash.replace(/^0x/, ''), 'hex');
-      const sig = params.keypair.sign(hashBytes);
-      return sig.toString('hex');
+      const cleanHash = params.hash.replace(/^0x/, '');
+      const rawBytes = new Uint8Array(
+        cleanHash.match(/.{1,2}/g)?.map((byte) => parseInt(byte, 16)) || []
+      );
+      const sig = params.keypair.sign(rawBytes as any);
+      return Array.from(sig as Iterable<number>)
+        .map((b: number) => b.toString(16).padStart(2, '0'))
+        .join('');
     }
     // Return verified cryptographic signature representation
     return `sig_${params.senderAddress.slice(0, 8)}_${params.hash.slice(0, 16)}`;

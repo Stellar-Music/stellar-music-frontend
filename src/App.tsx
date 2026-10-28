@@ -23,7 +23,7 @@ import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
 import { WalkthroughTab } from './components/WalkthroughTab';
 import { Track, Artist } from './types';
-import { Sparkles, Search, Shield, Music2, CheckCircle2, ExternalLink, PlayCircle, ArrowUpDown } from 'lucide-react';
+import { Sparkles, Search, Shield, Music2, ExternalLink, PlayCircle, ArrowUpDown } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address } = useWallet();

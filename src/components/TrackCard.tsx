@@ -1,7 +1,7 @@
 import React from 'react';
 import { Track } from '../types';
 import { usePlayer } from '../context/PlayerContext';
-import { Play, Pause, Lock, CheckCircle2, Clock, PieChart, Headphones } from 'lucide-react';
+import { Play, Pause, Lock, Clock, PieChart, Headphones } from 'lucide-react';
 import { formatTime, formatNumberMetric } from '../utils/formatters';
 import { PassBadge } from './PassBadge';
 import { ImageFallback } from './ImageFallback';

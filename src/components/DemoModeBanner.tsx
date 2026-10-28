@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, X, ShieldAlert, ArrowRight, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, X, ArrowRight } from 'lucide-react';
 import { useWallet } from '../context/WalletContext';
 
 export interface DemoModeBannerProps {

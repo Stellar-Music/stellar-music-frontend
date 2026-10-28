@@ -3,7 +3,6 @@ import { Track, ContributorInput } from '../types';
 import { api } from '../services/api';
 import { useWallet } from '../context/WalletContext';
 import { X, Plus, Trash2, PieChart, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { formatBasisPoints } from '../utils/formatters';
 import { isValidStellarAddress } from '../utils/validators';
 import { RoyaltyBar } from './RoyaltyBar';
 

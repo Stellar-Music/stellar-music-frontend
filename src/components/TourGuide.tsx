@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Sparkles, ShieldCheck, ArrowRight, ArrowLeft, CheckCircle2, Play, PieChart, Coins } from 'lucide-react';
+import { X, ArrowRight, ArrowLeft, CheckCircle2, Play, PieChart, Coins } from 'lucide-react';
 
 export interface TourGuideProps {
   isOpen: boolean;

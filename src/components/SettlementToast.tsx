@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CheckCircle2, ExternalLink, X, Coins, Sparkles } from 'lucide-react';
+import { ExternalLink, X, Coins, Sparkles } from 'lucide-react';
 
 export interface SettlementToastData {
   message: string;
