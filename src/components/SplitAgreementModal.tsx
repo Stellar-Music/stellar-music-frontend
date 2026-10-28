@@ -5,6 +5,7 @@ import { stellarClient } from '../services/stellar';
 import { useWallet } from '../context/WalletContext';
 import { X, Lock, CheckCircle2, Clock, ShieldCheck, AlertCircle, Loader2, Copy, Check } from 'lucide-react';
 import { SignatureStatusBadge, ContributorSignPill } from './SignatureStatusBadge';
+import { RoyaltyBar } from './RoyaltyBar';
 
 interface SplitAgreementModalProps {
   track: Track;
@@ -243,6 +244,11 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
               >
                 {copiedHash ? <Check size={16} color="var(--accent-emerald)" /> : <Copy size={16} />}
               </button>
+            </div>
+
+            {/* Visual Royalty Bar */}
+            <div style={{ marginBottom: '18px' }}>
+              <RoyaltyBar contributors={contributors} height={14} showLegend={true} />
             </div>
 
             {/* Contributor List Table */}

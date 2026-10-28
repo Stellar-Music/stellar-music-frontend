@@ -5,6 +5,7 @@ import { useWallet } from '../context/WalletContext';
 import { X, Plus, Trash2, PieChart, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { formatBasisPoints } from '../utils/formatters';
 import { isValidStellarAddress } from '../utils/validators';
+import { RoyaltyBar } from './RoyaltyBar';
 
 const ROLE_PRESETS = ['Artist', 'Producer', 'Songwriter', 'Composer', 'Engineer', 'Vocalist', 'Curator'];
 const SLICE_COLORS = ['#00f2fe', '#4facfe', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4'];
@@ -226,32 +227,7 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
           </div>
 
           {/* Segmented Bar */}
-          <div
-            style={{
-              height: '12px',
-              borderRadius: '5px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              overflow: 'hidden',
-              display: 'flex',
-            }}
-          >
-            {contributors.map((c, idx) => {
-              const pct = parseFloat(c.percentage.toString()) || 0;
-              if (pct <= 0) return null;
-              return (
-                <div
-                  key={idx}
-                  title={`${c.display_name || `Contributor #${idx + 1}`}: ${pct}% (${formatBasisPoints(pct * 100)})`}
-                  style={{
-                    width: `${Math.min(100, pct)}%`,
-                    height: '100%',
-                    backgroundColor: SLICE_COLORS[idx % SLICE_COLORS.length],
-                    transition: 'width 0.3s ease',
-                  }}
-                />
-              );
-            })}
-          </div>
+          <RoyaltyBar contributors={contributors} showLegend={false} height={12} />
 
           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '8px' }}>
             {isValidTotal ? (
