@@ -1,0 +1,24 @@
+{
+  "name": "Stellar Music Frontend Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20-bookworm",
+  "forwardPorts": [5173],
+  "portsAttributes": {
+    "5173": {
+      "label": "Stellar Music Frontend Dev Server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib"
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "vitest.explorer"
+      ]
+    }
+  },
+  "postCreateCommand": "npm install"
+}
