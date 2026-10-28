@@ -2,6 +2,7 @@ import React from 'react';
 import { Track } from '../types';
 import { usePlayer } from '../context/PlayerContext';
 import { Play, Pause, Lock, CheckCircle2, Clock, PieChart } from 'lucide-react';
+import { formatTime } from '../utils/formatters';
 
 interface TrackCardProps {
   track: Track;
@@ -37,38 +38,31 @@ export const TrackCard: React.FC<TrackCardProps> = ({
     }
   };
 
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
   return (
     <div
       className="glass-panel"
       style={{
         padding: '16px',
-        borderRadius: 'var(--radius-lg)',
-        position: 'relative',
+        borderRadius: 'var(--radius-md)',
         display: 'flex',
         flexDirection: 'column',
         gap: '12px',
+        transition: 'transform 0.2s ease, border-color 0.2s ease',
         cursor: 'pointer',
-        border: isCurrent ? '1px solid var(--accent-cyan)' : '1px solid var(--border-subtle)',
-        background: isCurrent ? 'rgba(20, 28, 52, 0.9)' : 'var(--bg-card)',
-        boxShadow: isCurrent ? 'var(--shadow-neon)' : 'var(--shadow-sm)',
       }}
       onClick={handlePlayClick}
     >
-      {/* Artwork with play overlay */}
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        aspectRatio: '1/1',
-        borderRadius: 'var(--radius-md)',
-        overflow: 'hidden',
-        backgroundColor: '#121526',
-      }}>
+      {/* Artwork Container */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          aspectRatio: '1 / 1',
+          borderRadius: 'var(--radius-sm)',
+          overflow: 'hidden',
+          backgroundColor: '#121526',
+        }}
+      >
         <img
           src={track.artwork_reference}
           alt={track.title}
@@ -83,15 +77,17 @@ export const TrackCard: React.FC<TrackCardProps> = ({
         />
 
         {/* Play Button Overlay */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(7, 9, 19, 0.4)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'opacity 0.2s ease',
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(7, 9, 19, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'opacity 0.2s ease',
+          }}
+        >
           <button
             onClick={handlePlayClick}
             style={{
@@ -112,7 +108,11 @@ export const TrackCard: React.FC<TrackCardProps> = ({
             onMouseUp={(e) => (e.currentTarget.style.transform = 'scale(1)')}
           >
             {isUnlocked ? (
-              isCurrentlyPlaying ? <Pause size={24} fill="#070913" /> : <Play size={24} fill="#070913" style={{ marginLeft: '3px' }} />
+              isCurrentlyPlaying ? (
+                <Pause size={24} fill="#070913" />
+              ) : (
+                <Play size={24} fill="#070913" style={{ marginLeft: '3px' }} />
+              )
             ) : (
               <Lock size={22} color="#ffffff" />
             )}
@@ -121,18 +121,20 @@ export const TrackCard: React.FC<TrackCardProps> = ({
 
         {/* Genre Badge */}
         {track.genre && (
-          <span style={{
-            position: 'absolute',
-            top: '10px',
-            left: '10px',
-            backgroundColor: 'rgba(7, 9, 19, 0.75)',
-            backdropFilter: 'blur(8px)',
-            color: 'var(--text-secondary)',
-            fontSize: '0.72rem',
-            padding: '3px 8px',
-            borderRadius: 'var(--radius-sm)',
-            fontWeight: 600,
-          }}>
+          <span
+            style={{
+              position: 'absolute',
+              top: '10px',
+              left: '10px',
+              backgroundColor: 'rgba(7, 9, 19, 0.75)',
+              backdropFilter: 'blur(8px)',
+              color: 'var(--text-secondary)',
+              fontSize: '0.72rem',
+              padding: '3px 8px',
+              borderRadius: 'var(--radius-sm)',
+              fontWeight: 600,
+            }}
+          >
             {track.genre}
           </span>
         )}
@@ -140,26 +142,52 @@ export const TrackCard: React.FC<TrackCardProps> = ({
 
       {/* Track Info */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <h3 style={{ fontSize: '1.05rem', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <h3
+          style={{
+            fontSize: '1.05rem',
+            fontWeight: 700,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {track.title}
         </h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <p
+          style={{
+            fontSize: '0.85rem',
+            color: 'var(--text-secondary)',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {track.artist_name || 'Independent Artist'}
         </p>
       </div>
 
       {/* Footer: Price & Pass Status */}
-      <div style={{
-        marginTop: 'auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingTop: '8px',
-        borderTop: '1px solid var(--border-subtle)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--text-muted)', fontSize: '0.78rem' }}>
+      <div
+        style={{
+          marginTop: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingTop: '8px',
+          borderTop: '1px solid var(--border-subtle)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            color: 'var(--text-muted)',
+            fontSize: '0.78rem',
+          }}
+        >
           <Clock size={14} />
-          <span>{formatDuration(track.duration_seconds)}</span>
+          <span>{formatTime(track.duration_seconds)}</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
