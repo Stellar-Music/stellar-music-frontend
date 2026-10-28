@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { useWallet } from '../context/WalletContext';
 import { X, Plus, Trash2, PieChart, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { formatBasisPoints } from '../utils/formatters';
+import { isValidStellarAddress } from '../utils/validators';
 
 const ROLE_PRESETS = ['Artist', 'Producer', 'Songwriter', 'Composer', 'Engineer', 'Vocalist', 'Curator'];
 const SLICE_COLORS = ['#00f2fe', '#4facfe', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4'];
@@ -72,6 +73,15 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
     if (!isValidTotal) {
       setError(`Split total must equal exactly 10,000 BPS (100.0%). Current total: ${totalBps} BPS (${totalPercentage.toFixed(1)}%)`);
       return;
+    }
+
+    // Validate all contributor Stellar addresses
+    for (let i = 0; i < contributors.length; i++) {
+      const check = isValidStellarAddress(contributors[i].wallet_address);
+      if (!check.valid) {
+        setError(`Contributor #${i + 1} (${contributors[i].display_name || 'Unnamed'}): ${check.error}`);
+        return;
+      }
     }
 
     const creatorWallet = address || track.artist_wallet || 'GASTRALDRIFT7777777777777777777777777777777777777777';
@@ -366,23 +376,34 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gap: '10px' }}>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Stellar Public Key (G...)"
-                      value={c.wallet_address}
-                      onChange={(e) => handleUpdateContributor(index, 'wallet_address', e.target.value)}
-                      style={{
-                        padding: '8px 12px',
-                        borderRadius: 'var(--radius-sm)',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-subtle)',
-                        color: 'var(--text-primary)',
-                        fontFamily: 'monospace',
-                        fontSize: '0.8rem',
-                        outline: 'none',
-                      }}
-                    />
+                    <div>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Stellar Public Key (G...)"
+                        value={c.wallet_address}
+                        onChange={(e) => handleUpdateContributor(index, 'wallet_address', e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '8px 12px',
+                          borderRadius: 'var(--radius-sm)',
+                          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          border:
+                            c.wallet_address.length > 0 && !isValidStellarAddress(c.wallet_address).valid
+                              ? '1px solid rgba(244, 63, 94, 0.6)'
+                              : '1px solid var(--border-subtle)',
+                          color: 'var(--text-primary)',
+                          fontFamily: 'monospace',
+                          fontSize: '0.8rem',
+                          outline: 'none',
+                        }}
+                      />
+                      {c.wallet_address.length > 0 && !isValidStellarAddress(c.wallet_address).valid && (
+                        <span style={{ fontSize: '0.7rem', color: '#fca5a5', display: 'block', marginTop: '3px' }}>
+                          ⚠ {isValidStellarAddress(c.wallet_address).error}
+                        </span>
+                      )}
+                    </div>
 
                     <div style={{ position: 'relative' }}>
                       <input
