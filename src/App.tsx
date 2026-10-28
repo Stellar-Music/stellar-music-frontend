@@ -19,6 +19,7 @@ import { ArtistRevenueModal } from './components/ArtistRevenueModal';
 import { TrackRevenueModal } from './components/TrackRevenueModal';
 import { ArtistProfileModal } from './components/ArtistProfileModal';
 import { TourGuide } from './components/TourGuide';
+import { KeyboardShortcutsModal } from './components/KeyboardShortcutsModal';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
@@ -75,7 +76,26 @@ export const App: React.FC = () => {
   const [revenueTrackId, setRevenueTrackId] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState<boolean>(false);
   const [settlementToast, setSettlementToast] = useState<SettlementToastData | null>(null);
+
+  // Global Keyboard Shortcuts Cheatsheet trigger (?)
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      const isInput =
+        activeEl instanceof HTMLInputElement ||
+        activeEl instanceof HTMLTextAreaElement ||
+        activeEl instanceof HTMLSelectElement;
+      if (isInput) return;
+      if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+        e.preventDefault();
+        setIsShortcutsOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   const fetchTracks = async () => {
     try {
@@ -717,6 +737,11 @@ export const App: React.FC = () => {
         isOpen={isTourOpen}
         onClose={() => setIsTourOpen(false)}
         onSelectTab={(t) => setActiveTab(t)}
+      />
+
+      <KeyboardShortcutsModal
+        isOpen={isShortcutsOpen}
+        onClose={() => setIsShortcutsOpen(false)}
       />
     </div>
   );
