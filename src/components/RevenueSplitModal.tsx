@@ -5,7 +5,7 @@ import { useWallet } from '../context/WalletContext';
 import { X, Plus, Trash2, PieChart, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { formatBasisPoints } from '../utils/formatters';
 
-const ROLE_PRESETS = ['Artist', 'Producer', 'Songwriter', 'Composer', 'Engineer', 'Vocalist'];
+const ROLE_PRESETS = ['Artist', 'Producer', 'Songwriter', 'Composer', 'Engineer', 'Vocalist', 'Curator'];
 const SLICE_COLORS = ['#00f2fe', '#4facfe', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4'];
 
 interface RevenueSplitModalProps {
