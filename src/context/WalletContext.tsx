@@ -12,6 +12,7 @@ interface WalletContextType {
   error: string | null;
   connectFreighter: () => Promise<void>;
   connectDemoKeypair: () => Promise<void>;
+  generateFreshDemoKeypair: () => Promise<void>;
   disconnect: () => void;
   refreshBalance: () => Promise<void>;
   fundWithFriendbot: () => Promise<void>;
@@ -104,6 +105,32 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const generateFreshDemoKeypair = async () => {
+    setIsConnecting(true);
+    setError(null);
+    try {
+      const kp = stellarClient.generateFreshDemoKeypair();
+      const addr = kp.publicKey();
+      setKeypair(kp);
+      setAddress(addr);
+      setWalletType('keypair');
+      localStorage.setItem('stellar_music_wallet_type', 'keypair');
+
+      try {
+        await stellarClient.fundWithFriendbot(addr);
+      } catch {
+        // ignore friendbot error
+      }
+      const bal = await stellarClient.getBalance(addr);
+      setBalance(bal);
+    } catch (err: any) {
+      setError(err.message || 'Failed to generate fresh test account.');
+      throw err;
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
   const fundWithFriendbot = async () => {
     if (!address) return;
     setIsConnecting(true);
@@ -138,6 +165,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         error,
         connectFreighter,
         connectDemoKeypair,
+        generateFreshDemoKeypair,
         disconnect,
         refreshBalance,
         fundWithFriendbot,

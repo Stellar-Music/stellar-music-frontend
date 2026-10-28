@@ -1,14 +1,45 @@
 import React, { useState } from 'react';
 import { useWallet } from '../context/WalletContext';
-import { X, Wallet, Sparkles, Loader2, ExternalLink } from 'lucide-react';
+import {
+  X,
+  Wallet,
+  Sparkles,
+  Loader2,
+  ExternalLink,
+  Copy,
+  Check,
+  Eye,
+  EyeOff,
+  RefreshCw,
+} from 'lucide-react';
+import { truncateAddress } from '../utils/formatters';
 
 interface WalletModalProps {
   onClose: () => void;
 }
 
 export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
-  const { connectFreighter, connectDemoKeypair, isConnecting, error } = useWallet();
+  const {
+    connectFreighter,
+    connectDemoKeypair,
+    generateFreshDemoKeypair,
+    isConnecting,
+    error,
+    walletType,
+    keypair,
+    address,
+    balance,
+  } = useWallet();
+
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
+  const [showSecret, setShowSecret] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, keyName: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(keyName);
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
 
   const handleFreighter = async () => {
     try {
@@ -22,10 +53,21 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
 
   const handleDemoKeypair = async () => {
     try {
-      setStatusMsg('Generating and funding Stellar Testnet Keypair...');
+      setStatusMsg('Connecting with instant Stellar Testnet Keypair...');
       await connectDemoKeypair();
       onClose();
     } catch {
+      setStatusMsg(null);
+    }
+  };
+
+  const handleGenerateFresh = async () => {
+    try {
+      setStatusMsg('Generating fresh Ed25519 keypair and requesting 10,000 XLM from Friendbot...');
+      await generateFreshDemoKeypair();
+    } catch {
+      // error handled in context
+    } finally {
       setStatusMsg(null);
     }
   };
@@ -48,7 +90,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
         className="glass-panel"
         style={{
           width: '100%',
-          maxWidth: '480px',
+          maxWidth: '520px',
           padding: '28px',
           borderRadius: 'var(--radius-lg)',
           backgroundColor: '#0d1122',
@@ -66,6 +108,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
             color: 'var(--text-muted)',
             cursor: 'pointer',
           }}
+          aria-label="Close modal"
         >
           <X size={20} />
         </button>
@@ -207,15 +250,99 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
                   Instant Testnet Keypair (1-Click)
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                  Auto-generates keypair & funds 10,000 XLM with Friendbot
+                  Auto-connects active keypair with 10,000 Friendbot XLM
                 </div>
               </div>
             </div>
             <span className="badge badge-pass-granted" style={{ fontSize: '0.7rem' }}>
-              Recommended
+              Instant
             </span>
           </button>
+
+          {/* Generate Fresh Evaluator Account Button */}
+          <button
+            onClick={handleGenerateFresh}
+            disabled={isConnecting}
+            className="btn btn-secondary btn-sm"
+            style={{
+              padding: '10px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              borderColor: 'rgba(245, 158, 11, 0.35)',
+              color: 'var(--accent-amber)',
+            }}
+          >
+            <RefreshCw size={14} />
+            <span>Generate Brand New Pre-Funded Judge Keypair</span>
+          </button>
         </div>
+
+        {/* Evaluator Keypair Details Inspector */}
+        {walletType === 'keypair' && keypair && (
+          <div
+            style={{
+              marginTop: '16px',
+              padding: '14px',
+              borderRadius: 'var(--radius-md)',
+              backgroundColor: 'rgba(0, 242, 254, 0.04)',
+              border: '1px solid rgba(0, 242, 254, 0.2)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>
+                Active Evaluator Keypair
+              </span>
+              <span className="badge badge-pass-granted" style={{ fontSize: '0.68rem' }}>
+                {balance} XLM
+              </span>
+            </div>
+
+            {/* Public Address */}
+            <div style={{ marginBottom: '8px' }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>Public Key (G...)</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '4px' }}>
+                <span style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>
+                  {address ? truncateAddress(address, 12) : ''}
+                </span>
+                <button
+                  onClick={() => address && copyToClipboard(address, 'pubkey')}
+                  style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', cursor: 'pointer', padding: '2px' }}
+                  title="Copy full public key"
+                >
+                  {copiedKey === 'pubkey' ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Secret Seed */}
+            <div>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>Secret Seed (S...)</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '4px' }}>
+                <span style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>
+                  {showSecret ? keypair.secret() : '••••••••••••••••••••••••••••••••••••••••'}
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <button
+                    onClick={() => setShowSecret(!showSecret)}
+                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px' }}
+                    title={showSecret ? 'Hide secret' : 'Reveal secret'}
+                  >
+                    {showSecret ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                  <button
+                    onClick={() => copyToClipboard(keypair.secret(), 'secret')}
+                    style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', cursor: 'pointer', padding: '2px' }}
+                    title="Copy full secret seed"
+                  >
+                    {copiedKey === 'secret' ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Faucet Link */}
         <div style={{ marginTop: '16px', textAlign: 'center' }}>

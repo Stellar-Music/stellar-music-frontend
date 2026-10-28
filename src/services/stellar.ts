@@ -56,6 +56,15 @@ export class StellarClient {
   }
 
   /**
+   * Force generate and persist a fresh random ed25519 Keypair
+   */
+  generateFreshDemoKeypair(): StellarSdk.Keypair {
+    const newKeypair = StellarSdk.Keypair.random();
+    localStorage.setItem('stellar_music_demo_secret', newKeypair.secret());
+    return newKeypair;
+  }
+
+  /**
    * Fetch live native XLM balance from Stellar Testnet Horizon
    */
   async getBalance(address: string): Promise<string> {
