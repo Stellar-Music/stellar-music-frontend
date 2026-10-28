@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { NetworkBanner } from './components/NetworkBanner';
+import { SettlementToast, SettlementToastData } from './components/SettlementToast';
 import { GenreFilter } from './components/GenreFilter';
 import { TrackCard } from './components/TrackCard';
 import { MusicPassModal } from './components/MusicPassModal';
@@ -66,7 +67,7 @@ export const App: React.FC = () => {
   const [isEarningsOpen, setIsEarningsOpen] = useState(false);
   const [isArtistRevenueOpen, setIsArtistRevenueOpen] = useState(false);
   const [revenueTrackId, setRevenueTrackId] = useState<string | null>(null);
-  const [settlementToast, setSettlementToast] = useState<{ message: string; txHash?: string } | null>(null);
+  const [settlementToast, setSettlementToast] = useState<SettlementToastData | null>(null);
 
   const fetchTracks = async () => {
     try {
@@ -166,50 +167,7 @@ export const App: React.FC = () => {
       <NetworkBanner />
 
       {/* Realtime Settlement Toast */}
-      {settlementToast && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '80px',
-            right: '24px',
-            zIndex: 100,
-            padding: '12px 18px',
-            borderRadius: 'var(--radius-md)',
-            background: 'rgba(16, 185, 129, 0.95)',
-            backdropFilter: 'blur(10px)',
-            color: '#070913',
-            boxShadow: '0 8px 32px rgba(16, 185, 129, 0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            animation: 'fadeIn 0.3s ease-out',
-            fontWeight: 600,
-            fontSize: '0.88rem',
-          }}
-        >
-          <CheckCircle2 size={18} />
-          <span>{settlementToast.message}</span>
-          {settlementToast.txHash && (
-            <a
-              href={`https://stellar.expert/explorer/testnet/tx/${settlementToast.txHash}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '3px',
-                color: '#070913',
-                textDecoration: 'underline',
-                fontWeight: 700,
-                fontSize: '0.82rem',
-              }}
-            >
-              <span>Explorer</span>
-              <ExternalLink size={12} />
-            </a>
-          )}
-        </div>
-      )}
+      <SettlementToast toast={settlementToast} onDismiss={() => setSettlementToast(null)} />
 
       {activeTab === 'walkthrough' ? (
         <WalkthroughTab
