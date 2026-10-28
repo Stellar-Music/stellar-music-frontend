@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { NetworkBanner } from './components/NetworkBanner';
+import { OfflineBanner } from './components/OfflineBanner';
 import { DemoModeBanner } from './components/DemoModeBanner';
 import { SettlementToast, SettlementToastData } from './components/SettlementToast';
 import { GenreFilter } from './components/GenreFilter';
@@ -172,6 +173,9 @@ export const App: React.FC = () => {
         onOpenEarnings={() => setIsEarningsOpen(true)}
         onOpenArtistRevenue={() => setIsArtistRevenueOpen(true)}
       />
+
+      {/* Offline Connectivity Status Alert Banner */}
+      <OfflineBanner />
 
       {/* Stellar Network Environment Alert Banner */}
       <NetworkBanner />
