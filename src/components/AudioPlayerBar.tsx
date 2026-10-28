@@ -13,6 +13,7 @@ import {
   Repeat1,
 } from 'lucide-react';
 import { formatTime } from '../utils/formatters';
+import { WaveformVisualizer } from './WaveformVisualizer';
 
 export const AudioPlayerBar: React.FC = () => {
   const {
@@ -171,6 +172,10 @@ export const AudioPlayerBar: React.FC = () => {
             >
               {currentTrack.artist_name || 'Independent Creator'}
             </div>
+          </div>
+
+          <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center', opacity: 0.85 }}>
+            <WaveformVisualizer isPlaying={isPlaying} width={90} height={24} barCount={16} />
           </div>
         </div>
 
