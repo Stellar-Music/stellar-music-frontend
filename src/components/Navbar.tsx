@@ -14,6 +14,7 @@ import {
   Check,
 } from 'lucide-react';
 import { truncateAddress } from '../utils/formatters';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   activeTab?: 'catalog' | 'walkthrough';
@@ -226,6 +227,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <PlayCircle size={15} color="var(--accent-cyan)" />
             <span>Tour</span>
           </a>
+
+          <ThemeToggle />
 
           {!isConnected ? (
             <button
