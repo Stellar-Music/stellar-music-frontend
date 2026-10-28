@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { stellarClient } from '../services/stellar';
 import { useWallet } from '../context/WalletContext';
 import { X, Lock, CheckCircle2, Clock, ShieldCheck, AlertCircle, Loader2, Copy, Check } from 'lucide-react';
+import { SignatureStatusBadge, ContributorSignPill } from './SignatureStatusBadge';
 
 interface SplitAgreementModalProps {
   track: Track;
@@ -148,11 +149,17 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
               </div>
 
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                   <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>{track.title}</h2>
                   <span className="badge badge-testnet" style={{ fontSize: '0.72rem' }}>
                     v{agreement.version}
                   </span>
+                  <SignatureStatusBadge
+                    status={agreement.status}
+                    signedCount={contributors.filter((c) => c.has_signed).length}
+                    totalCount={contributors.length}
+                    size="sm"
+                  />
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                   Revenue Split Agreement
@@ -281,17 +288,7 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                         {c.percentage}%
                       </span>
 
-                      {c.has_signed ? (
-                        <span className="badge badge-pass-granted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <CheckCircle2 size={13} />
-                          <span>Signed</span>
-                        </span>
-                      ) : (
-                        <span className="badge badge-pass-needed" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                          <Clock size={13} />
-                          <span>Pending</span>
-                        </span>
-                      )}
+                      <ContributorSignPill hasSigned={c.has_signed} signedAt={c.signed_at} />
                     </div>
                   </div>
                 ))}
