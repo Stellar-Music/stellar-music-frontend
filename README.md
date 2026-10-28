@@ -6,6 +6,9 @@
 [![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 [![Tests](https://img.shields.io/badge/Frontend%20Tests-130%2F130%20Passing-emerald?style=for-the-badge)](https://github.com/Stellar-Music/stellar-music-frontend)
+[![Release](https://img.shields.io/badge/Release-v1.1.0--wave-blueviolet?style=for-the-badge)](https://github.com/Stellar-Music/stellar-music-frontend/releases/tag/v1.1.0-wave)
+[![Drips Wave Appeal](https://img.shields.io/badge/Drips%20Wave-Appeal%20Dossier-blue?style=for-the-badge)](https://github.com/Stellar-Music/stellar-music-contracts/blob/main/docs/DRIPS_WAVE_APPEAL.md)
+[![CI Status](https://img.shields.io/badge/CI%20Build-Passing-brightgreen?style=for-the-badge&logo=githubactions)](https://github.com/Stellar-Music/stellar-music-frontend/actions)
 
 The decentralized music streaming web application, royalty management studio, and automated revenue settlement portal for **Stellar Music**.
 
