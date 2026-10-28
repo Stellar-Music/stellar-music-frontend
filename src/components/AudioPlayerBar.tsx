@@ -182,7 +182,7 @@ export const AudioPlayerBar: React.FC = () => {
             <button
               onClick={toggleLoopMode}
               className="btn-icon"
-              title={`Repeat: ${loopMode === 'off' ? 'Off' : loopMode === 'all' ? 'All Tracks' : 'Current Track'}`}
+              title={`Repeat Mode: ${loopMode === 'off' ? 'Off' : loopMode === 'all' ? 'All Tracks' : 'Single Track'}`}
               style={{
                 background: 'none',
                 border: 'none',
