@@ -218,7 +218,7 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
           {/* Segmented Bar */}
           <div
             style={{
-              height: '10px',
+              height: '12px',
               borderRadius: '5px',
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
               overflow: 'hidden',
