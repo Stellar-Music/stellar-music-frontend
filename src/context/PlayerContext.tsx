@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
+import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { Track } from '../types';
 import { api } from '../services/api';
 import { useWallet } from './WalletContext';
 
-interface PlayerContextType {
+export type LoopMode = 'off' | 'all' | 'one';
+
+export interface PlayerContextType {
   currentTrack: Track | null;
   isPlaying: boolean;
   currentTime: number;
@@ -12,11 +14,20 @@ interface PlayerContextType {
   isLoading: boolean;
   error: string | null;
   unlockedTrackIds: Set<string>;
-  playTrack: (track: Track) => Promise<void>;
+  queue: Track[];
+  queueIndex: number;
+  loopMode: LoopMode;
+  hasNext: boolean;
+  hasPrevious: boolean;
+  playTrack: (track: Track, newQueue?: Track[]) => Promise<void>;
   togglePlayPause: () => void;
   seek: (time: number) => void;
   setVolume: (vol: number) => void;
   unlockTrack: (trackId: string) => void;
+  nextTrack: () => Promise<void>;
+  prevTrack: () => Promise<void>;
+  toggleLoopMode: () => void;
+  setQueue: (tracks: Track[]) => void;
 }
 
 const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
@@ -24,6 +35,9 @@ const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { address } = useWallet();
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+  const [queue, setQueueState] = useState<Track[]>([]);
+  const [queueIndex, setQueueIndex] = useState<number>(-1);
+  const [loopMode, setLoopMode] = useState<LoopMode>('off');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -36,6 +50,141 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const currentSessionIdRef = useRef<string | null>(null);
   const playbackSecondsRef = useRef<number>(0);
   const heartbeatTimerRef = useRef<any>(null);
+  const queueRef = useRef<Track[]>([]);
+  const queueIndexRef = useRef<number>(-1);
+  const loopModeRef = useRef<LoopMode>('off');
+
+  queueRef.current = queue;
+  queueIndexRef.current = queueIndex;
+  loopModeRef.current = loopMode;
+
+  const unlockTrack = (trackId: string) => {
+    setUnlockedTrackIds((prev) => new Set(prev).add(trackId));
+  };
+
+  const playTrackInternal = useCallback(async (track: Track) => {
+    if (!audioRef.current) return;
+    setError(null);
+    setIsLoading(true);
+
+    if (currentSessionIdRef.current) {
+      api.endStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
+      currentSessionIdRef.current = null;
+    }
+
+    let streamUrl: string;
+    if (track.audio_reference.startsWith('http')) {
+      streamUrl = track.audio_reference;
+    } else {
+      const walletParam = address ? `?wallet=${encodeURIComponent(address)}` : '';
+      streamUrl = `/api/tracks/${track.id}/stream${walletParam}`;
+    }
+
+    audioRef.current.src = streamUrl;
+    setCurrentTrack(track);
+    playbackSecondsRef.current = 0;
+
+    try {
+      await audioRef.current.play();
+      setIsPlaying(true);
+
+      if (address) {
+        try {
+          const session = await api.startStream(track.id, address);
+          currentSessionIdRef.current = session.id;
+        } catch {
+          // ignore session recording error
+        }
+      }
+    } catch {
+      setIsPlaying(false);
+      setIsLoading(false);
+      setError('Playback failed. A valid Music Pass may be required.');
+    }
+  }, [address]);
+
+  const playTrack = async (track: Track, newQueue?: Track[]) => {
+    if (newQueue && newQueue.length > 0) {
+      setQueueState(newQueue);
+      queueRef.current = newQueue;
+      const idx = newQueue.findIndex((t) => t.id === track.id);
+      const targetIdx = idx !== -1 ? idx : 0;
+      setQueueIndex(targetIdx);
+      queueIndexRef.current = targetIdx;
+    } else if (queue.length === 0) {
+      setQueueState([track]);
+      queueRef.current = [track];
+      setQueueIndex(0);
+      queueIndexRef.current = 0;
+    } else {
+      const idx = queue.findIndex((t) => t.id === track.id);
+      if (idx !== -1) {
+        setQueueIndex(idx);
+        queueIndexRef.current = idx;
+      } else {
+        const updated = [...queue, track];
+        setQueueState(updated);
+        queueRef.current = updated;
+        setQueueIndex(updated.length - 1);
+        queueIndexRef.current = updated.length - 1;
+      }
+    }
+    await playTrackInternal(track);
+  };
+
+  const nextTrack = useCallback(async () => {
+    const q = queueRef.current;
+    const idx = queueIndexRef.current;
+    if (q.length === 0) return;
+
+    if (idx + 1 < q.length) {
+      const nextIdx = idx + 1;
+      setQueueIndex(nextIdx);
+      queueIndexRef.current = nextIdx;
+      await playTrackInternal(q[nextIdx]);
+    } else if (loopModeRef.current === 'all') {
+      setQueueIndex(0);
+      queueIndexRef.current = 0;
+      await playTrackInternal(q[0]);
+    }
+  }, [playTrackInternal]);
+
+  const prevTrack = useCallback(async () => {
+    const q = queueRef.current;
+    const idx = queueIndexRef.current;
+    if (q.length === 0) return;
+
+    if (audioRef.current && audioRef.current.currentTime > 3) {
+      audioRef.current.currentTime = 0;
+      setCurrentTime(0);
+      return;
+    }
+
+    if (idx - 1 >= 0) {
+      const prevIdx = idx - 1;
+      setQueueIndex(prevIdx);
+      queueIndexRef.current = prevIdx;
+      await playTrackInternal(q[prevIdx]);
+    } else if (loopModeRef.current === 'all') {
+      const lastIdx = q.length - 1;
+      setQueueIndex(lastIdx);
+      queueIndexRef.current = lastIdx;
+      await playTrackInternal(q[lastIdx]);
+    }
+  }, [playTrackInternal]);
+
+  const toggleLoopMode = () => {
+    setLoopMode((prev) => {
+      if (prev === 'off') return 'all';
+      if (prev === 'all') return 'one';
+      return 'off';
+    });
+  };
+
+  const setQueue = (tracks: Track[]) => {
+    setQueueState(tracks);
+    queueRef.current = tracks;
+  };
 
   useEffect(() => {
     const audio = new Audio();
@@ -68,6 +217,13 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         api.endStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
         currentSessionIdRef.current = null;
       }
+
+      if (loopModeRef.current === 'one' && audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      } else {
+        nextTrack();
+      }
     };
 
     const handleError = () => {
@@ -92,9 +248,8 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       audio.removeEventListener('ended', handleEnded);
       audio.removeEventListener('error', handleError);
     };
-  }, []);
+  }, [nextTrack, volume]);
 
-  // Periodic heartbeat for streaming accounting
   useEffect(() => {
     if (isPlaying && currentSessionIdRef.current) {
       heartbeatTimerRef.current = setInterval(() => {
@@ -115,54 +270,6 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       }
     };
   }, [isPlaying]);
-
-  const unlockTrack = (trackId: string) => {
-    setUnlockedTrackIds((prev) => new Set(prev).add(trackId));
-  };
-
-  const playTrack = async (track: Track) => {
-    if (!audioRef.current) return;
-    setError(null);
-    setIsLoading(true);
-
-    // Conclude previous session if active
-    if (currentSessionIdRef.current) {
-      api.endStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
-      currentSessionIdRef.current = null;
-    }
-
-    // Determine audio stream URL
-    let streamUrl: string;
-    if (track.audio_reference.startsWith('http')) {
-      streamUrl = track.audio_reference;
-    } else {
-      const walletParam = address ? `?wallet=${encodeURIComponent(address)}` : '';
-      streamUrl = `/api/tracks/${track.id}/stream${walletParam}`;
-    }
-
-    audioRef.current.src = streamUrl;
-    setCurrentTrack(track);
-    playbackSecondsRef.current = 0;
-
-    try {
-      await audioRef.current.play();
-      setIsPlaying(true);
-
-      // Start streaming session accounting if wallet connected
-      if (address) {
-        try {
-          const session = await api.startStream(track.id, address);
-          currentSessionIdRef.current = session.id;
-        } catch {
-          // ignore session recording error if free track or preview
-        }
-      }
-    } catch (err: any) {
-      setIsPlaying(false);
-      setIsLoading(false);
-      setError('Playback failed. A valid Music Pass may be required.');
-    }
-  };
 
   const togglePlayPause = () => {
     if (!audioRef.current) return;
@@ -192,6 +299,9 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   };
 
+  const hasNext = queueIndex + 1 < queue.length || loopMode === 'all';
+  const hasPrevious = queueIndex > 0 || loopMode === 'all';
+
   return (
     <PlayerContext.Provider
       value={{
@@ -203,11 +313,20 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         isLoading,
         error,
         unlockedTrackIds,
+        queue,
+        queueIndex,
+        loopMode,
+        hasNext,
+        hasPrevious,
         playTrack,
         togglePlayPause,
         seek,
         setVolume,
         unlockTrack,
+        nextTrack,
+        prevTrack,
+        toggleLoopMode,
+        setQueue,
       }}
     >
       {children}
