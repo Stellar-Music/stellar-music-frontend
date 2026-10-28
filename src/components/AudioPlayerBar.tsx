@@ -371,7 +371,7 @@ export const AudioPlayerBar: React.FC = () => {
           <button
             onClick={handleVolumeToggle}
             className="btn-icon"
-            title={isMuted ? 'Unmute (M)' : 'Mute (M)'}
+            title={isMuted ? 'Unmute audio (M)' : 'Mute audio (M)'}
             style={{
               background: 'none',
               border: 'none',
