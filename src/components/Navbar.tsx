@@ -12,9 +12,11 @@ import {
   Music2,
   Copy,
   Check,
+  Menu,
 } from 'lucide-react';
 import { truncateAddress } from '../utils/formatters';
 import { ThemeToggle } from './ThemeToggle';
+import { MobileDrawer } from './MobileDrawer';
 
 interface NavbarProps {
   activeTab?: 'catalog' | 'walkthrough';
@@ -46,6 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   } = useWallet();
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -118,6 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Primary View Navigation Tabs */}
         {onSelectTab && (
           <div
+            className="desktop-only"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -172,63 +176,74 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button
-            onClick={onOpenEarnings}
-            className="btn btn-secondary btn-sm"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-            title="Contributor royalty earnings and payout receipts"
-          >
-            <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.9rem' }}>$</span>
-            <span>Earnings</span>
-          </button>
+          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button
+              onClick={onOpenEarnings}
+              className="btn btn-secondary btn-sm"
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              title="Contributor royalty earnings and payout receipts"
+            >
+              <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.9rem' }}>$</span>
+              <span>Earnings</span>
+            </button>
 
-          <button
-            onClick={onOpenArtistRevenue}
-            className="btn btn-secondary btn-sm"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-            title="Artist revenue pools & automated settlements"
-          >
-            <Sparkles size={15} color="var(--accent-cyan)" />
-            <span>Settlement</span>
-          </button>
+            <button
+              onClick={onOpenArtistRevenue}
+              className="btn btn-secondary btn-sm"
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              title="Artist revenue pools & automated settlements"
+            >
+              <Sparkles size={15} color="var(--accent-cyan)" />
+              <span>Settlement</span>
+            </button>
 
-          <button
-            onClick={onOpenSplits}
-            className="btn btn-secondary btn-sm"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <span>Splits</span>
-          </button>
+            <button
+              onClick={onOpenSplits}
+              className="btn btn-secondary btn-sm"
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              <span>Splits</span>
+            </button>
 
-          <button
-            onClick={onOpenPublish}
-            className="btn btn-secondary btn-sm"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <PlusCircle size={16} color="var(--accent-cyan)" />
-            <span>Publish Track</span>
-          </button>
+            <button
+              onClick={onOpenPublish}
+              className="btn btn-secondary btn-sm"
+              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              <PlusCircle size={16} color="var(--accent-cyan)" />
+              <span>Publish Track</span>
+            </button>
 
-          <a
-            href="/walkthrough.html"
-            className="btn btn-secondary btn-sm"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              borderColor: 'rgba(56, 189, 248, 0.4)',
-              background: 'rgba(56, 189, 248, 0.08)',
-              color: 'var(--accent-cyan)',
-              textDecoration: 'none',
-              fontWeight: 600,
-            }}
-            title="Watch full video walkthrough with voice-over"
-          >
-            <PlayCircle size={15} color="var(--accent-cyan)" />
-            <span>Tour</span>
-          </a>
+            <a
+              href="/walkthrough.html"
+              className="btn btn-secondary btn-sm"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                borderColor: 'rgba(56, 189, 248, 0.4)',
+                background: 'rgba(56, 189, 248, 0.08)',
+                color: 'var(--accent-cyan)',
+                textDecoration: 'none',
+                fontWeight: 600,
+              }}
+              title="Watch full video walkthrough with voice-over"
+            >
+              <PlayCircle size={15} color="var(--accent-cyan)" />
+              <span>Tour</span>
+            </a>
+          </div>
 
           <ThemeToggle />
+
+          <button
+            onClick={() => setShowMobileDrawer(true)}
+            className="btn btn-secondary btn-sm mobile-only"
+            style={{ padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            aria-label="Open mobile navigation menu"
+          >
+            <Menu size={18} />
+          </button>
 
           {!isConnected ? (
             <button
@@ -400,6 +415,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </div>
       </div>
+
+      {/* Responsive Mobile Drawer Navigation */}
+      <MobileDrawer
+        isOpen={showMobileDrawer}
+        onClose={() => setShowMobileDrawer(false)}
+        activeTab={activeTab}
+        onSelectTab={onSelectTab || (() => {})}
+        onOpenPublish={onOpenPublish}
+        onOpenWallet={onOpenWallet}
+        onOpenSplits={onOpenSplits}
+        onOpenEarnings={onOpenEarnings}
+        onOpenArtistRevenue={onOpenArtistRevenue}
+      />
     </header>
   );
 };
