@@ -4,6 +4,7 @@ import {
   truncateAddress,
   formatBasisPoints,
   formatStroopsToXlm,
+  formatNumberMetric,
 } from './formatters';
 
 describe('formatters utility', () => {
@@ -89,6 +90,30 @@ describe('formatters utility', () => {
 
     it('handles invalid input', () => {
       expect(formatStroopsToXlm('not-a-number')).toBe('0.00');
+    });
+  });
+
+  describe('formatNumberMetric', () => {
+    it('formats numbers under 1,000 as raw strings', () => {
+      expect(formatNumberMetric(0)).toBe('0');
+      expect(formatNumberMetric(42)).toBe('42');
+      expect(formatNumberMetric(999)).toBe('999');
+    });
+
+    it('formats thousands with k suffix', () => {
+      expect(formatNumberMetric(1000)).toBe('1k');
+      expect(formatNumberMetric(1420)).toBe('1.4k');
+      expect(formatNumberMetric(25600)).toBe('25.6k');
+    });
+
+    it('formats millions with M suffix', () => {
+      expect(formatNumberMetric(1000000)).toBe('1M');
+      expect(formatNumberMetric(2400000)).toBe('2.4M');
+    });
+
+    it('handles invalid numbers gracefully', () => {
+      expect(formatNumberMetric(-5)).toBe('0');
+      expect(formatNumberMetric(NaN)).toBe('0');
     });
   });
 });
