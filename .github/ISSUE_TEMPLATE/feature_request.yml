@@ -1,0 +1,22 @@
+name: "Feature Request / UI Proposal"
+description: "Suggest an improvement or feature for the Stellar Music frontend"
+title: "[UI Feature]: "
+labels: ["enhancement", "frontend"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for proposing an enhancement to the Stellar Music frontend player!"
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Feature Context"
+      description: "What user experience or Web3 streaming capability does this improve?"
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe the component, layout, or interaction changes."
+    validations:
+      required: true
