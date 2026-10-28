@@ -486,7 +486,7 @@ export const App: React.FC = () => {
                   className="btn btn-secondary btn-sm"
                   style={{ margin: '0 auto' }}
                 >
-                  Reset All Filters
+                  Clear Search & Reset Filters
                 </button>
               </div>
             ) : (
