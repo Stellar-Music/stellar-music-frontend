@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle2, ExternalLink, Copy, Check, X, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { CheckCircle2, ExternalLink, ShieldCheck, ArrowUpRight, X } from 'lucide-react';
 import { truncateAddress } from '../utils/formatters';
+import { CopyButton } from './CopyButton';
 
 export interface TransactionReceiptModalProps {
   isOpen: boolean;
@@ -176,21 +177,7 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '380px' }}>
                 {txHash}
               </span>
-              <button
-                onClick={handleCopyHash}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: copied ? 'var(--accent-emerald)' : 'var(--text-muted)',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '2px',
-                }}
-                title={copied ? 'Copied' : 'Copy transaction hash'}
-              >
-                {copied ? <Check size={14} /> : <Copy size={14} />}
-              </button>
+              <CopyButton text={txHash} />
             </div>
           </div>
         </div>
