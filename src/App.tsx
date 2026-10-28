@@ -444,7 +444,7 @@ export const App: React.FC = () => {
                       cursor: 'pointer',
                     }}
                   >
-                    <option value="newest">Newest First</option>
+                    <option value="newest">Newest Releases</option>
                     <option value="price_asc">Price: Low to High</option>
                     <option value="price_desc">Price: High to Low</option>
                     <option value="title">Title (A-Z)</option>
