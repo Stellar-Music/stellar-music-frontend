@@ -119,7 +119,31 @@ export const AudioPlayerBar: React.FC = () => {
         padding: '10px 24px',
       }}
     >
+      {/* Mobile Top Progress Line */}
       <div
+        className="mobile-only"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '2px',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${progressPercent}%`,
+            background: 'var(--gradient-stellar)',
+            transition: 'width 0.1s linear',
+          }}
+        />
+      </div>
+
+      {/* Desktop Player Layout */}
+      <div
+        className="desktop-only"
         style={{
           maxWidth: '1300px',
           margin: '0 auto',
@@ -413,6 +437,122 @@ export const AudioPlayerBar: React.FC = () => {
               cursor: 'pointer',
             }}
           />
+        </div>
+      </div>
+
+      {/* Mobile Compact Player Layout */}
+      <div
+        className="mobile-only"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '12px',
+          padding: '4px 0',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0, flex: 1 }}>
+          <div
+            style={{
+              width: '38px',
+              height: '38px',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              flexShrink: 0,
+              backgroundColor: '#121526',
+            }}
+          >
+            <img
+              src={currentTrack.artwork_reference}
+              alt={currentTrack.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
+            <div
+              style={{
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                color: 'var(--text-primary)',
+              }}
+            >
+              {currentTrack.title}
+            </div>
+            <div
+              style={{
+                fontSize: '0.72rem',
+                color: 'var(--text-secondary)',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {currentTrack.artist_name || 'Independent Creator'} • {formatTime(currentTime)}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button
+            onClick={prevTrack}
+            disabled={!hasPrevious}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: hasPrevious ? 'var(--text-primary)' : 'rgba(255, 255, 255, 0.2)',
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            aria-label="Previous track"
+          >
+            <SkipBack size={18} />
+          </button>
+
+          <button
+            onClick={togglePlayPause}
+            disabled={isLoading}
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              background: 'var(--gradient-stellar)',
+              border: 'none',
+              color: '#070913',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 0 12px rgba(0, 242, 254, 0.4)',
+            }}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
+          >
+            {isLoading ? (
+              <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+            ) : isPlaying ? (
+              <Pause size={16} fill="#070913" />
+            ) : (
+              <Play size={16} fill="#070913" style={{ marginLeft: '1px' }} />
+            )}
+          </button>
+
+          <button
+            onClick={nextTrack}
+            disabled={!hasNext}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: hasNext ? 'var(--text-primary)' : 'rgba(255, 255, 255, 0.2)',
+              padding: '4px',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+            aria-label="Next track"
+          >
+            <SkipForward size={18} />
+          </button>
         </div>
       </div>
     </div>
