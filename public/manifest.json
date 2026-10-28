@@ -1,0 +1,19 @@
+{
+  "name": "Stellar Music — Decentralized Streaming & Micropayments",
+  "short_name": "Stellar Music",
+  "description": "Discover, stream, and support independent artists directly on the Stellar Testnet with verifiable Music Passes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070913",
+  "theme_color": "#00f2fe",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["music", "entertainment", "finance"]
+}

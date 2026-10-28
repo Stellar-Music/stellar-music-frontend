@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="stellarGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#4facfe" />
+      <stop offset="100%" stop-color="#7f00ff" />
+    </linearGradient>
+    <radialGradient id="discHolo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e2238" />
+      <stop offset="60%" stop-color="#0b0d19" />
+      <stop offset="100%" stop-color="#05070f" />
+    </radialGradient>
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#00f2fe" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Ring Glow -->
+  <circle cx="32" cy="32" r="30" stroke="url(#stellarGlow)" stroke-width="2.5" opacity="0.9" />
+
+  <!-- Vinyl Groove Body -->
+  <circle cx="32" cy="32" r="27" fill="url(#discHolo)" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+  <circle cx="32" cy="32" r="22" stroke="rgba(255, 255, 255, 0.06)" stroke-width="0.8" stroke-dasharray="3 2" />
+  <circle cx="32" cy="32" r="17" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.8" />
+  <circle cx="32" cy="32" r="12" stroke="rgba(0, 242, 254, 0.25)" stroke-width="1" />
+
+  <!-- Center Label -->
+  <circle cx="32" cy="32" r="9" fill="url(#accentCyan)" />
+  <circle cx="32" cy="32" r="3" fill="#070913" />
+
+  <!-- Dynamic Stellar Ray Accents -->
+  <path d="M32 4 L33.5 10 L30.5 10 Z" fill="#00f2fe" opacity="0.8" />
+  <path d="M32 60 L33.5 54 L30.5 54 Z" fill="#7f00ff" opacity="0.8" />
+  <path d="M4 32 L10 33.5 L10 30.5 Z" fill="#00f2fe" opacity="0.8" />
+  <path d="M60 32 L54 33.5 L54 30.5 Z" fill="#7f00ff" opacity="0.8" />
+</svg>
