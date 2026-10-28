@@ -3,6 +3,7 @@ import { Track } from '../types';
 import { usePlayer } from '../context/PlayerContext';
 import { Play, Pause, Lock, CheckCircle2, Clock, PieChart } from 'lucide-react';
 import { formatTime } from '../utils/formatters';
+import { PassBadge } from './PassBadge';
 
 interface TrackCardProps {
   track: Track;
@@ -233,30 +234,12 @@ export const TrackCard: React.FC<TrackCardProps> = ({
             </button>
           )}
 
-          {isUnlocked ? (
-            <span className="badge badge-pass-granted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <CheckCircle2 size={13} />
-              <span>{isFree ? 'Free Stream' : 'Pass Granted'}</span>
-            </span>
-          ) : (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenPurchaseModal(track);
-              }}
-              className="btn btn-secondary btn-sm"
-              style={{
-                padding: '4px 10px',
-                fontSize: '0.75rem',
-                border: '1px solid rgba(245, 158, 11, 0.4)',
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                color: 'var(--accent-amber)',
-              }}
-            >
-              <Lock size={12} />
-              <span>{track.price} XLM Pass</span>
-            </button>
-          )}
+          <PassBadge
+            isUnlocked={isUnlocked}
+            isFree={isFree}
+            priceXlm={track.price}
+            onClick={() => onOpenPurchaseModal(track)}
+          />
         </div>
       </div>
     </div>
