@@ -14,6 +14,7 @@ import { ContributorDashboardModal } from './components/ContributorDashboardModa
 import { ContributorEarningsModal } from './components/ContributorEarningsModal';
 import { ArtistRevenueModal } from './components/ArtistRevenueModal';
 import { TrackRevenueModal } from './components/TrackRevenueModal';
+import { ArtistProfileModal } from './components/ArtistProfileModal';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
@@ -67,6 +68,7 @@ export const App: React.FC = () => {
   const [isEarningsOpen, setIsEarningsOpen] = useState(false);
   const [isArtistRevenueOpen, setIsArtistRevenueOpen] = useState(false);
   const [revenueTrackId, setRevenueTrackId] = useState<string | null>(null);
+  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const [settlementToast, setSettlementToast] = useState<SettlementToastData | null>(null);
 
   const fetchTracks = async () => {
@@ -489,7 +491,14 @@ export const App: React.FC = () => {
                 <div
                   key={artist.id}
                   className="glass-panel"
-                  style={{ padding: '20px', borderRadius: 'var(--radius-md)' }}
+                  style={{
+                    padding: '20px',
+                    borderRadius: 'var(--radius-md)',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, border-color 0.2s ease',
+                  }}
+                  onClick={() => setSelectedArtist(artist)}
+                  title="Click to view artist profile and catalog"
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
                     <div
@@ -660,6 +669,22 @@ export const App: React.FC = () => {
         <TrackRevenueModal
           trackId={revenueTrackId}
           onClose={() => setRevenueTrackId(null)}
+        />
+      )}
+
+      {selectedArtist && (
+        <ArtistProfileModal
+          artist={selectedArtist}
+          tracks={tracks}
+          onClose={() => setSelectedArtist(null)}
+          onPlayTrack={(t) => {
+            const hasPass = userPassTrackIds.has(t.id) || unlockedTrackIds.has(t.id) || t.price <= 0;
+            if (hasPass) {
+              // stream unlocked
+            } else {
+              setPurchaseTrack(t);
+            }
+          }}
         />
       )}
     </div>
