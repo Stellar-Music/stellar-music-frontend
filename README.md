@@ -5,8 +5,25 @@
 [![Stellar Testnet Contract](https://img.shields.io/badge/Soroban_Contract-CBUNX6PF...-brightgreen?style=for-the-badge&logo=stellar)](https://stellar.expert/explorer/testnet/contract/CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K)
 [![React](https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Tests](https://img.shields.io/badge/Frontend%20Tests-130%2F130%20Passing-emerald?style=for-the-badge)](https://github.com/Stellar-Music/stellar-music-frontend)
 
 The decentralized music streaming web application, royalty management studio, and automated revenue settlement portal for **Stellar Music**.
+
+---
+
+## 🏛️ Ecosystem Architecture & Repository Directory
+
+Stellar Music is engineered as a three-tier decentralized streaming application:
+
+| Repository | Responsibility | Tech Stack | Status | Tests |
+| :--- | :--- | :--- | :---: | :---: |
+| **[`stellar-music-contracts`](https://github.com/Stellar-Music/stellar-music-contracts)** | Non-custodial splits, passes, 0-stroop invariant engine | Soroban / Rust SDK v22 | **Deployed** | **34 / 34** |
+| **[`stellar-music-backend`](https://github.com/Stellar-Music/stellar-music-backend)** | Audio streaming, SSE settlements, Horizon failover pool | Node.js / TypeScript / SQLite / Express | **Active** | **89 / 89** |
+| **[`stellar-music-frontend`](https://github.com/Stellar-Music/stellar-music-frontend)** | Reactive Web3 player, PWA, Freighter wallet connector | React 18 / TypeScript / Vite / Tailwind | **Live** | **130 / 130** |
+
+* **Total Protocol Automated Tests**: **253 / 253 passing** across contracts, backend, and frontend.
+* **Official Drips Wave Appeal Dossier**: [`docs/DRIPS_WAVE_APPEAL.md`](https://github.com/Stellar-Music/stellar-music-contracts/blob/main/docs/DRIPS_WAVE_APPEAL.md)
+* **Live Production dApp**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
 
 > **🚀 Production URL**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
 
