@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { NetworkBanner } from './components/NetworkBanner';
+import { DemoModeBanner } from './components/DemoModeBanner';
 import { SettlementToast, SettlementToastData } from './components/SettlementToast';
 import { GenreFilter } from './components/GenreFilter';
 import { TrackCard } from './components/TrackCard';
@@ -172,6 +173,9 @@ export const App: React.FC = () => {
 
       {/* Stellar Network Environment Alert Banner */}
       <NetworkBanner />
+
+      {/* Evaluator Quick-Start Demo Mode Banner */}
+      <DemoModeBanner />
 
       {/* Realtime Settlement Toast */}
       <SettlementToast toast={settlementToast} onDismiss={() => setSettlementToast(null)} />
