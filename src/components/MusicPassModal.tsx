@@ -4,7 +4,8 @@ import { useWallet } from '../context/WalletContext';
 import { usePlayer } from '../context/PlayerContext';
 import { stellarClient } from '../services/stellar';
 import { api } from '../services/api';
-import { X, Lock, CheckCircle2, AlertCircle, ExternalLink, Loader2, Play, Wallet } from 'lucide-react';
+import { X, Lock, CheckCircle2, AlertCircle, ExternalLink, Loader2, Play, Wallet, FileText } from 'lucide-react';
+import { TransactionReceiptModal } from './TransactionReceiptModal';
 
 interface MusicPassModalProps {
   track: Track;
@@ -20,6 +21,7 @@ export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, 
   const [state, setState] = useState<PurchaseState>(isConnected ? 'READY' : 'WALLET_REQUIRED');
   const [txHash, setTxHash] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isReceiptOpen, setIsReceiptOpen] = useState(false);
 
   const handlePurchase = async () => {
     if (!isConnected || !address) {
@@ -282,24 +284,40 @@ export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, 
                 Your payment was verified on Stellar Testnet and recorded in the database.
               </div>
               {txHash && (
-                <a
-                  href={`https://stellar.expert/explorer/testnet/tx/${txHash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    color: 'var(--accent-cyan)',
-                    fontSize: '0.78rem',
-                    textDecoration: 'none',
-                    fontWeight: 600,
-                    marginTop: '4px',
-                  }}
-                >
-                  <ExternalLink size={14} />
-                  <span>View Transaction on Stellar Expert</span>
-                </a>
+                <div style={{ display: 'flex', gap: '12px', marginTop: '6px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => setIsReceiptOpen(true)}
+                    className="btn btn-secondary btn-sm"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      fontSize: '0.78rem',
+                      padding: '4px 10px',
+                    }}
+                  >
+                    <FileText size={13} color="var(--accent-cyan)" />
+                    <span>View Receipt</span>
+                  </button>
+                  <a
+                    href={`https://stellar.expert/explorer/testnet/tx/${txHash}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      color: 'var(--accent-cyan)',
+                      fontSize: '0.78rem',
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      alignSelf: 'center',
+                    }}
+                  >
+                    <ExternalLink size={14} />
+                    <span>View in Explorer</span>
+                  </a>
+                </div>
               )}
             </div>
           )}
@@ -373,6 +391,18 @@ export const MusicPassModal: React.FC<MusicPassModalProps> = ({ track, onClose, 
           )}
         </div>
       </div>
+
+      {txHash && (
+        <TransactionReceiptModal
+          isOpen={isReceiptOpen}
+          onClose={() => setIsReceiptOpen(false)}
+          txHash={txHash}
+          title={`Music Pass: ${track.title}`}
+          amountXlm={track.price}
+          recipientAddress={track.artist_wallet || undefined}
+          memo={`Pass: ${track.title.substring(0, 20)}`}
+        />
+      )}
     </div>
   );
 };
