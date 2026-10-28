@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SplitAgreement, SplitContributor, Track } from '../types';
 import { api } from '../services/api';
+import { stellarClient } from '../services/stellar';
 import { useWallet } from '../context/WalletContext';
 import { X, Lock, CheckCircle2, Clock, ShieldCheck, AlertCircle, Loader2, Copy, Check } from 'lucide-react';
 
@@ -11,7 +12,7 @@ interface SplitAgreementModalProps {
 }
 
 export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track, onClose, onAgreementUpdated }) => {
-  const { address } = useWallet();
+  const { address, walletType, keypair } = useWallet();
 
   const [agreement, setAgreement] = useState<SplitAgreement | null>(null);
   const [contributors, setContributors] = useState<SplitContributor[]>([]);
@@ -47,6 +48,12 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
     setSigning(true);
     setError(null);
     try {
+      await stellarClient.signAgreementHash({
+        hash: agreement.agreement_hash,
+        senderAddress: address,
+        walletType: walletType || 'keypair',
+        keypair,
+      });
       const result = await api.signSplitAgreement(agreement.id, address);
       setAgreement(result.agreement);
       await loadAgreementData();
