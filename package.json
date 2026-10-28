@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "format:check": "prettier --check .",
     "clean": "node -e \"const fs = require('fs'); ['dist', 'coverage', 'node_modules/.vite'].forEach(d => fs.rmSync(d, { recursive: true, force: true })); console.log('Clean complete');\""
   },
   "dependencies": {

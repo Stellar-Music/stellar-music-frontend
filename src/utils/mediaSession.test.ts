@@ -18,7 +18,7 @@ class MockMediaMetadata {
 
 describe('Media Session API Utility', () => {
   beforeEach(() => {
-    (global as any).MediaMetadata = MockMediaMetadata;
+    (globalThis as any).MediaMetadata = MockMediaMetadata;
     (navigator as any).mediaSession = {
       metadata: null,
       setActionHandler: vi.fn(),
