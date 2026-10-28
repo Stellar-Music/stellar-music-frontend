@@ -4,6 +4,7 @@ import { usePlayer } from '../context/PlayerContext';
 import { Play, Pause, Lock, CheckCircle2, Clock, PieChart, Headphones } from 'lucide-react';
 import { formatTime, formatNumberMetric } from '../utils/formatters';
 import { PassBadge } from './PassBadge';
+import { ImageFallback } from './ImageFallback';
 
 interface TrackCardProps {
   track: Track;
@@ -65,9 +66,10 @@ export const TrackCard: React.FC<TrackCardProps> = ({
           backgroundColor: '#121526',
         }}
       >
-        <img
+        <ImageFallback
           src={track.artwork_reference}
           alt={track.title}
+          fallbackTitle={track.title}
           style={{
             width: '100%',
             height: '100%',
