@@ -40,7 +40,7 @@ export const AudioPlayerBar: React.FC = () => {
   const [hoverX, setHoverX] = useState<number>(0);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
 
-  // Global Keyboard Shortcuts (Space: Play/Pause, M: Mute, Left/Right: Seek 5s)
+  // Global Web3 Audio Keyboard Shortcuts (Space: Play/Pause, M: Mute, Left/Right: Seek 5s)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const activeEl = document.activeElement;
