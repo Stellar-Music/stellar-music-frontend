@@ -17,6 +17,7 @@ import { ContributorEarningsModal } from './components/ContributorEarningsModal'
 import { ArtistRevenueModal } from './components/ArtistRevenueModal';
 import { TrackRevenueModal } from './components/TrackRevenueModal';
 import { ArtistProfileModal } from './components/ArtistProfileModal';
+import { TourGuide } from './components/TourGuide';
 import { useWallet } from './context/WalletContext';
 import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
@@ -72,6 +73,7 @@ export const App: React.FC = () => {
   const [isArtistRevenueOpen, setIsArtistRevenueOpen] = useState(false);
   const [revenueTrackId, setRevenueTrackId] = useState<string | null>(null);
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
   const [settlementToast, setSettlementToast] = useState<SettlementToastData | null>(null);
 
   const fetchTracks = async () => {
@@ -175,7 +177,7 @@ export const App: React.FC = () => {
       <NetworkBanner />
 
       {/* Evaluator Quick-Start Demo Mode Banner */}
-      <DemoModeBanner />
+      <DemoModeBanner onTourOpen={() => setIsTourOpen(true)} />
 
       {/* Realtime Settlement Toast */}
       <SettlementToast toast={settlementToast} onDismiss={() => setSettlementToast(null)} />
@@ -706,6 +708,12 @@ export const App: React.FC = () => {
           }}
         />
       )}
+
+      <TourGuide
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        onSelectTab={(t) => setActiveTab(t)}
+      />
     </div>
   );
 };
