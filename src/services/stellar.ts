@@ -1,8 +1,64 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
 import { isConnected, requestAccess, signTransaction } from '@stellar/freighter-api';
 
-const HORIZON_URL = 'https://horizon-testnet.stellar.org';
-const server = new StellarSdk.Horizon.Server(HORIZON_URL);
+export const DEFAULT_HORIZON_ENDPOINTS = [
+  'https://horizon-testnet.stellar.org',
+  'https://rpc-testnet.stellar.org',
+];
+
+export class HorizonRpcPool {
+  private endpoints: string[];
+  private activeIndex: number = 0;
+  private servers: StellarSdk.Horizon.Server[];
+
+  constructor(endpoints: string[] = DEFAULT_HORIZON_ENDPOINTS) {
+    this.endpoints = endpoints.length > 0 ? endpoints : DEFAULT_HORIZON_ENDPOINTS;
+    this.servers = this.endpoints.map((url) => new StellarSdk.Horizon.Server(url));
+  }
+
+  getActiveServer(): StellarSdk.Horizon.Server {
+    return this.servers[this.activeIndex];
+  }
+
+  getActiveEndpoint(): string {
+    return this.endpoints[this.activeIndex];
+  }
+
+  getAllEndpoints(): string[] {
+    return [...this.endpoints];
+  }
+
+  switchToNext(): StellarSdk.Horizon.Server {
+    const prev = this.getActiveEndpoint();
+    this.activeIndex = (this.activeIndex + 1) % this.servers.length;
+    console.warn(`[HorizonRpcPool] Failover: Switched from ${prev} to ${this.getActiveEndpoint()}`);
+    return this.servers[this.activeIndex];
+  }
+
+  async executeWithFailover<T>(operation: (srv: StellarSdk.Horizon.Server) => Promise<T>): Promise<T> {
+    let lastError: any = null;
+    const totalAttempts = this.servers.length;
+
+    for (let attempt = 0; attempt < totalAttempts; attempt++) {
+      const srv = this.getActiveServer();
+      try {
+        return await operation(srv);
+      } catch (err: any) {
+        lastError = err;
+        // Don't failover for user domain errors (like NotFoundError on unfunded account)
+        if (err?.name === 'NotFoundError') {
+          throw err;
+        }
+        if (attempt < totalAttempts - 1) {
+          this.switchToNext();
+        }
+      }
+    }
+    throw lastError;
+  }
+}
+
+export const rpcPool = new HorizonRpcPool();
 const TESTNET_PASSPHRASE = StellarSdk.Networks.TESTNET;
 
 export interface WalletState {
@@ -13,6 +69,22 @@ export interface WalletState {
 }
 
 export class StellarClient {
+  private pool: HorizonRpcPool;
+
+  constructor(pool: HorizonRpcPool = rpcPool) {
+    this.pool = pool;
+  }
+
+  /**
+   * Get RPC pool diagnostic status
+   */
+  getRpcStatus(): { activeEndpoint: string; endpoints: string[] } {
+    return {
+      activeEndpoint: this.pool.getActiveEndpoint(),
+      endpoints: this.pool.getAllEndpoints(),
+    };
+  }
+
   /**
    * Check if Freighter extension is installed
    */
@@ -65,11 +137,11 @@ export class StellarClient {
   }
 
   /**
-   * Fetch live native XLM balance from Stellar Testnet Horizon
+   * Fetch live native XLM balance from Stellar Testnet Horizon with failover resilience
    */
   async getBalance(address: string): Promise<string> {
     try {
-      const account = await server.loadAccount(address);
+      const account: any = await this.pool.executeWithFailover((srv) => srv.loadAccount(address));
       const native = account.balances.find((b: any) => b.asset_type === 'native');
       return native ? native.balance : '0';
     } catch (err: any) {
@@ -93,7 +165,7 @@ export class StellarClient {
   }
 
   /**
-   * Execute real Stellar Testnet Payment
+   * Execute real Stellar Testnet Payment with failover RPC support
    */
   async payForMusicPass(params: {
     senderAddress: string;
@@ -105,10 +177,10 @@ export class StellarClient {
   }): Promise<{ hash: string; ledger: number }> {
     const { senderAddress, destinationAddress, amountXLM, walletType, keypair, memoText } = params;
 
-    // Load sender account from Testnet
+    // Load sender account with failover resilience
     let senderAccount: any;
     try {
-      senderAccount = await server.loadAccount(senderAddress);
+      senderAccount = await this.pool.executeWithFailover((srv) => srv.loadAccount(senderAddress));
     } catch (err: any) {
       if (err.name === 'NotFoundError') {
         throw new Error('Sender wallet is not funded on Stellar Testnet. Fund your wallet with Friendbot first.');
@@ -117,7 +189,7 @@ export class StellarClient {
     }
 
     // Build payment transaction
-    const baseFee = await server.fetchBaseFee();
+    const baseFee = await this.pool.executeWithFailover((srv) => srv.fetchBaseFee());
     const txBuilder = new StellarSdk.TransactionBuilder(senderAccount, {
       fee: baseFee.toString(),
       networkPassphrase: TESTNET_PASSPHRASE,
@@ -161,9 +233,9 @@ export class StellarClient {
       signedTxXdr = transaction.toXDR();
     }
 
-    // Submit signed transaction to Stellar Testnet Horizon
+    // Submit signed transaction to Stellar Testnet Horizon via failover pool
     const txToSubmit = StellarSdk.TransactionBuilder.fromXDR(signedTxXdr, TESTNET_PASSPHRASE);
-    const result = await server.submitTransaction(txToSubmit);
+    const result: any = await this.pool.executeWithFailover((srv) => srv.submitTransaction(txToSubmit));
 
     return {
       hash: result.hash,
