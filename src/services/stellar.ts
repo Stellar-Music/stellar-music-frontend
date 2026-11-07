@@ -97,6 +97,8 @@ export class StellarClient {
     }
   }
 
+  private inMemoryDemoKeypair: StellarSdk.Keypair | null = null;
+
   /**
    * Request connection to Freighter
    */
@@ -110,30 +112,33 @@ export class StellarClient {
   }
 
   /**
-   * Generate or retrieve local Testnet Demo Keypair
+   * Generate or retrieve local Testnet Demo Keypair (in-memory only for security)
    */
   getOrCreateDemoKeypair(): StellarSdk.Keypair {
-    const storedSecret = localStorage.getItem('stellar_music_demo_secret');
-    if (storedSecret) {
-      try {
-        return StellarSdk.Keypair.fromSecret(storedSecret);
-      } catch {
-        // invalid stored key, fallthrough to generate new
-      }
+    if (!this.inMemoryDemoKeypair) {
+      this.inMemoryDemoKeypair = StellarSdk.Keypair.random();
     }
-
-    const newKeypair = StellarSdk.Keypair.random();
-    localStorage.setItem('stellar_music_demo_secret', newKeypair.secret());
-    return newKeypair;
+    return this.inMemoryDemoKeypair;
   }
 
   /**
-   * Force generate and persist a fresh random ed25519 Keypair
+   * Force generate a fresh random ed25519 Keypair in-memory
    */
   generateFreshDemoKeypair(): StellarSdk.Keypair {
-    const newKeypair = StellarSdk.Keypair.random();
-    localStorage.setItem('stellar_music_demo_secret', newKeypair.secret());
-    return newKeypair;
+    this.inMemoryDemoKeypair = StellarSdk.Keypair.random();
+    return this.inMemoryDemoKeypair;
+  }
+
+  /**
+   * Purge ephemeral keypair from memory and clear any legacy storage
+   */
+  clearDemoKeypair(): void {
+    this.inMemoryDemoKeypair = null;
+    try {
+      localStorage.removeItem('stellar_music_demo_secret');
+    } catch {
+      // ignore
+    }
   }
 
   /**
