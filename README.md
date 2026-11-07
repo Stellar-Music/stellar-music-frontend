@@ -184,11 +184,40 @@ The frontend application features robust client-side validation, user feedback a
 ## 🛠️ Technology Stack
 
 * **Framework**: React 18 with TypeScript
-* **Build Tool**: Vite 5
+* **Build Tool**: Vite 6
 * **Styling**: Modern Vanilla CSS Design System with dark glassmorphism, tailored HSL color tokens, and smooth micro-animations
 * **Icons**: Lucide React
 * **Blockchain SDK**: `@stellar/stellar-sdk` & Soroban RPC client
 * **Deployment**: Netlify Edge CDN with automated CI/CD
+
+---
+
+## 🧪 Testing & Quality Assurance
+
+Run the comprehensive automated test suite:
+
+```bash
+# Run unit and component test suite
+npm test
+
+# Verify strict TypeScript types
+npm run typecheck
+
+# Build optimized production bundle
+npm run build
+```
+
+All 130 frontend automated tests across 18 test files pass with zero failures:
+* **Wallet Management**: Freighter connection, in-memory ephemeral keypairs, and session lifecycles (`src/context/WalletContext.test.tsx`)
+* **Audio Player & Streaming**: Playback state, stream session recording, and queue progression (`src/context/PlayerContext.test.tsx`, `src/utils/playlistQueue.test.ts`)
+* **Network & RPC Failover**: Automated Horizon server failover and RPC endpoint switching (`src/services/stellar.test.ts`)
+* **UI Components & Modals**: Error boundary crash recovery, image fallback handling, and responsive cards (`src/components/Components.test.tsx`)
+* **Keyboard Navigation**: Global keyboard shortcuts (Space, Arrow keys, M, L) (`src/hooks/useKeyboardShortcuts.test.ts`)
+* **Media Session API**: Lockscreen controls and system audio metadata binding (`src/utils/mediaSession.test.ts`)
+* **Form & Address Validation**: StrKey checksum validation, 10,000 basis points checks, and secret key entry warnings (`src/utils/validators.test.ts`)
+* **Search & Filters**: Multi-attribute filtering and play count sorting (`src/utils/searchFilter.test.ts`)
+* **Audio Gain & Formatting**: Decibel scaling, duration formatting, and balance normalization (`src/utils/audioGain.test.ts`, `src/utils/formatters.test.ts`, `src/utils/timeFormat.test.ts`)
+* **PWA & Network Probes**: Offline banner, service worker triggers, and latency estimation (`src/components/PwaInstallBanner.test.tsx`, `src/components/NetworkLatencyIndicator.test.tsx`, `src/services/toast.test.ts`)
 
 ---
 
