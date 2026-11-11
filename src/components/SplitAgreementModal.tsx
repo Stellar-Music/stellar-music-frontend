@@ -3,7 +3,17 @@ import { SplitAgreement, SplitContributor, Track } from '../types';
 import { api } from '../services/api';
 import { stellarClient } from '../services/stellar';
 import { useWallet } from '../context/WalletContext';
-import { X, Lock, CheckCircle2, Clock, ShieldCheck, AlertCircle, Loader2, Copy, Check } from 'lucide-react';
+import {
+  X,
+  Lock,
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  AlertCircle,
+  Loader2,
+  Copy,
+  Check,
+} from 'lucide-react';
 import { SignatureStatusBadge, ContributorSignPill } from './SignatureStatusBadge';
 import { RoyaltyBar } from './RoyaltyBar';
 
@@ -13,7 +23,11 @@ interface SplitAgreementModalProps {
   onAgreementUpdated: () => void;
 }
 
-export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track, onClose, onAgreementUpdated }) => {
+export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({
+  track,
+  onClose,
+  onAgreementUpdated,
+}) => {
   const { address, walletType, keypair } = useWallet();
 
   const [agreement, setAgreement] = useState<SplitAgreement | null>(null);
@@ -82,17 +96,19 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
   const isLocked = agreement?.status === 'LOCKED';
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 65,
-      backgroundColor: 'rgba(5, 7, 15, 0.85)',
-      backdropFilter: 'blur(12px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 65,
+        backgroundColor: 'rgba(5, 7, 15, 0.85)',
+        backdropFilter: 'blur(12px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+      }}
+    >
       <div
         className="glass-panel"
         style={{
@@ -123,25 +139,38 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
 
         {loading ? (
           <div style={{ padding: '60px', textAlign: 'center' }}>
-            <Loader2 size={32} style={{ animation: 'spin 1.5s linear infinite', margin: '0 auto 12px', color: 'var(--accent-cyan)' }} />
+            <Loader2
+              size={32}
+              style={{
+                animation: 'spin 1.5s linear infinite',
+                margin: '0 auto 12px',
+                color: 'var(--accent-cyan)',
+              }}
+            />
             <p style={{ color: 'var(--text-secondary)' }}>Loading agreement terms...</p>
           </div>
         ) : !agreement ? (
           <div style={{ padding: '40px', textAlign: 'center' }}>
             <AlertCircle size={36} color="var(--accent-amber)" style={{ margin: '0 auto 12px' }} />
-            <p style={{ color: 'var(--text-secondary)' }}>No revenue split agreement found for this track.</p>
+            <p style={{ color: 'var(--text-secondary)' }}>
+              No revenue split agreement found for this track.
+            </p>
           </div>
         ) : (
           <div>
             {/* Agreement Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-              <div style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                flexShrink: 0,
-              }}>
+            <div
+              style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}
+            >
+              <div
+                style={{
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  flexShrink: 0,
+                }}
+              >
                 <img
                   src={track.artwork_reference}
                   alt={track.title}
@@ -150,7 +179,9 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
               </div>
 
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}
+                >
                   <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>{track.title}</h2>
                   <span className="badge badge-testnet" style={{ fontSize: '0.72rem' }}>
                     v{agreement.version}
@@ -170,26 +201,30 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
 
             {/* Lock Status Banner */}
             {isLocked ? (
-              <div style={{
-                padding: '16px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                border: '1px solid rgba(16, 185, 129, 0.4)',
-                color: '#a7f3d0',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-              }}>
-                <div style={{
-                  width: '36px',
-                  height: '36px',
-                  borderRadius: '50%',
-                  background: 'rgba(16, 185, 129, 0.25)',
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                  border: '1px solid rgba(16, 185, 129, 0.4)',
+                  color: '#a7f3d0',
+                  marginBottom: '20px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+                  gap: '12px',
+                }}
+              >
+                <div
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '50%',
+                    background: 'rgba(16, 185, 129, 0.25)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Lock size={18} color="var(--accent-emerald)" />
                 </div>
                 <div>
@@ -202,47 +237,72 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                 </div>
               </div>
             ) : (
-              <div style={{
-                padding: '14px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'rgba(245, 158, 11, 0.12)',
-                border: '1px solid rgba(245, 158, 11, 0.35)',
-                color: '#fde68a',
-                marginBottom: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-              }}>
+              <div
+                style={{
+                  padding: '14px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                  border: '1px solid rgba(245, 158, 11, 0.35)',
+                  color: '#fde68a',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                }}
+              >
                 <Clock size={18} color="var(--accent-amber)" />
                 <div style={{ fontSize: '0.84rem' }}>
-                  Awaiting signatures from participating contributors ({contributors.filter(c => c.has_signed).length}/{contributors.length} signed)
+                  Awaiting signatures from participating contributors (
+                  {contributors.filter((c) => c.has_signed).length}/{contributors.length} signed)
                 </div>
               </div>
             )}
 
             {/* Deterministic Hash Card */}
-            <div style={{
-              padding: '12px 14px',
-              borderRadius: 'var(--radius-sm)',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--border-subtle)',
-              marginBottom: '20px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
+            <div
+              style={{
+                padding: '12px 14px',
+                borderRadius: 'var(--radius-sm)',
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid var(--border-subtle)',
+                marginBottom: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Deterministic Agreement Hash (SHA-256)</div>
-                <div style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'var(--accent-cyan)', marginTop: '2px' }}>
-                  {agreement.agreement_hash.substring(0, 16)}...{agreement.agreement_hash.substring(agreement.agreement_hash.length - 16)}
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                  Deterministic Agreement Hash (SHA-256)
+                </div>
+                <div
+                  style={{
+                    fontFamily: 'monospace',
+                    fontSize: '0.78rem',
+                    color: 'var(--accent-cyan)',
+                    marginTop: '2px',
+                  }}
+                >
+                  {agreement.agreement_hash.substring(0, 16)}...
+                  {agreement.agreement_hash.substring(agreement.agreement_hash.length - 16)}
                 </div>
               </div>
               <button
                 onClick={handleCopyHash}
-                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '6px' }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-secondary)',
+                  cursor: 'pointer',
+                  padding: '6px',
+                }}
                 title="Copy hash"
               >
-                {copiedHash ? <Check size={16} color="var(--accent-emerald)" /> : <Copy size={16} />}
+                {copiedHash ? (
+                  <Check size={16} color="var(--accent-emerald)" />
+                ) : (
+                  <Copy size={16} />
+                )}
               </button>
             </div>
 
@@ -253,7 +313,14 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
 
             {/* Contributor List Table */}
             <div style={{ marginBottom: '24px' }}>
-              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '10px', color: 'var(--text-secondary)' }}>
+              <h3
+                style={{
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
+                  marginBottom: '10px',
+                  color: 'var(--text-secondary)',
+                }}
+              >
                 Contributor Allocation Breakdown
               </h3>
 
@@ -273,24 +340,38 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                   >
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{c.display_name}</span>
-                        <span style={{
-                          fontSize: '0.7rem',
-                          padding: '2px 8px',
-                          borderRadius: '4px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                          color: 'var(--text-secondary)',
-                        }}>
+                        <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>
+                          {c.display_name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '0.7rem',
+                            padding: '2px 8px',
+                            borderRadius: '4px',
+                            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
                           {c.role}
                         </span>
                       </div>
-                      <div style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: 'var(--text-muted)', marginTop: '2px' }}>
-                        {c.wallet_address.substring(0, 6)}...{c.wallet_address.substring(c.wallet_address.length - 6)}
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          fontFamily: 'monospace',
+                          color: 'var(--text-muted)',
+                          marginTop: '2px',
+                        }}
+                      >
+                        {c.wallet_address.substring(0, 6)}...
+                        {c.wallet_address.substring(c.wallet_address.length - 6)}
                       </div>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-cyan)' }}>
+                      <span
+                        style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-cyan)' }}
+                      >
                         {c.percentage}%
                       </span>
 
@@ -300,20 +381,26 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
                 ))}
 
                 {/* Total Allocation Footer */}
-                <div style={{
-                  padding: '12px 16px',
-                  borderRadius: 'var(--radius-sm)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid var(--border-subtle)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: '4px',
-                }}>
-                  <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                <div
+                  style={{
+                    padding: '12px 16px',
+                    borderRadius: 'var(--radius-sm)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    border: '1px solid var(--border-subtle)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginTop: '4px',
+                  }}
+                >
+                  <span
+                    style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-secondary)' }}
+                  >
                     Total Allocation
                   </span>
-                  <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
+                  <span
+                    style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--accent-emerald)' }}
+                  >
                     100%
                   </span>
                 </div>
@@ -322,68 +409,108 @@ export const SplitAgreementModal: React.FC<SplitAgreementModalProps> = ({ track,
 
             {/* Locked Agreement Metadata Card */}
             {isLocked && (
-              <div style={{
-                padding: '16px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                marginBottom: '20px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-                fontSize: '0.82rem',
-              }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                  marginBottom: '20px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  fontSize: '0.82rem',
+                }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: 'var(--text-muted)' }}>Agreement ID:</span>
-                  <span style={{ fontFamily: 'monospace', color: 'var(--text-secondary)' }}>{agreement.id}</span>
+                  <span style={{ fontFamily: 'monospace', color: 'var(--text-secondary)' }}>
+                    {agreement.id}
+                  </span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: 'var(--text-muted)' }}>Locked Date:</span>
                   <span style={{ color: 'var(--text-secondary)' }}>
-                    {agreement.locked_at ? new Date(agreement.locked_at).toLocaleString() : 'Confirmed'}
+                    {agreement.locked_at
+                      ? new Date(agreement.locked_at).toLocaleString()
+                      : 'Confirmed'}
                   </span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: 'var(--text-muted)' }}>Automated Settlement Readiness:</span>
-                  <span style={{ color: 'var(--accent-emerald)', fontWeight: 600 }}>Ready for Revenue Settlement</span>
+                  <span style={{ color: 'var(--text-muted)' }}>
+                    Automated Settlement Readiness:
+                  </span>
+                  <span style={{ color: 'var(--accent-emerald)', fontWeight: 600 }}>
+                    Ready for Revenue Settlement
+                  </span>
                 </div>
               </div>
             )}
 
             {error && (
-              <div style={{
-                padding: '10px 14px',
-                borderRadius: 'var(--radius-sm)',
-                backgroundColor: 'rgba(244, 63, 94, 0.15)',
-                color: '#fca5a5',
-                fontSize: '0.82rem',
-                marginBottom: '16px',
-              }}>
+              <div
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'rgba(244, 63, 94, 0.15)',
+                  color: '#fca5a5',
+                  fontSize: '0.82rem',
+                  marginBottom: '16px',
+                }}
+              >
                 {error}
               </div>
             )}
 
             {/* Contributor Signature Action */}
             {!isLocked && userContributor && (
-              <div style={{
-                padding: '16px',
-                borderRadius: 'var(--radius-md)',
-                backgroundColor: 'rgba(0, 242, 254, 0.06)',
-                border: '1px solid rgba(0, 242, 254, 0.3)',
-                marginBottom: '16px',
-              }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'rgba(0, 242, 254, 0.06)',
+                  border: '1px solid rgba(0, 242, 254, 0.3)',
+                  marginBottom: '16px',
+                }}
+              >
                 {userHasSigned ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-emerald)', fontSize: '0.88rem', fontWeight: 600 }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      color: 'var(--accent-emerald)',
+                      fontSize: '0.88rem',
+                      fontWeight: 600,
+                    }}
+                  >
                     <CheckCircle2 size={18} />
-                    <span>You have approved this agreement. Waiting for remaining contributors.</span>
+                    <span>
+                      You have approved this agreement. Waiting for remaining contributors.
+                    </span>
                   </div>
                 ) : (
                   <div>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '6px' }}>
-                      Action Required: You are allocated {userContributor.percentage}% as {userContributor.role}
+                    <div
+                      style={{
+                        fontSize: '0.88rem',
+                        fontWeight: 600,
+                        color: 'var(--text-primary)',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      Action Required: You are allocated {userContributor.percentage}% as{' '}
+                      {userContributor.role}
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '14px' }}>
-                      By signing, you cryptographically authorize this exact revenue split agreement terms on Stellar Testnet.
+                    <div
+                      style={{
+                        fontSize: '0.78rem',
+                        color: 'var(--text-muted)',
+                        marginBottom: '14px',
+                      }}
+                    >
+                      By signing, you cryptographically authorize this exact revenue split agreement
+                      terms on Stellar Testnet.
                     </div>
                     <button
                       onClick={handleSign}

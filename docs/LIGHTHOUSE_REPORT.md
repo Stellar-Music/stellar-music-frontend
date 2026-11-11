@@ -8,25 +8,25 @@ The **Stellar Music** web client was audited using Google Chrome Lighthouse (v12
 
 ## 2. Lighthouse Category Scores
 
-| Category | Desktop Score | Mobile Score | Benchmark Target | Status |
-| :--- | :---: | :---: | :---: | :---: |
-| **Performance** | **98 / 100** | **94 / 100** | $\ge 90$ | ✅ Optimal |
-| **Accessibility** | **100 / 100** | **100 / 100** | $\ge 95$ | ✅ Flawless |
-| **Best Practices**| **100 / 100** | **100 / 100** | $\ge 95$ | ✅ Flawless |
-| **SEO** | **100 / 100** | **100 / 100** | $\ge 90$ | ✅ Flawless |
-| **PWA** | **Validated** | **Validated** | Installable | ✅ Certified |
+| Category           | Desktop Score | Mobile Score  | Benchmark Target |    Status    |
+| :----------------- | :-----------: | :-----------: | :--------------: | :----------: |
+| **Performance**    | **98 / 100**  | **94 / 100**  |     $\ge 90$     |  ✅ Optimal  |
+| **Accessibility**  | **100 / 100** | **100 / 100** |     $\ge 95$     | ✅ Flawless  |
+| **Best Practices** | **100 / 100** | **100 / 100** |     $\ge 95$     | ✅ Flawless  |
+| **SEO**            | **100 / 100** | **100 / 100** |     $\ge 90$     | ✅ Flawless  |
+| **PWA**            | **Validated** | **Validated** |   Installable    | ✅ Certified |
 
 ---
 
 ## 3. Core Web Vitals Metrics
 
-| Web Vital Metric | Measured Value | Google Recommended Good Threshold | Status |
-| :--- | :---: | :---: | :---: |
-| **First Contentful Paint (FCP)** | **0.6 s** | $\le 1.8\text{ s}$ | ✅ Fast |
-| **Largest Contentful Paint (LCP)**| **1.1 s** | $\le 2.5\text{ s}$ | ✅ Fast |
-| **Total Blocking Time (TBT)** | **10 ms** | $\le 200\text{ ms}$ | ✅ Negligible |
-| **Cumulative Layout Shift (CLS)** | **0.000** | $\le 0.10$ | ✅ Zero Shift |
-| **Speed Index** | **0.9 s** | $\le 3.4\text{ s}$ | ✅ Fast |
+| Web Vital Metric                   | Measured Value | Google Recommended Good Threshold |    Status     |
+| :--------------------------------- | :------------: | :-------------------------------: | :-----------: |
+| **First Contentful Paint (FCP)**   |   **0.6 s**    |        $\le 1.8\text{ s}$         |    ✅ Fast    |
+| **Largest Contentful Paint (LCP)** |   **1.1 s**    |        $\le 2.5\text{ s}$         |    ✅ Fast    |
+| **Total Blocking Time (TBT)**      |   **10 ms**    |        $\le 200\text{ ms}$        | ✅ Negligible |
+| **Cumulative Layout Shift (CLS)**  |   **0.000**    |            $\le 0.10$             | ✅ Zero Shift |
+| **Speed Index**                    |   **0.9 s**    |        $\le 3.4\text{ s}$         |    ✅ Fast    |
 
 ---
 

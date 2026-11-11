@@ -43,8 +43,7 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
 
   const handleSettle = async () => {
     if (!data) return;
-    const pendingAmount =
-      data.locked_agreement ? Math.max(0, 10 - data.total_settled_xlm) : 0; // or any remaining amount
+    const pendingAmount = data.locked_agreement ? Math.max(0, 10 - data.total_settled_xlm) : 0; // or any remaining amount
     setIsSettling(true);
     setSettleResult(null);
     try {
@@ -116,7 +115,9 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
             <PieChart size={26} color="#070913" />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>Track Revenue & Settlement Audit</h2>
+            <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>
+              Track Revenue & Settlement Audit
+            </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
               On-chain split verification and automated multi-recipient settlement ledger
             </p>
@@ -186,7 +187,9 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                 style={{ width: '56px', height: '56px', borderRadius: '10px', objectFit: 'cover' }}
               />
               <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '2px' }}>{data.track.title}</h3>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '2px' }}>
+                  {data.track.title}
+                </h3>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                   Artist: {data.track.artist_name || 'Independent'} • ID: {data.track.id}
                 </p>
@@ -248,11 +251,16 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                   border: '1px solid rgba(0, 242, 254, 0.2)',
                 }}
               >
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                <div
+                  style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}
+                >
                   Total Settled on Stellar
                 </div>
-                <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-emerald)' }}>
-                  {data.total_settled_xlm.toFixed(4)} <span style={{ fontSize: '0.9rem' }}>XLM</span>
+                <div
+                  style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent-emerald)' }}
+                >
+                  {data.total_settled_xlm.toFixed(4)}{' '}
+                  <span style={{ fontSize: '0.9rem' }}>XLM</span>
                 </div>
               </div>
 
@@ -264,11 +272,14 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                   border: '1px solid rgba(168, 85, 247, 0.2)',
                 }}
               >
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                <div
+                  style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}
+                >
                   Settlement Events
                 </div>
                 <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fff' }}>
-                  {data.settlement_count} <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>runs</span>
+                  {data.settlement_count}{' '}
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>runs</span>
                 </div>
               </div>
 
@@ -280,7 +291,9 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                   border: '1px solid rgba(245, 158, 11, 0.2)',
                 }}
               >
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                <div
+                  style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '4px' }}
+                >
                   Active Collaborators
                 </div>
                 <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fff' }}>
@@ -293,9 +306,24 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
             {/* Split Agreement Breakdown Table */}
             {data.locked_agreement && (
               <div style={{ marginBottom: '24px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Active Split Agreement Allocation</h4>
-                  <span style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '8px',
+                  }}
+                >
+                  <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>
+                    Active Split Agreement Allocation
+                  </h4>
+                  <span
+                    style={{
+                      fontFamily: 'monospace',
+                      fontSize: '0.75rem',
+                      color: 'var(--text-muted)',
+                    }}
+                  >
                     Hash: {data.locked_agreement.agreement_hash.substring(0, 16)}...
                   </span>
                 </div>
@@ -342,11 +370,26 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                               </span>
                             )}
                           </td>
-                          <td style={{ padding: '10px 14px', fontFamily: 'monospace', color: 'var(--text-muted)' }}>
-                            {c.wallet_address.substring(0, 10)}...{c.wallet_address.substring(c.wallet_address.length - 6)}
+                          <td
+                            style={{
+                              padding: '10px 14px',
+                              fontFamily: 'monospace',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
+                            {c.wallet_address.substring(0, 10)}...
+                            {c.wallet_address.substring(c.wallet_address.length - 6)}
                           </td>
-                          <td style={{ padding: '10px 14px', textAlign: 'right', fontWeight: 600 }}>{c.percentage}%</td>
-                          <td style={{ padding: '10px 14px', textAlign: 'right', color: 'var(--text-muted)' }}>
+                          <td style={{ padding: '10px 14px', textAlign: 'right', fontWeight: 600 }}>
+                            {c.percentage}%
+                          </td>
+                          <td
+                            style={{
+                              padding: '10px 14px',
+                              textAlign: 'right',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
                             {c.share_basis_points} bps
                           </td>
                         </tr>
@@ -356,7 +399,8 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                 </div>
 
                 <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '6px' }}>
-                  * Invariant: Remainder stroops from integer division (1 XLM = 10,000,000 stroops) are assigned to recipient #1. Zero rounding leak.
+                  * Invariant: Remainder stroops from integer division (1 XLM = 10,000,000 stroops)
+                  are assigned to recipient #1. Zero rounding leak.
                 </p>
               </div>
             )}
@@ -415,7 +459,14 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                       }}
                     >
                       <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            marginBottom: '2px',
+                          }}
+                        >
                           <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>
                             {s.gross_amount.toFixed(4)} XLM Distributed
                           </span>
@@ -433,7 +484,8 @@ export const TrackRevenueModal: React.FC<TrackRevenueModalProps> = ({ trackId, o
                           </span>
                         </div>
                         <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                          {new Date(s.created_at).toLocaleString()} • Agreement v{s.agreement_version}
+                          {new Date(s.created_at).toLocaleString()} • Agreement v
+                          {s.agreement_version}
                         </span>
                       </div>
 

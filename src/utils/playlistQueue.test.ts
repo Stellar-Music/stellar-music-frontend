@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  getNextTrackIndex,
-  getPreviousTrackIndex,
-  shuffleArray,
-} from './playlistQueue';
+import { getNextTrackIndex, getPreviousTrackIndex, shuffleArray } from './playlistQueue';
 
 describe('Playlist Queue Management Utility', () => {
   it('increments index when playing next track in standard mode', () => {

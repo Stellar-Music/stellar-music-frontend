@@ -18,7 +18,9 @@ vi.mock('../services/stellar', () => {
   return {
     stellarClient: {
       isFreighterInstalled: vi.fn().mockResolvedValue(true),
-      connectFreighter: vi.fn().mockResolvedValue('GBCG2X7MBTQFBHCYJ4UQSZ7XSZR7L4TUQIVA624SCLDLUF23MABAPIPG'),
+      connectFreighter: vi
+        .fn()
+        .mockResolvedValue('GBCG2X7MBTQFBHCYJ4UQSZ7XSZR7L4TUQIVA624SCLDLUF23MABAPIPG'),
       getOrCreateDemoKeypair: vi.fn().mockReturnValue({
         publicKey: () => 'GBCG2X7MBTQFBHCYJ4UQSZ7XSZR7L4TUQIVA624SCLDLUF23MABAPIPG',
         secret: () => 'SCZANGBA5YHTNYVVV4C3U252E2B6P6F5T3U64MM6CSFTN2YR7C2OJ3GV',

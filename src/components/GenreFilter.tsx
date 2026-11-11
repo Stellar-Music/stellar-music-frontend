@@ -11,7 +11,7 @@ export const AVAILABLE_GENRES = [
   'Jazz',
 ] as const;
 
-export type GenreType = typeof AVAILABLE_GENRES[number];
+export type GenreType = (typeof AVAILABLE_GENRES)[number];
 
 interface GenreFilterProps {
   selectedGenre: string;

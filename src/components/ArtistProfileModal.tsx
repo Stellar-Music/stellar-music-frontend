@@ -118,7 +118,9 @@ export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
-              <span style={{ fontSize: '0.8rem', fontFamily: 'monospace', color: 'var(--text-muted)' }}>
+              <span
+                style={{ fontSize: '0.8rem', fontFamily: 'monospace', color: 'var(--text-muted)' }}
+              >
                 {truncateAddress(artist.wallet_address, 8, 6)}
               </span>
               <CopyButton text={artist.wallet_address} size={13} title="Copy artist wallet" />
@@ -151,18 +153,51 @@ export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
             marginBottom: '20px',
           }}
         >
-          <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-muted)', fontWeight: 700, display: 'block', marginBottom: '6px' }}>
+          <span
+            style={{
+              fontSize: '0.78rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              color: 'var(--text-muted)',
+              fontWeight: 700,
+              display: 'block',
+              marginBottom: '6px',
+            }}
+          >
             Artist Biography
           </span>
-          <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-            {artist.bio || `${artist.display_name} is an independent audio creator distributing verifiable music passes and automated revenue splits on Stellar.`}
+          <p
+            style={{
+              fontSize: '0.88rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.6,
+              margin: 0,
+            }}
+          >
+            {artist.bio ||
+              `${artist.display_name} is an independent audio creator distributing verifiable music passes and automated revenue splits on Stellar.`}
           </p>
         </div>
 
         {/* Catalog Showcase */}
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '12px',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '0.85rem',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
               <Music2 size={16} color="var(--accent-cyan)" />
               <span>Catalog Releases ({artistTracks.length})</span>
             </span>
@@ -190,7 +225,15 @@ export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
                     <Disc3 size={18} color="var(--accent-cyan)" style={{ flexShrink: 0 }} />
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontWeight: 600, fontSize: '0.88rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <div
+                        style={{
+                          fontWeight: 600,
+                          fontSize: '0.88rem',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
                         {t.title}
                       </div>
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
@@ -207,7 +250,13 @@ export const ArtistProfileModal: React.FC<ArtistProfileModalProps> = ({
                           onClose();
                         }}
                         className="btn btn-primary btn-sm"
-                        style={{ padding: '4px 10px', fontSize: '0.74rem', display: 'flex', alignItems: 'center', gap: '4px' }}
+                        style={{
+                          padding: '4px 10px',
+                          fontSize: '0.74rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                        }}
                       >
                         <Play size={12} />
                         <span>Play</span>

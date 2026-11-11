@@ -75,47 +75,50 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setUnlockedTrackIds((prev) => new Set(prev).add(trackId));
   };
 
-  const playTrackInternal = useCallback(async (track: Track) => {
-    if (!audioRef.current) return;
-    setError(null);
-    setIsLoading(true);
+  const playTrackInternal = useCallback(
+    async (track: Track) => {
+      if (!audioRef.current) return;
+      setError(null);
+      setIsLoading(true);
 
-    if (currentSessionIdRef.current) {
-      api.endStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
-      currentSessionIdRef.current = null;
-    }
-
-    let streamUrl: string;
-    if (track.audio_reference.startsWith('http')) {
-      streamUrl = track.audio_reference;
-    } else {
-      const walletParam = address ? `?wallet=${encodeURIComponent(address)}` : '';
-      streamUrl = `/api/tracks/${track.id}/stream${walletParam}`;
-    }
-
-    audioRef.current.src = streamUrl;
-    audioRef.current.playbackRate = playbackRateRef.current;
-    setCurrentTrack(track);
-    playbackSecondsRef.current = 0;
-
-    try {
-      await audioRef.current.play();
-      setIsPlaying(true);
-
-      if (address) {
-        try {
-          const session = await api.startStream(track.id, address);
-          currentSessionIdRef.current = session.id;
-        } catch {
-          // ignore session recording error
-        }
+      if (currentSessionIdRef.current) {
+        api.endStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
+        currentSessionIdRef.current = null;
       }
-    } catch {
-      setIsPlaying(false);
-      setIsLoading(false);
-      setError('Playback failed. A valid Music Pass may be required.');
-    }
-  }, [address]);
+
+      let streamUrl: string;
+      if (track.audio_reference.startsWith('http')) {
+        streamUrl = track.audio_reference;
+      } else {
+        const walletParam = address ? `?wallet=${encodeURIComponent(address)}` : '';
+        streamUrl = `/api/tracks/${track.id}/stream${walletParam}`;
+      }
+
+      audioRef.current.src = streamUrl;
+      audioRef.current.playbackRate = playbackRateRef.current;
+      setCurrentTrack(track);
+      playbackSecondsRef.current = 0;
+
+      try {
+        await audioRef.current.play();
+        setIsPlaying(true);
+
+        if (address) {
+          try {
+            const session = await api.startStream(track.id, address);
+            currentSessionIdRef.current = session.id;
+          } catch {
+            // ignore session recording error
+          }
+        }
+      } catch {
+        setIsPlaying(false);
+        setIsLoading(false);
+        setError('Playback failed. A valid Music Pass may be required.');
+      }
+    },
+    [address]
+  );
 
   const playTrack = async (track: Track, newQueue?: Track[]) => {
     if (newQueue && newQueue.length > 0) {
@@ -234,7 +237,10 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
       if (loopModeRef.current === 'one' && audioRef.current) {
         audioRef.current.currentTime = 0;
-        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+        audioRef.current
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
       } else {
         nextTrack();
       }
@@ -268,7 +274,9 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (isPlaying && currentSessionIdRef.current) {
       heartbeatTimerRef.current = setInterval(() => {
         if (currentSessionIdRef.current) {
-          api.heartbeatStream(currentSessionIdRef.current, playbackSecondsRef.current).catch(() => {});
+          api
+            .heartbeatStream(currentSessionIdRef.current, playbackSecondsRef.current)
+            .catch(() => {});
         }
       }, 10000);
     } else {
@@ -295,7 +303,10 @@ export const PlayerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         currentSessionIdRef.current = null;
       }
     } else {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      audioRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
     }
   };
 

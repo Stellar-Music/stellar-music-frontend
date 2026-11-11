@@ -38,7 +38,8 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             <h3 className="text-lg font-semibold text-white">Something went wrong</h3>
             <p className="text-xs text-slate-400">
-              {this.state.error?.message || 'An unexpected rendering error occurred in the application.'}
+              {this.state.error?.message ||
+                'An unexpected rendering error occurred in the application.'}
             </p>
             <button
               onClick={() => {

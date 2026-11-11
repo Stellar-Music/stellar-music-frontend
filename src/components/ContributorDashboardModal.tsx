@@ -205,8 +205,14 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
               {(
                 [
                   { id: 'all', label: `All (${allSplits.length})` },
-                  { id: 'pending_mine', label: `Awaiting My Signature (${mySplitsData.awaiting_my_signature.length})` },
-                  { id: 'pending_others', label: `Awaiting Others (${mySplitsData.awaiting_others.length})` },
+                  {
+                    id: 'pending_mine',
+                    label: `Awaiting My Signature (${mySplitsData.awaiting_my_signature.length})`,
+                  },
+                  {
+                    id: 'pending_others',
+                    label: `Awaiting Others (${mySplitsData.awaiting_others.length})`,
+                  },
                   { id: 'locked', label: `Locked & Ready (${mySplitsData.locked.length})` },
                 ] as const
               ).map((f) => (
@@ -218,7 +224,8 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
                     borderRadius: '20px',
                     border: '1px solid',
                     borderColor: filter === f.id ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-                    backgroundColor: filter === f.id ? 'rgba(0, 242, 254, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                    backgroundColor:
+                      filter === f.id ? 'rgba(0, 242, 254, 0.1)' : 'rgba(255, 255, 255, 0.02)',
                     color: filter === f.id ? 'var(--accent-cyan)' : 'var(--text-secondary)',
                     fontSize: '0.78rem',
                     cursor: 'pointer',
@@ -231,8 +238,17 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
 
             {loading ? (
               <div style={{ padding: '40px', textAlign: 'center' }}>
-                <Loader2 size={28} style={{ animation: 'spin 1.5s linear infinite', margin: '0 auto 8px', color: 'var(--accent-cyan)' }} />
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Loading split agreements...</p>
+                <Loader2
+                  size={28}
+                  style={{
+                    animation: 'spin 1.5s linear infinite',
+                    margin: '0 auto 8px',
+                    color: 'var(--accent-cyan)',
+                  }}
+                />
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+                  Loading split agreements...
+                </p>
               </div>
             ) : !isConnected ? (
               <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
@@ -294,14 +310,26 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
                         </div>
                         <div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>{item.track_title}</span>
+                            <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>
+                              {item.track_title}
+                            </span>
                             <span className="badge badge-testnet" style={{ fontSize: '0.7rem' }}>
                               v{item.version}
                             </span>
                           </div>
-                          <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-                            Role: <strong style={{ color: 'var(--text-secondary)' }}>{item.role}</strong> • Share:{' '}
-                            <strong style={{ color: 'var(--accent-cyan)' }}>{item.percentage}%</strong>
+                          <div
+                            style={{
+                              fontSize: '0.78rem',
+                              color: 'var(--text-muted)',
+                              marginTop: '2px',
+                            }}
+                          >
+                            Role:{' '}
+                            <strong style={{ color: 'var(--text-secondary)' }}>{item.role}</strong>{' '}
+                            • Share:{' '}
+                            <strong style={{ color: 'var(--accent-cyan)' }}>
+                              {item.percentage}%
+                            </strong>
                           </div>
                         </div>
                       </div>
@@ -309,17 +337,26 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
                       {/* Status badge */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         {isLocked ? (
-                          <span className="badge badge-pass-granted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span
+                            className="badge badge-pass-granted"
+                            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+                          >
                             <Lock size={12} />
                             <span>LOCKED</span>
                           </span>
                         ) : item.has_signed ? (
-                          <span className="badge badge-pass-granted" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span
+                            className="badge badge-pass-granted"
+                            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+                          >
                             <CheckCircle2 size={12} />
                             <span>Signed (Awaiting Others)</span>
                           </span>
                         ) : (
-                          <span className="badge badge-pass-needed" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span
+                            className="badge badge-pass-needed"
+                            style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
+                          >
                             <Clock size={12} />
                             <span>Awaiting My Signature</span>
                           </span>
@@ -373,7 +410,11 @@ export const ContributorDashboardModal: React.FC<ContributorDashboardModalProps>
                         flexShrink: 0,
                       }}
                     >
-                      <img src={t.artwork_reference} alt={t.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img
+                        src={t.artwork_reference}
+                        alt={t.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
                     </div>
                     <div>
                       <div style={{ fontWeight: 700, fontSize: '0.95rem' }}>{t.title}</div>

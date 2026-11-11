@@ -381,7 +381,9 @@ export const AudioPlayerBar: React.FC = () => {
         </div>
 
         {/* Right: Volume & Shortcuts Hint */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '12px' }}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '12px' }}
+        >
           {error && (
             <div
               style={{
@@ -394,7 +396,14 @@ export const AudioPlayerBar: React.FC = () => {
               title={error}
             >
               <AlertCircle size={15} />
-              <span style={{ maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <span
+                style={{
+                  maxWidth: '140px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
                 Pass Required
               </span>
             </div>
@@ -451,7 +460,8 @@ export const AudioPlayerBar: React.FC = () => {
             className="btn-icon"
             title={`Playback rate: ${playbackRate}x (click to change)`}
             style={{
-              background: playbackRate !== 1.0 ? 'rgba(0, 242, 254, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+              background:
+                playbackRate !== 1.0 ? 'rgba(0, 242, 254, 0.15)' : 'rgba(255, 255, 255, 0.05)',
               border: `1px solid ${playbackRate !== 1.0 ? 'var(--accent-cyan)' : 'var(--border-subtle)'}`,
               borderRadius: '4px',
               color: playbackRate !== 1.0 ? 'var(--accent-cyan)' : 'var(--text-secondary)',

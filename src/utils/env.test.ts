@@ -26,9 +26,9 @@ describe('Environment Validator (validateAndLoadConfig)', () => {
   });
 
   it('rejects invalid stellar network values', () => {
-    expect(() =>
-      validateAndLoadConfig({ VITE_STELLAR_NETWORK: 'ethereum' })
-    ).toThrow('Invalid VITE_STELLAR_NETWORK');
+    expect(() => validateAndLoadConfig({ VITE_STELLAR_NETWORK: 'ethereum' })).toThrow(
+      'Invalid VITE_STELLAR_NETWORK'
+    );
   });
 
   it('rejects invalid horizon URLs without protocol', () => {

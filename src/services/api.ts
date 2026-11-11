@@ -1,25 +1,77 @@
-import { Track, Artist, MusicPass, StreamingSession, SplitAgreement, SplitContributor, SplitSignature, AgreementEvent, ContributorInput } from '../types';
+import {
+  Track,
+  Artist,
+  MusicPass,
+  StreamingSession,
+  SplitAgreement,
+  SplitContributor,
+  SplitSignature,
+  AgreementEvent,
+  ContributorInput,
+} from '../types';
+import { FALLBACK_ARTISTS, FALLBACK_TRACKS } from '../data/fallbackTracks';
 
 const API_BASE = '/api';
+
+function filterFallbackTracks(params: { genre?: string; search?: string } = {}): Track[] {
+  let list = [...FALLBACK_TRACKS];
+  if (params.genre && params.genre !== 'All') {
+    list = list.filter((t) => t.genre?.toLowerCase() === params.genre?.toLowerCase());
+  }
+  if (params.search) {
+    const q = params.search.toLowerCase();
+    list = list.filter(
+      (t) =>
+        t.title.toLowerCase().includes(q) ||
+        (t.artist_name && t.artist_name.toLowerCase().includes(q)) ||
+        (t.description && t.description.toLowerCase().includes(q))
+    );
+  }
+  return list;
+}
 
 export const api = {
   // Tracks
   async getTracks(params: { genre?: string; search?: string } = {}): Promise<Track[]> {
-    const query = new URLSearchParams();
-    if (params.genre) query.append('genre', params.genre);
-    if (params.search) query.append('search', params.search);
-    const res = await fetch(`${API_BASE}/tracks?${query.toString()}`);
-    const data = await res.json();
-    return data.data || [];
+    try {
+      const query = new URLSearchParams();
+      if (params.genre) query.append('genre', params.genre);
+      if (params.search) query.append('search', params.search);
+      const res = await fetch(`${API_BASE}/tracks?${query.toString()}`);
+      if (!res.ok) return filterFallbackTracks(params);
+      const contentType = res.headers.get('content-type');
+      if (contentType && !contentType.includes('application/json')) {
+        return filterFallbackTracks(params);
+      }
+      const data = await res.json();
+      if (Array.isArray(data.data) && data.data.length > 0) {
+        return data.data;
+      }
+      return filterFallbackTracks(params);
+    } catch {
+      return filterFallbackTracks(params);
+    }
   },
 
   async getTrackById(id: string): Promise<Track> {
-    const res = await fetch(`${API_BASE}/tracks/${id}`);
-    const data = await res.json();
-    return data.data;
+    try {
+      const res = await fetch(`${API_BASE}/tracks/${id}`);
+      if (!res.ok) {
+        const fallback = FALLBACK_TRACKS.find((t) => t.id === id);
+        if (fallback) return fallback;
+      }
+      const data = await res.json();
+      return data.data || FALLBACK_TRACKS.find((t) => t.id === id);
+    } catch {
+      const fallback = FALLBACK_TRACKS.find((t) => t.id === id);
+      if (fallback) return fallback;
+      throw new Error(`Track ${id} not found`);
+    }
   },
 
-  async uploadMedia(formData: FormData): Promise<{ audio_reference: string; artwork_reference: string }> {
+  async uploadMedia(
+    formData: FormData
+  ): Promise<{ audio_reference: string; artwork_reference: string }> {
     const res = await fetch(`${API_BASE}/tracks/upload`, {
       method: 'POST',
       body: formData,
@@ -42,12 +94,25 @@ export const api = {
 
   // Artists
   async getArtists(): Promise<Artist[]> {
-    const res = await fetch(`${API_BASE}/artists`);
-    const data = await res.json();
-    return data.data || [];
+    try {
+      const res = await fetch(`${API_BASE}/artists`);
+      if (!res.ok) return FALLBACK_ARTISTS;
+      const contentType = res.headers.get('content-type');
+      if (contentType && !contentType.includes('application/json')) {
+        return FALLBACK_ARTISTS;
+      }
+      const data = await res.json();
+      return Array.isArray(data.data) && data.data.length > 0 ? data.data : FALLBACK_ARTISTS;
+    } catch {
+      return FALLBACK_ARTISTS;
+    }
   },
 
-  async createArtist(payload: { wallet_address: string; display_name: string; bio?: string }): Promise<Artist> {
+  async createArtist(payload: {
+    wallet_address: string;
+    display_name: string;
+    bio?: string;
+  }): Promise<Artist> {
     const res = await fetch(`${API_BASE}/artists`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -155,7 +220,9 @@ export const api = {
     return data.data || [];
   },
 
-  async getActiveLockedSplit(trackId: string): Promise<{ agreement: SplitAgreement; contributors: SplitContributor[] } | null> {
+  async getActiveLockedSplit(
+    trackId: string
+  ): Promise<{ agreement: SplitAgreement; contributors: SplitContributor[] } | null> {
     const res = await fetch(`${API_BASE}/tracks/${trackId}/splits/active`);
     if (res.status === 404) return null;
     const data = await res.json();

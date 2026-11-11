@@ -145,12 +145,21 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
           {timestamp && (
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Timestamp</span>
-              <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{timestamp}</span>
+              <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+                {timestamp}
+              </span>
             </div>
           )}
 
           <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '10px' }}>
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', display: 'block', marginBottom: '6px' }}>
+            <span
+              style={{
+                fontSize: '0.78rem',
+                color: 'var(--text-muted)',
+                display: 'block',
+                marginBottom: '6px',
+              }}
+            >
               Transaction Hash
             </span>
             <div
@@ -166,7 +175,14 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
                 color: 'var(--accent-cyan)',
               }}
             >
-              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '380px' }}>
+              <span
+                style={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '380px',
+                }}
+              >
                 {txHash}
               </span>
               <CopyButton text={txHash} />
@@ -192,11 +208,7 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
             <span>View in StellarExpert</span>
             <ArrowUpRight size={16} />
           </a>
-          <button
-            onClick={onClose}
-            className="btn btn-secondary"
-            style={{ padding: '0 20px' }}
-          >
+          <button onClick={onClose} className="btn btn-secondary" style={{ padding: '0 20px' }}>
             Done
           </button>
         </div>

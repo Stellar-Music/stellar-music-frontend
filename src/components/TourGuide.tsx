@@ -138,8 +138,8 @@ export const TourGuide: React.FC<TourGuideProps> = ({ isOpen, onClose, onSelectT
                   idx === currentStep
                     ? 'var(--accent-cyan)'
                     : idx < currentStep
-                    ? 'var(--accent-emerald)'
-                    : 'rgba(255, 255, 255, 0.1)',
+                      ? 'var(--accent-emerald)'
+                      : 'rgba(255, 255, 255, 0.1)',
                 transition: 'background-color 0.3s ease',
               }}
             />
@@ -147,7 +147,9 @@ export const TourGuide: React.FC<TourGuideProps> = ({ isOpen, onClose, onSelectT
         </div>
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '18px' }}>
+        <div
+          style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '18px' }}
+        >
           <div
             style={{
               width: '48px',
@@ -184,7 +186,14 @@ export const TourGuide: React.FC<TourGuideProps> = ({ isOpen, onClose, onSelectT
         </div>
 
         {/* Description */}
-        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '20px' }}>
+        <p
+          style={{
+            fontSize: '0.9rem',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.6,
+            marginBottom: '20px',
+          }}
+        >
           {step.description}
         </p>
 
@@ -202,15 +211,29 @@ export const TourGuide: React.FC<TourGuideProps> = ({ isOpen, onClose, onSelectT
           }}
         >
           {step.details.map((point, idx) => (
-            <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.84rem' }}>
-              <CheckCircle2 size={16} color="var(--accent-emerald)" style={{ flexShrink: 0, marginTop: '2px' }} />
+            <div
+              key={idx}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.84rem' }}
+            >
+              <CheckCircle2
+                size={16}
+                color="var(--accent-emerald)"
+                style={{ flexShrink: 0, marginTop: '2px' }}
+              />
               <span style={{ color: 'var(--text-primary)', lineHeight: 1.4 }}>{point}</span>
             </div>
           ))}
         </div>
 
         {/* Navigation Footer */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '12px',
+          }}
+        >
           <button
             onClick={handlePrev}
             disabled={currentStep === 0}

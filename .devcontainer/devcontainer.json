@@ -13,11 +13,7 @@
       "settings": {
         "typescript.tsdk": "node_modules/typescript/lib"
       },
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "vitest.explorer"
-      ]
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "vitest.explorer"]
     }
   },
   "postCreateCommand": "npm install"

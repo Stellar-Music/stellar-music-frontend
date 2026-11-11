@@ -2,10 +2,38 @@ import { describe, it, expect } from 'vitest';
 import { filterAndSortTracks, TrackFilterable } from './searchFilter';
 
 const mockTracks: TrackFilterable[] = [
-  { id: 1, title: 'Astral Drift', artist: 'Stellar Soundscape', genre: 'Synthwave', pass_price: 5.0, play_count: 1200 },
-  { id: 2, title: 'Lagos Sunset', artist: 'Burna Waves', genre: 'Afrobeats', pass_price: 2.5, play_count: 3400 },
-  { id: 3, title: 'Midnight Chill', artist: 'Lo-Fi Panda', genre: 'Lo-Fi', pass_price: 0.0, play_count: 850 },
-  { id: 4, title: 'Cosmic Voyage', artist: 'Stellar Soundscape', genre: 'Ambient', pass_price: 10.0, play_count: 500 },
+  {
+    id: 1,
+    title: 'Astral Drift',
+    artist: 'Stellar Soundscape',
+    genre: 'Synthwave',
+    pass_price: 5.0,
+    play_count: 1200,
+  },
+  {
+    id: 2,
+    title: 'Lagos Sunset',
+    artist: 'Burna Waves',
+    genre: 'Afrobeats',
+    pass_price: 2.5,
+    play_count: 3400,
+  },
+  {
+    id: 3,
+    title: 'Midnight Chill',
+    artist: 'Lo-Fi Panda',
+    genre: 'Lo-Fi',
+    pass_price: 0.0,
+    play_count: 850,
+  },
+  {
+    id: 4,
+    title: 'Cosmic Voyage',
+    artist: 'Stellar Soundscape',
+    genre: 'Ambient',
+    pass_price: 10.0,
+    play_count: 500,
+  },
 ];
 
 describe('Track Search and Filtering Utility', () => {

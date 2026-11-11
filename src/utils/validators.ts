@@ -17,10 +17,16 @@ export function isValidStellarAddress(address: string | null | undefined): Valid
 
   if (!clean.startsWith('G')) {
     if (clean.startsWith('S')) {
-      return { valid: false, error: 'Security warning: Secret key entered. Never paste secret keys!' };
+      return {
+        valid: false,
+        error: 'Security warning: Secret key entered. Never paste secret keys!',
+      };
     }
     if (clean.startsWith('C')) {
-      return { valid: false, error: 'Contract ID entered. Individual contributor account (G...) required.' };
+      return {
+        valid: false,
+        error: 'Contract ID entered. Individual contributor account (G...) required.',
+      };
     }
     return { valid: false, error: 'Stellar account addresses must start with "G"' };
   }
@@ -64,7 +70,10 @@ export function validateSplitAllocations(recipients: { share_bps: number }[]): V
   for (let i = 0; i < recipients.length; i++) {
     const bps = recipients[i].share_bps;
     if (typeof bps !== 'number' || isNaN(bps) || !Number.isInteger(bps)) {
-      return { valid: false, error: `Recipient #${i + 1} share must be an integer basis points value` };
+      return {
+        valid: false,
+        error: `Recipient #${i + 1} share must be an integer basis points value`,
+      };
     }
     if (bps <= 0) {
       return { valid: false, error: `Recipient #${i + 1} share must be greater than 0% (0 bps)` };
@@ -107,7 +116,10 @@ export function validateTrackPrice(price: number | string): ValidationResult {
   // Maximum 7 decimal places for Stellar stroops (1 stroop = 0.0000001 XLM)
   const parts = num.toString().split('.');
   if (parts.length > 1 && parts[1].length > 7) {
-    return { valid: false, error: 'Price cannot have more than 7 decimal places (stroop precision)' };
+    return {
+      valid: false,
+      error: 'Price cannot have more than 7 decimal places (stroop precision)',
+    };
   }
 
   return { valid: true };

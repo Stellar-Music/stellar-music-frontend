@@ -35,9 +35,7 @@ export function filterAndSortTracks<T extends TrackFilterable>(
 
   // 2. Genre Filter
   if (genre && genre.toLowerCase() !== 'all' && genre.trim() !== '') {
-    results = results.filter(
-      (track) => track.genre.toLowerCase() === genre.toLowerCase().trim()
-    );
+    results = results.filter((track) => track.genre.toLowerCase() === genre.toLowerCase().trim());
   }
 
   // 3. Price Bounds Filter

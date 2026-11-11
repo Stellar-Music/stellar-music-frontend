@@ -118,7 +118,13 @@ describe('Frontend UI Components', () => {
     });
 
     it('renders placeholder vinyl artwork on image error event', () => {
-      render(<ImageFallback src="https://example.com/broken.jpg" alt="Broken Cover" fallbackTitle="Track Title" />);
+      render(
+        <ImageFallback
+          src="https://example.com/broken.jpg"
+          alt="Broken Cover"
+          fallbackTitle="Track Title"
+        />
+      );
       const img = screen.getByAltText('Broken Cover');
       fireEvent.error(img);
 

@@ -3,8 +3,11 @@ import { isConnected, requestAccess, signTransaction } from '@stellar/freighter-
 
 export const DEFAULT_HORIZON_ENDPOINTS = [
   'https://horizon-testnet.stellar.org',
-  'https://rpc-testnet.stellar.org',
+  'https://horizon-testnet.stellar.org',
 ];
+
+export const STELLAR_MUSIC_CONTRACT_ID = 'CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K';
+export const SOROBAN_RPC_URL = 'https://soroban-testnet.stellar.org';
 
 export class HorizonRpcPool {
   private endpoints: string[];
@@ -35,7 +38,9 @@ export class HorizonRpcPool {
     return this.servers[this.activeIndex];
   }
 
-  async executeWithFailover<T>(operation: (srv: StellarSdk.Horizon.Server) => Promise<T>): Promise<T> {
+  async executeWithFailover<T>(
+    operation: (srv: StellarSdk.Horizon.Server) => Promise<T>
+  ): Promise<T> {
     let lastError: any = null;
     const totalAttempts = this.servers.length;
 
@@ -188,7 +193,9 @@ export class StellarClient {
       senderAccount = await this.pool.executeWithFailover((srv) => srv.loadAccount(senderAddress));
     } catch (err: any) {
       if (err.name === 'NotFoundError') {
-        throw new Error('Sender wallet is not funded on Stellar Testnet. Fund your wallet with Friendbot first.');
+        throw new Error(
+          'Sender wallet is not funded on Stellar Testnet. Fund your wallet with Friendbot first.'
+        );
       }
       throw err;
     }
@@ -240,7 +247,9 @@ export class StellarClient {
 
     // Submit signed transaction to Stellar Testnet Horizon via failover pool
     const txToSubmit = StellarSdk.TransactionBuilder.fromXDR(signedTxXdr, TESTNET_PASSPHRASE);
-    const result: any = await this.pool.executeWithFailover((srv) => srv.submitTransaction(txToSubmit));
+    const result: any = await this.pool.executeWithFailover((srv) =>
+      srv.submitTransaction(txToSubmit)
+    );
 
     return {
       hash: result.hash,
@@ -269,6 +278,20 @@ export class StellarClient {
     }
     // Return verified cryptographic signature representation
     return `sig_${params.senderAddress.slice(0, 8)}_${params.hash.slice(0, 16)}`;
+  }
+
+  /**
+   * Get deployed Soroban Smart Contract ID
+   */
+  getContractId(): string {
+    return STELLAR_MUSIC_CONTRACT_ID;
+  }
+
+  /**
+   * Get StellarExpert explorer URL for deployed contract
+   */
+  getContractExplorerUrl(): string {
+    return `https://stellar.expert/explorer/testnet/contract/${STELLAR_MUSIC_CONTRACT_ID}`;
   }
 }
 

@@ -2,12 +2,7 @@ export type TrackStatus = 'DRAFT' | 'PUBLISHED';
 export type MusicPassStatus = 'CONFIRMED' | 'FAILED' | 'PENDING';
 
 export type SplitAgreementStatus =
-  | 'DRAFT'
-  | 'AWAITING_SIGNATURES'
-  | 'PARTIALLY_SIGNED'
-  | 'LOCKED'
-  | 'REJECTED'
-  | 'SUPERSEDED';
+  'DRAFT' | 'AWAITING_SIGNATURES' | 'PARTIALLY_SIGNED' | 'LOCKED' | 'REJECTED' | 'SUPERSEDED';
 
 export interface Artist {
   id: string;
@@ -214,4 +209,3 @@ export interface TrackRevenueData {
   settlement_count: number;
   settlements: Settlement[];
 }
-

@@ -26,7 +26,8 @@ export const TrackCard: React.FC<TrackCardProps> = ({
   const isCurrentlyPlaying = isCurrent && isPlaying;
   const isFree = track.price <= 0;
   const isUnlocked = isFree || hasPass;
-  const playCount = ((track.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) * 31) % 4500) + 380;
+  const playCount =
+    ((track.id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) * 31) % 4500) + 380;
 
   const handlePlayClick = (e: React.MouseEvent) => {
     e.stopPropagation();

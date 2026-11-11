@@ -12,5 +12,13 @@ const storageMock = {
   },
 };
 
-Object.defineProperty(window, 'localStorage', { value: storageMock, writable: true, configurable: true });
-Object.defineProperty(window, 'sessionStorage', { value: storageMock, writable: true, configurable: true });
+Object.defineProperty(window, 'localStorage', {
+  value: storageMock,
+  writable: true,
+  configurable: true,
+});
+Object.defineProperty(window, 'sessionStorage', {
+  value: storageMock,
+  writable: true,
+  configurable: true,
+});

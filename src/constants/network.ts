@@ -6,12 +6,14 @@ export const STELLAR_NETWORK = {
   PASSPHRASE: 'Test SDF Network ; September 2015',
   NETWORK_ID: 'testnet',
   HORIZON_PRIMARY: 'https://horizon-testnet.stellar.org',
-  HORIZON_FALLBACK: 'https://rpc-testnet.stellar.org',
+  HORIZON_FALLBACK: 'https://horizon-testnet.stellar.org',
   SOROBAN_RPC: 'https://soroban-testnet.stellar.org',
   FRIENDBOT_URL: 'https://friendbot.stellar.org',
   EXPLORER_BASE: 'https://stellar.expert/explorer/testnet',
   LABORATORY_URL: 'https://laboratory.stellar.org/#account-creator?network=test',
 } as const;
+
+export const STELLAR_MUSIC_CONTRACT_ID = 'CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K';
 
 export const FINANCIAL_CONSTANTS = {
   STROOPS_PER_XLM: 10_000_000,

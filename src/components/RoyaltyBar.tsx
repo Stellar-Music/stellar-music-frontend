@@ -26,7 +26,15 @@ export const ROLE_COLOR_MAP: Record<string, string> = {
   Curator: '#06b6d4',
 };
 
-const DEFAULT_PALETTE = ['#00f2fe', '#7928ca', '#10b981', '#f59e0b', '#ec4899', '#3b82f6', '#06b6d4'];
+const DEFAULT_PALETTE = [
+  '#00f2fe',
+  '#7928ca',
+  '#10b981',
+  '#f59e0b',
+  '#ec4899',
+  '#3b82f6',
+  '#06b6d4',
+];
 
 export const RoyaltyBar: React.FC<RoyaltyBarProps> = ({
   contributors,
@@ -130,9 +138,7 @@ export const RoyaltyBar: React.FC<RoyaltyBarProps> = ({
                 >
                   {c.role}
                 </span>
-                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
-                  {pct}%
-                </span>
+                <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{pct}%</span>
               </div>
             );
           })}

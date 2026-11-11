@@ -290,7 +290,14 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
               border: '1px solid rgba(0, 242, 254, 0.2)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '8px',
+              }}
+            >
               <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>
                 Active Evaluator Keypair
               </span>
@@ -301,42 +308,90 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
 
             {/* Public Address */}
             <div style={{ marginBottom: '8px' }}>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>Public Key (G...)</div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '4px' }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>
+                Public Key (G...)
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '6px 8px',
+                  borderRadius: '4px',
+                }}
+              >
                 <span style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>
                   {address ? truncateAddress(address, 12) : ''}
                 </span>
                 <button
                   onClick={() => address && copyToClipboard(address, 'pubkey')}
-                  style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', cursor: 'pointer', padding: '2px' }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--accent-cyan)',
+                    cursor: 'pointer',
+                    padding: '2px',
+                  }}
                   title="Copy full public key"
                 >
-                  {copiedKey === 'pubkey' ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
+                  {copiedKey === 'pubkey' ? (
+                    <Check size={14} color="var(--accent-emerald)" />
+                  ) : (
+                    <Copy size={14} />
+                  )}
                 </button>
               </div>
             </div>
 
             {/* Secret Seed */}
             <div>
-              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>Secret Seed (S...)</div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,0,0,0.3)', padding: '6px 8px', borderRadius: '4px' }}>
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '2px' }}>
+                Secret Seed (S...)
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '6px 8px',
+                  borderRadius: '4px',
+                }}
+              >
                 <span style={{ fontSize: '0.75rem', fontFamily: 'monospace' }}>
                   {showSecret ? keypair.secret() : '••••••••••••••••••••••••••••••••••••••••'}
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <button
                     onClick={() => setShowSecret(!showSecret)}
-                    style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '2px' }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--text-muted)',
+                      cursor: 'pointer',
+                      padding: '2px',
+                    }}
                     title={showSecret ? 'Hide secret' : 'Reveal secret'}
                   >
                     {showSecret ? <EyeOff size={14} /> : <Eye size={14} />}
                   </button>
                   <button
                     onClick={() => copyToClipboard(keypair.secret(), 'secret')}
-                    style={{ background: 'none', border: 'none', color: 'var(--accent-cyan)', cursor: 'pointer', padding: '2px' }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--accent-cyan)',
+                      cursor: 'pointer',
+                      padding: '2px',
+                    }}
                     title="Copy full secret seed"
                   >
-                    {copiedKey === 'secret' ? <Check size={14} color="var(--accent-emerald)" /> : <Copy size={14} />}
+                    {copiedKey === 'secret' ? (
+                      <Check size={14} color="var(--accent-emerald)" />
+                    ) : (
+                      <Copy size={14} />
+                    )}
                   </button>
                 </div>
               </div>
@@ -375,7 +430,8 @@ export const WalletModal: React.FC<WalletModalProps> = ({ onClose }) => {
             lineHeight: '1.4',
           }}
         >
-          💡 <strong>Stellar Testnet Guarantee:</strong> All transactions are executed against the public Stellar Horizon Testnet. Real cryptographic keys sign real ledger payments.
+          💡 <strong>Stellar Testnet Guarantee:</strong> All transactions are executed against the
+          public Stellar Horizon Testnet. Real cryptographic keys sign real ledger payments.
         </div>
       </div>
     </div>

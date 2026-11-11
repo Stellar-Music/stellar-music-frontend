@@ -17,14 +17,25 @@ const SHORTCUTS: ShortcutItem[] = [
   { keyCombo: ['M'], description: 'Toggle volume mute / unmute', category: 'Playback' },
   { keyCombo: ['←'], description: 'Seek backward 5 seconds', category: 'Playback' },
   { keyCombo: ['→'], description: 'Seek forward 5 seconds', category: 'Playback' },
-  { keyCombo: ['R'], description: 'Cycle repeat mode (Off, All, Single Track)', category: 'Playback' },
+  {
+    keyCombo: ['R'],
+    description: 'Cycle repeat mode (Off, All, Single Track)',
+    category: 'Playback',
+  },
   { keyCombo: ['N'], description: 'Skip to next track in playback queue', category: 'Navigation' },
-  { keyCombo: ['P'], description: 'Return to previous track or track start', category: 'Navigation' },
+  {
+    keyCombo: ['P'],
+    description: 'Return to previous track or track start',
+    category: 'Navigation',
+  },
   { keyCombo: ['?'], description: 'Open this keyboard shortcuts cheatsheet', category: 'General' },
   { keyCombo: ['Esc'], description: 'Dismiss any active modal or menu', category: 'General' },
 ];
 
-export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({ isOpen, onClose }) => {
+export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -148,7 +159,19 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({ 
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Command size={14} />
-            <span>Press <kbd style={{ padding: '1px 5px', borderRadius: '3px', background: 'rgba(255,255,255,0.1)' }}>?</kbd> anywhere to toggle this cheatsheet.</span>
+            <span>
+              Press{' '}
+              <kbd
+                style={{
+                  padding: '1px 5px',
+                  borderRadius: '3px',
+                  background: 'rgba(255,255,255,0.1)',
+                }}
+              >
+                ?
+              </kbd>{' '}
+              anywhere to toggle this cheatsheet.
+            </span>
           </div>
         </div>
       </div>

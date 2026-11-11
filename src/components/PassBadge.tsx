@@ -48,7 +48,8 @@ export const PassBadge: React.FC<PassBadgeProps> = ({
           display: 'inline-flex',
           alignItems: 'center',
           gap: '4px',
-          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%)',
+          background:
+            'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(16, 185, 129, 0.2) 100%)',
           border: '1px solid rgba(245, 158, 11, 0.5)',
           color: '#fbbf24',
           fontSize: compact ? '0.7rem' : '0.75rem',

@@ -41,7 +41,10 @@ export function calculateProgressPercentage(current: number, total: number): num
 
 export function parseTimeString(timeStr: string): number {
   if (!timeStr || typeof timeStr !== 'string') return 0;
-  const parts = timeStr.trim().split(':').map((p) => parseInt(p, 10));
+  const parts = timeStr
+    .trim()
+    .split(':')
+    .map((p) => parseInt(p, 10));
   if (parts.some((p) => isNaN(p) || p < 0)) return 0;
 
   if (parts.length === 3) {

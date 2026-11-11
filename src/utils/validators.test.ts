@@ -16,9 +16,18 @@ describe('isValidStellarAddress validator', () => {
   });
 
   it('rejects empty or whitespace input', () => {
-    expect(isValidStellarAddress('')).toEqual({ valid: false, error: 'Stellar address is required' });
-    expect(isValidStellarAddress('   ')).toEqual({ valid: false, error: 'Stellar address is required' });
-    expect(isValidStellarAddress(null)).toEqual({ valid: false, error: 'Stellar address is required' });
+    expect(isValidStellarAddress('')).toEqual({
+      valid: false,
+      error: 'Stellar address is required',
+    });
+    expect(isValidStellarAddress('   ')).toEqual({
+      valid: false,
+      error: 'Stellar address is required',
+    });
+    expect(isValidStellarAddress(null)).toEqual({
+      valid: false,
+      error: 'Stellar address is required',
+    });
   });
 
   it('warns when user inadvertently pastes a secret key', () => {
@@ -59,11 +68,7 @@ describe('isValidStellarAddress validator', () => {
 
 describe('validateSplitAllocations', () => {
   it('accepts split allocations that sum to exactly 10,000 bps', () => {
-    const valid = [
-      { share_bps: 5000 },
-      { share_bps: 3000 },
-      { share_bps: 2000 },
-    ];
+    const valid = [{ share_bps: 5000 }, { share_bps: 3000 }, { share_bps: 2000 }];
     expect(validateSplitAllocations(valid)).toEqual({ valid: true });
   });
 
@@ -85,7 +90,9 @@ describe('validateSplitAllocations', () => {
 
   it('rejects allocations with non-integer or zero bps', () => {
     expect(validateSplitAllocations([{ share_bps: 0 }]).error).toContain('greater than 0%');
-    expect(validateSplitAllocations([{ share_bps: 5000.5 }, { share_bps: 4999.5 }]).error).toContain('integer basis points');
+    expect(
+      validateSplitAllocations([{ share_bps: 5000.5 }, { share_bps: 4999.5 }]).error
+    ).toContain('integer basis points');
   });
 
   it('rejects allocations where total does not equal 10,000 bps', () => {
@@ -124,25 +131,47 @@ describe('validateTrackPrice', () => {
 
 describe('validateAudioFile and validateArtworkFile', () => {
   it('accepts supported audio formats under 50MB', () => {
-    expect(validateAudioFile({ name: 'track.mp3', size: 10 * 1024 * 1024 })).toEqual({ valid: true });
-    expect(validateAudioFile({ name: 'track.wav', size: 45 * 1024 * 1024 })).toEqual({ valid: true });
-    expect(validateAudioFile({ name: 'track.flac', size: 20 * 1024 * 1024 })).toEqual({ valid: true });
-    expect(validateAudioFile({ name: 'track.ogg', size: 5 * 1024 * 1024 })).toEqual({ valid: true });
+    expect(validateAudioFile({ name: 'track.mp3', size: 10 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
+    expect(validateAudioFile({ name: 'track.wav', size: 45 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
+    expect(validateAudioFile({ name: 'track.flac', size: 20 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
+    expect(validateAudioFile({ name: 'track.ogg', size: 5 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
   });
 
   it('rejects unsupported audio formats and oversized audio files', () => {
-    expect(validateAudioFile({ name: 'track.exe', size: 1000 }).error).toContain('Unsupported audio format');
-    expect(validateAudioFile({ name: 'track.mp3', size: 55 * 1024 * 1024 }).error).toContain('exceeds 50MB limit');
+    expect(validateAudioFile({ name: 'track.exe', size: 1000 }).error).toContain(
+      'Unsupported audio format'
+    );
+    expect(validateAudioFile({ name: 'track.mp3', size: 55 * 1024 * 1024 }).error).toContain(
+      'exceeds 50MB limit'
+    );
   });
 
   it('accepts supported artwork formats under 5MB', () => {
-    expect(validateArtworkFile({ name: 'cover.jpg', size: 2 * 1024 * 1024 })).toEqual({ valid: true });
-    expect(validateArtworkFile({ name: 'cover.png', size: 4 * 1024 * 1024 })).toEqual({ valid: true });
-    expect(validateArtworkFile({ name: 'cover.webp', size: 1 * 1024 * 1024 })).toEqual({ valid: true });
+    expect(validateArtworkFile({ name: 'cover.jpg', size: 2 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
+    expect(validateArtworkFile({ name: 'cover.png', size: 4 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
+    expect(validateArtworkFile({ name: 'cover.webp', size: 1 * 1024 * 1024 })).toEqual({
+      valid: true,
+    });
   });
 
   it('rejects unsupported artwork formats and oversized images', () => {
-    expect(validateArtworkFile({ name: 'cover.bmp', size: 500 }).error).toContain('Unsupported image format');
-    expect(validateArtworkFile({ name: 'cover.jpg', size: 6 * 1024 * 1024 }).error).toContain('exceeds 5MB limit');
+    expect(validateArtworkFile({ name: 'cover.bmp', size: 500 }).error).toContain(
+      'Unsupported image format'
+    );
+    expect(validateArtworkFile({ name: 'cover.jpg', size: 6 * 1024 * 1024 }).error).toContain(
+      'exceeds 5MB limit'
+    );
   });
 });

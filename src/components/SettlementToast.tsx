@@ -58,7 +58,8 @@ export const SettlementToast: React.FC<SettlementToastProps> = ({
         width: '380px',
         maxWidth: 'calc(100vw - 48px)',
         borderRadius: 'var(--radius-md)',
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%)',
+        background:
+          'linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%)',
         backdropFilter: 'blur(16px)',
         color: '#070913',
         boxShadow: '0 12px 36px rgba(16, 185, 129, 0.4), 0 0 20px rgba(0, 242, 254, 0.25)',
@@ -85,8 +86,22 @@ export const SettlementToast: React.FC<SettlementToastProps> = ({
         </div>
 
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-            <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 800 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '8px',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '0.78rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                fontWeight: 800,
+              }}
+            >
               Soroban Settlement Executed
             </span>
             <button

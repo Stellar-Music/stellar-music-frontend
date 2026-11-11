@@ -15,7 +15,8 @@ export const NetworkBanner: React.FC = () => {
         <span>
           <strong>Stellar Testnet Active:</strong> Ensure your{' '}
           {walletType === 'freighter' ? 'Freighter wallet' : 'Demo account'} is connected to{' '}
-          <span className="underline font-semibold">Testnet</span> to test streaming passes and revenue splits without real funds.
+          <span className="underline font-semibold">Testnet</span> to test streaming passes and
+          revenue splits without real funds.
         </span>
         <a
           href="https://laboratory.stellar.org/#account-creator?network=test"

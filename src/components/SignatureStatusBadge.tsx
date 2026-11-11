@@ -170,7 +170,11 @@ export const ContributorSignPill: React.FC<ContributorSignPillProps> = ({
           fontSize,
           fontWeight: 600,
         }}
-        title={signedAt ? `Signed on ${new Date(signedAt).toLocaleDateString()}` : 'Cryptographically signed'}
+        title={
+          signedAt
+            ? `Signed on ${new Date(signedAt).toLocaleDateString()}`
+            : 'Cryptographically signed'
+        }
       >
         <CheckCircle2 size={11} />
         <span>Signed</span>

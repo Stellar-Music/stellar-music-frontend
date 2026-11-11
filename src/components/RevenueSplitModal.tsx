@@ -6,7 +6,15 @@ import { X, Plus, Trash2, PieChart, AlertCircle, CheckCircle2 } from 'lucide-rea
 import { isValidStellarAddress } from '../utils/validators';
 import { RoyaltyBar } from './RoyaltyBar';
 
-const ROLE_PRESETS = ['Artist', 'Producer', 'Songwriter', 'Composer', 'Engineer', 'Vocalist', 'Curator'];
+const ROLE_PRESETS = [
+  'Artist',
+  'Producer',
+  'Songwriter',
+  'Composer',
+  'Engineer',
+  'Vocalist',
+  'Curator',
+];
 const SLICE_COLORS = ['#00f2fe', '#4facfe', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4'];
 
 interface RevenueSplitModalProps {
@@ -15,7 +23,11 @@ interface RevenueSplitModalProps {
   onSplitCreated: () => void;
 }
 
-export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onClose, onSplitCreated }) => {
+export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({
+  track,
+  onClose,
+  onSplitCreated,
+}) => {
   const { address } = useWallet();
 
   const [contributors, setContributors] = useState<ContributorInput[]>([
@@ -71,7 +83,9 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
     setError(null);
 
     if (!isValidTotal) {
-      setError(`Split total must equal exactly 10,000 BPS (100.0%). Current total: ${totalBps} BPS (${totalPercentage.toFixed(1)}%)`);
+      setError(
+        `Split total must equal exactly 10,000 BPS (100.0%). Current total: ${totalBps} BPS (${totalPercentage.toFixed(1)}%)`
+      );
       return;
     }
 
@@ -79,12 +93,15 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
     for (let i = 0; i < contributors.length; i++) {
       const check = isValidStellarAddress(contributors[i].wallet_address);
       if (!check.valid) {
-        setError(`Contributor #${i + 1} (${contributors[i].display_name || 'Unnamed'}): ${check.error}`);
+        setError(
+          `Contributor #${i + 1} (${contributors[i].display_name || 'Unnamed'}): ${check.error}`
+        );
         return;
       }
     }
 
-    const creatorWallet = address || track.artist_wallet || 'GASTRALDRIFT7777777777777777777777777777777777777777';
+    const creatorWallet =
+      address || track.artist_wallet || 'GASTRALDRIFT7777777777777777777777777777777777777777';
 
     setIsSubmitting(true);
     try {
@@ -210,8 +227,8 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                 color: isValidTotal
                   ? 'var(--accent-emerald)'
                   : totalPercentage > 100
-                  ? 'var(--accent-rose)'
-                  : 'var(--accent-amber)',
+                    ? 'var(--accent-rose)'
+                    : 'var(--accent-amber)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -235,11 +252,14 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
               </span>
             ) : totalPercentage < 100 ? (
               <span style={{ color: 'var(--accent-amber)' }}>
-                Remaining: {(100 - totalPercentage).toFixed(1)}% ({((100 - totalPercentage) * 100).toFixed(0)} BPS) unassigned. Total must equal 10,000 BPS.
+                Remaining: {(100 - totalPercentage).toFixed(1)}% (
+                {((100 - totalPercentage) * 100).toFixed(0)} BPS) unassigned. Total must equal
+                10,000 BPS.
               </span>
             ) : (
               <span style={{ color: 'var(--accent-rose)' }}>
-                Over-allocated by {(totalPercentage - 100).toFixed(1)}% ({((totalPercentage - 100) * 100).toFixed(0)} BPS). Please reduce shares.
+                Over-allocated by {(totalPercentage - 100).toFixed(1)}% (
+                {((totalPercentage - 100) * 100).toFixed(0)} BPS). Please reduce shares.
               </span>
             )}
           </div>
@@ -247,7 +267,9 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
 
         {/* Contributor List Form */}
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}
+          >
             {contributors.map((c, index) => {
               const contributorColor = SLICE_COLORS[index % SLICE_COLORS.length];
               return (
@@ -263,7 +285,13 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                     gap: '10px',
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span
                         style={{
@@ -273,7 +301,9 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                           backgroundColor: contributorColor,
                         }}
                       />
-                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: contributorColor }}>
+                      <span
+                        style={{ fontSize: '0.82rem', fontWeight: 700, color: contributorColor }}
+                      >
                         Contributor #{index + 1}
                       </span>
                     </div>
@@ -281,7 +311,12 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                       <button
                         type="button"
                         onClick={() => handleRemoveContributor(index)}
-                        style={{ background: 'none', border: 'none', color: 'var(--accent-rose)', cursor: 'pointer' }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--accent-rose)',
+                          cursor: 'pointer',
+                        }}
                         title="Remove contributor"
                       >
                         <Trash2 size={16} />
@@ -295,7 +330,9 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                       required
                       placeholder="Display Name (e.g. DJ Pulse)"
                       value={c.display_name}
-                      onChange={(e) => handleUpdateContributor(index, 'display_name', e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateContributor(index, 'display_name', e.target.value)
+                      }
                       style={{
                         padding: '8px 12px',
                         borderRadius: 'var(--radius-sm)',
@@ -338,8 +375,12 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                         style={{
                           padding: '3px 8px',
                           borderRadius: '12px',
-                          border: c.role === role ? `1px solid ${contributorColor}` : '1px solid rgba(255, 255, 255, 0.1)',
-                          backgroundColor: c.role === role ? `${contributorColor}22` : 'transparent',
+                          border:
+                            c.role === role
+                              ? `1px solid ${contributorColor}`
+                              : '1px solid rgba(255, 255, 255, 0.1)',
+                          backgroundColor:
+                            c.role === role ? `${contributorColor}22` : 'transparent',
                           color: c.role === role ? contributorColor : 'var(--text-muted)',
                           fontSize: '0.72rem',
                           cursor: 'pointer',
@@ -357,14 +398,17 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                         required
                         placeholder="Stellar Public Key (G...)"
                         value={c.wallet_address}
-                        onChange={(e) => handleUpdateContributor(index, 'wallet_address', e.target.value)}
+                        onChange={(e) =>
+                          handleUpdateContributor(index, 'wallet_address', e.target.value)
+                        }
                         style={{
                           width: '100%',
                           padding: '8px 12px',
                           borderRadius: 'var(--radius-sm)',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
                           border:
-                            c.wallet_address.length > 0 && !isValidStellarAddress(c.wallet_address).valid
+                            c.wallet_address.length > 0 &&
+                            !isValidStellarAddress(c.wallet_address).valid
                               ? '1px solid rgba(244, 63, 94, 0.6)'
                               : '1px solid var(--border-subtle)',
                           color: 'var(--text-primary)',
@@ -373,11 +417,19 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                           outline: 'none',
                         }}
                       />
-                      {c.wallet_address.length > 0 && !isValidStellarAddress(c.wallet_address).valid && (
-                        <span style={{ fontSize: '0.7rem', color: '#fca5a5', display: 'block', marginTop: '3px' }}>
-                          ⚠ {isValidStellarAddress(c.wallet_address).error}
-                        </span>
-                      )}
+                      {c.wallet_address.length > 0 &&
+                        !isValidStellarAddress(c.wallet_address).valid && (
+                          <span
+                            style={{
+                              fontSize: '0.7rem',
+                              color: '#fca5a5',
+                              display: 'block',
+                              marginTop: '3px',
+                            }}
+                          >
+                            ⚠ {isValidStellarAddress(c.wallet_address).error}
+                          </span>
+                        )}
                     </div>
 
                     <div style={{ position: 'relative' }}>
@@ -390,7 +442,11 @@ export const RevenueSplitModal: React.FC<RevenueSplitModalProps> = ({ track, onC
                         placeholder="Share"
                         value={c.percentage}
                         onChange={(e) =>
-                          handleUpdateContributor(index, 'percentage', parseFloat(e.target.value) || 0)
+                          handleUpdateContributor(
+                            index,
+                            'percentage',
+                            parseFloat(e.target.value) || 0
+                          )
                         }
                         style={{
                           width: '100%',

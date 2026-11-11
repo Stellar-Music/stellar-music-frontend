@@ -8,7 +8,10 @@ interface PublishTrackModalProps {
   onTrackPublished: () => void;
 }
 
-export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, onTrackPublished }) => {
+export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({
+  onClose,
+  onTrackPublished,
+}) => {
   const { address } = useWallet();
   const [title, setTitle] = useState('');
   const [artistName, setArtistName] = useState('');
@@ -90,17 +93,19 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 60,
-      backgroundColor: 'rgba(5, 7, 15, 0.85)',
-      backdropFilter: 'blur(12px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 60,
+        backgroundColor: 'rgba(5, 7, 15, 0.85)',
+        backdropFilter: 'blur(12px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+      }}
+    >
       <div
         className="glass-panel"
         style={{
@@ -137,25 +142,37 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
         </p>
 
         {error && (
-          <div style={{
-            padding: '12px',
-            borderRadius: 'var(--radius-sm)',
-            backgroundColor: 'rgba(244, 63, 94, 0.15)',
-            color: '#fca5a5',
-            fontSize: '0.85rem',
-            marginBottom: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}>
+          <div
+            style={{
+              padding: '12px',
+              borderRadius: 'var(--radius-sm)',
+              backgroundColor: 'rgba(244, 63, 94, 0.15)',
+              color: '#fca5a5',
+              fontSize: '0.85rem',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
             <AlertCircle size={16} />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+        >
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Track Title *
             </label>
             <input
@@ -177,7 +194,14 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Artist Display Name *
             </label>
             <input
@@ -199,7 +223,14 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Track Description
             </label>
             <input
@@ -221,7 +252,14 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: '0.82rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '6px',
+                }}
+              >
                 Genre
               </label>
               <select
@@ -247,7 +285,14 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+              <label
+                style={{
+                  display: 'block',
+                  fontSize: '0.82rem',
+                  color: 'var(--text-secondary)',
+                  marginBottom: '6px',
+                }}
+              >
                 Music Pass Price (XLM)
               </label>
               <input
@@ -271,18 +316,27 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Audio File (.mp3, .wav) *
             </label>
-            <div style={{
-              border: '2px dashed var(--border-subtle)',
-              borderRadius: 'var(--radius-md)',
-              padding: '16px',
-              textAlign: 'center',
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              cursor: 'pointer',
-              position: 'relative',
-            }}>
+            <div
+              style={{
+                border: '2px dashed var(--border-subtle)',
+                borderRadius: 'var(--radius-md)',
+                padding: '16px',
+                textAlign: 'center',
+                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                cursor: 'pointer',
+                position: 'relative',
+              }}
+            >
               <input
                 type="file"
                 accept="audio/*"
@@ -303,22 +357,35 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Cover Artwork (Optional)
             </label>
             <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-              <div style={{
-                width: '64px',
-                height: '64px',
-                borderRadius: '8px',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}>
+              <div
+                style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '8px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                }}
+              >
                 {artworkPreview ? (
-                  <img src={artworkPreview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img
+                    src={artworkPreview}
+                    alt="Preview"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 ) : (
                   <ImageIcon size={22} color="var(--text-muted)" />
                 )}
@@ -334,7 +401,14 @@ export const PublishTrackModal: React.FC<PublishTrackModalProps> = ({ onClose, o
 
           {/* Draft vs Published toggle */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.82rem',
+                color: 'var(--text-secondary)',
+                marginBottom: '6px',
+              }}
+            >
               Publication Status
             </label>
             <div style={{ display: 'flex', gap: '12px' }}>

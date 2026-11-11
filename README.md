@@ -17,14 +17,14 @@ The decentralized music streaming web application, royalty management studio, an
 
 Stellar Music is engineered as a three-tier decentralized streaming application:
 
-| Repository | Responsibility | Tech Stack | Status | Tests |
-| :--- | :--- | :--- | :---: | :---: |
-| **[`stellar-music-contracts`](https://github.com/Stellar-Music/stellar-music-contracts)** | Non-custodial splits, passes, 0-stroop invariant engine | Soroban / Rust SDK v22 | **Deployed** | **36 / 36** |
-| **[`stellar-music-backend`](https://github.com/Stellar-Music/stellar-music-backend)** | Audio streaming, SSE settlements, Horizon failover pool | Node.js / TypeScript / SQLite / Express | **Active** | **92 / 92** |
-| **[`stellar-music-frontend`](https://github.com/Stellar-Music/stellar-music-frontend)** | Reactive Web3 player, PWA, Freighter wallet connector | React 18 / TypeScript / Vite / Tailwind | **Live** | **130 / 130** |
+| Repository                                                                                | Responsibility                                          | Tech Stack                              |    Status    |     Tests     |
+| :---------------------------------------------------------------------------------------- | :------------------------------------------------------ | :-------------------------------------- | :----------: | :-----------: |
+| **[`stellar-music-contracts`](https://github.com/Stellar-Music/stellar-music-contracts)** | Non-custodial splits, passes, 0-stroop invariant engine | Soroban / Rust SDK v22                  | **Deployed** |  **36 / 36**  |
+| **[`stellar-music-backend`](https://github.com/Stellar-Music/stellar-music-backend)**     | Audio streaming, SSE settlements, Horizon failover pool | Node.js / TypeScript / SQLite / Express |  **Active**  |  **92 / 92**  |
+| **[`stellar-music-frontend`](https://github.com/Stellar-Music/stellar-music-frontend)**   | Reactive Web3 player, PWA, Freighter wallet connector   | React 18 / TypeScript / Vite / Tailwind |   **Live**   | **130 / 130** |
 
-* **Total Protocol Automated Tests**: **258 / 258 passing** across contracts, backend, and frontend.
-* **Live Production dApp**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
+- **Total Protocol Automated Tests**: **258 / 258 passing** across contracts, backend, and frontend.
+- **Live Production dApp**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
 
 > **🚀 Production URL**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
 
@@ -34,10 +34,10 @@ Stellar Music is engineered as a three-tier decentralized streaming application:
 
 The smart contracts powering Stellar Music are live on **Stellar Testnet**:
 
-| Parameter | Value | Explorer Link |
-| :--- | :--- | :--- |
-| **Contract ID** | `CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K` | [StellarExpert Contract Explorer](https://stellar.expert/explorer/testnet/contract/CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K) |
-| **Admin Account** | `GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F` | [StellarExpert Account Explorer](https://stellar.expert/explorer/testnet/account/GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F) |
+| Parameter         | Value                                                      | Explorer Link                                                                                                                                |
+| :---------------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Contract ID**   | `CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K` | [StellarExpert Contract Explorer](https://stellar.expert/explorer/testnet/contract/CBUNX6PF4OOFGQ434IBVCLRBR6OBQOM5PTYUES7X6KSN2AIER6VMJK7K) |
+| **Admin Account** | `GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F` | [StellarExpert Account Explorer](https://stellar.expert/explorer/testnet/account/GCMMDSL3RW5SHGAXEOW6G5M7KZ2CFWUPUKV5Q5L2NBTUA6F4RK45NE7F)   |
 
 ---
 
@@ -45,11 +45,11 @@ The smart contracts powering Stellar Music are live on **Stellar Testnet**:
 
 Stellar Music provides an intuitive, high-fidelity music streaming product backed by non-custodial Stellar payments:
 
-* **Real Stellar Testnet Integration**: Direct integration with Stellar Testnet keypairs, Horizon balances, Friendbot funding, and cryptographic transaction submission.
-* **Non-Custodial Pass Payments**: Listeners purchase access passes with XLM transferred directly to artist accounts or escrow contracts with cryptographic replay prevention.
-* **Collaborator Revenue Splits**: Artists and collaborators configure, review, and sign revenue-sharing agreements. Strict 10,000 basis points (100.00%) allocation is validated across the client, API, and smart contracts.
-* **Automated Multi-Recipient Settlements**: Streaming revenue pools trigger automated distributions to all verified collaborator wallets on Stellar with zero rounding loss.
-* **Live Financial Observability**: Contributor earnings dashboards, artist catalog revenue metrics, track settlement receipts, and real-time Server-Sent Events (SSE) toast broadcasts.
+- **Real Stellar Testnet Integration**: Direct integration with Stellar Testnet keypairs, Horizon balances, Friendbot funding, and cryptographic transaction submission.
+- **Non-Custodial Pass Payments**: Listeners purchase access passes with XLM transferred directly to artist accounts or escrow contracts with cryptographic replay prevention.
+- **Collaborator Revenue Splits**: Artists and collaborators configure, review, and sign revenue-sharing agreements. Strict 10,000 basis points (100.00%) allocation is validated across the client, API, and smart contracts.
+- **Automated Multi-Recipient Settlements**: Streaming revenue pools trigger automated distributions to all verified collaborator wallets on Stellar with zero rounding loss.
+- **Live Financial Observability**: Contributor earnings dashboards, artist catalog revenue metrics, track settlement receipts, and real-time Server-Sent Events (SSE) toast broadcasts.
 
 ```
                   ┌─────────────────────────────────────┐
@@ -77,54 +77,61 @@ Stellar Music provides an intuitive, high-fidelity music streaming product backe
 
 Experience an end-to-end guided video walkthrough of the Stellar Music platform featuring synchronized neural voice narration, interactive UI actions, and cryptographic settlement verification on Stellar Testnet:
 
-| Platform Tour & Walkthrough | Direct Access & Controls |
-| :--- | :--- |
+| Platform Tour & Walkthrough                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Direct Access & Controls                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <video src="https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4" controls width="100%" poster="https://raw.githubusercontent.com/Stellar-Music/stellar-music-frontend/main/docs/screenshots/01_music_discovery.png"><a href="https://stellar-music-app.netlify.app/walkthrough.html"><img src="https://raw.githubusercontent.com/Stellar-Music/stellar-music-frontend/main/docs/screenshots/01_music_discovery.png" alt="Stellar Music Walkthrough"></a></video> | • **[▶️ Watch on Standalone Netlify Player](https://stellar-music-app.netlify.app/walkthrough.html)**<br>• **[🌐 Open in Stellar Music App Tab](https://stellar-music-app.netlify.app/#walkthrough)**<br>• **[🎬 Direct MP4 Video Stream](https://stellar-music-app.netlify.app/videos/stellar-music-walkthrough.mp4)**<br>• **[🔗 GitHub Raw Video Stream](https://github.com/Stellar-Music/stellar-music-frontend/raw/main/public/videos/stellar-music-walkthrough.mp4)**<br>• **Resolution:** 1080p Full HD (1920x1080)<br>• **Capture Type:** Live Browser Execution Recording<br>• **Narration:** Azure Neural Voice (`en-US-GuyNeural`)<br>• **Runtime:** 1m 14s |
 
 ### Walkthrough Chapters
-* **0:00 — Platform Overview & Soroban Architecture**: Stellar decentralized music streaming overview.
-* **0:08 — Catalog Discovery & Range Audio Streaming**: HTTP 206 partial content streaming & metadata.
-* **0:18 — Non-Custodial Music Pass Purchase**: Direct 2.5 XLM wallet signing into track revenue pool.
-* **0:29 — Revenue Split Studio & 10,000 BPS Rule**: Multi-party cryptographic agreement and consensus lock.
-* **0:41 — Contributor Royalty Dashboard**: Transparent ledger tracking and Stellar Expert receipts.
-* **0:50 — Automated Settlement Engine**: Multi-party payout execution with stroop dust preservation.
-* **01:03 — Public Track Revenue Auditor**: Zero-loss reconciliation and immutable financial records.
+
+- **0:00 — Platform Overview & Soroban Architecture**: Stellar decentralized music streaming overview.
+- **0:08 — Catalog Discovery & Range Audio Streaming**: HTTP 206 partial content streaming & metadata.
+- **0:18 — Non-Custodial Music Pass Purchase**: Direct 2.5 XLM wallet signing into track revenue pool.
+- **0:29 — Revenue Split Studio & 10,000 BPS Rule**: Multi-party cryptographic agreement and consensus lock.
+- **0:41 — Contributor Royalty Dashboard**: Transparent ledger tracking and Stellar Expert receipts.
+- **0:50 — Automated Settlement Engine**: Multi-party payout execution with stroop dust preservation.
+- **01:03 — Public Track Revenue Auditor**: Zero-loss reconciliation and immutable financial records.
 
 ---
 
 ## 📸 Product Functionality Walkthrough
 
 ### 1. Music Discovery & Range Audio Streaming
+
 High-fidelity streaming catalog featuring audio preview, real-time genre filtering, instant keypair wallet connection, and a persistent playback bar with seekbar and volume controls.
 ![Music Discovery & Persistent Audio Player](docs/screenshots/01_music_discovery.png)
 
 ---
 
 ### 2. Non-Custodial Music Pass Access
+
 Listeners purchase track access passes with instant Stellar Testnet XLM transactions. Unlocks authenticated HTTP 206 Partial Content range audio playback with cryptographic replay protection.
 ![Music Pass Purchase Modal](docs/screenshots/02_music_pass_modal.png)
 
 ---
 
 ### 3. Collaborator Revenue Split Studio & Multi-Party Signing
+
 Artists define multi-party split agreements with exact 10,000 basis points (100.00%) allocation. All contributors cryptographically sign terms bound by SHA-256 agreement hashes, locking the agreement permanently.
 ![Revenue Split Studio & Agreement Status](docs/screenshots/03_revenue_split_studio.png)
 
 ---
 
 ### 4. Contributor Royalty & Earnings Dashboard
+
 Contributors track real-time lifetime earnings, pending pool royalties, and settled XLM across all collaborative tracks with direct links to on-chain Stellar transactions.
 ![Contributor Royalty & Earnings Dashboard](docs/screenshots/04_contributor_earnings.png)
 
 ---
 
 ### 5. Automated Multi-Recipient Settlement Engine
+
 Catalog-level financial observatory displaying gross streaming revenue, pending balances, and 1-click batch multi-recipient settlement execution across all eligible tracks.
 ![Artist Revenue & Automated Settlement Engine](docs/screenshots/05_artist_revenue_engine.png)
 
 ---
 
 ### 6. Public Track Revenue & On-Chain Settlement Auditor
+
 Inspect per-track streaming revenue pools, verify immutable split terms, view the zero-leak stroop dust remainder allocation, and audit historical multi-recipient disbursement receipts.
 ![Track Revenue & Settlement Auditor](docs/screenshots/06_track_revenue_audit.png)
 
@@ -133,34 +140,40 @@ Inspect per-track streaming revenue pools, verify immutable split terms, view th
 ## 🌟 Key Features & User Experience
 
 ### 1. Music Discovery & Range Audio Streaming
-* High-definition audio playback powered by HTML5 Audio and authenticated HTTP 206 Partial Content range delivery.
-* Persistent audio playback bar with scrubbable seekbar, volume control, track queuing, and keyboard shortcuts (`Space` for Play/Pause).
-* Genre filtering (Synthwave, Ambient, Afrobeats, Electronic, Lo-Fi) and instantaneous catalog search.
+
+- High-definition audio playback powered by HTML5 Audio and authenticated HTTP 206 Partial Content range delivery.
+- Persistent audio playback bar with scrubbable seekbar, volume control, track queuing, and keyboard shortcuts (`Space` for Play/Pause).
+- Genre filtering (Synthwave, Ambient, Afrobeats, Electronic, Lo-Fi) and instantaneous catalog search.
 
 ### 2. Stellar Testnet Wallet Experience
-* 1-click testnet wallet generation and connection.
-* Direct integration with SDF Friendbot for instant 10,000 Testnet XLM funding.
-* Live balance polling and transaction links to Stellar Expert Explorer.
+
+- 1-click testnet wallet generation and connection.
+- Direct integration with SDF Friendbot for instant 10,000 Testnet XLM funding.
+- Live balance polling and transaction links to Stellar Expert Explorer.
 
 ### 3. Collaborator Revenue Split Studio
-* Artists define contributor roles (Producer, Vocalist, Mixing, Songwriter, Master) and percentage shares.
-* Real-time client-side and server-side validation ensuring allocations equal exactly 100.0% (10,000 basis points).
-* Multi-party agreement signing with SHA-256 agreement term hashing.
-* Automatic agreement locking when all required collaborators sign.
+
+- Artists define contributor roles (Producer, Vocalist, Mixing, Songwriter, Master) and percentage shares.
+- Real-time client-side and server-side validation ensuring allocations equal exactly 100.0% (10,000 basis points).
+- Multi-party agreement signing with SHA-256 agreement term hashing.
+- Automatic agreement locking when all required collaborators sign.
 
 ### 4. Contributor Royalty & Earnings Portal
-* Dedicated contributor dashboard displaying lifetime earned XLM, settled XLM, and pending revenue.
-* Per-track revenue share breakdown with basis points precision.
-* Complete on-chain settlement receipts with clickable Stellar Expert transaction links.
+
+- Dedicated contributor dashboard displaying lifetime earned XLM, settled XLM, and pending revenue.
+- Per-track revenue share breakdown with basis points precision.
+- Complete on-chain settlement receipts with clickable Stellar Expert transaction links.
 
 ### 5. Artist Settlement Engine
-* Catalog-wide gross streaming revenue tracking and pending pool balances.
-* 1-click "Run Automated Settlement" for batch processing across all eligible tracks.
-* Track-level "Settle Now" triggers for immediate on-chain disbursement.
-* Real-time settlement notifications via Server-Sent Events (SSE).
+
+- Catalog-wide gross streaming revenue tracking and pending pool balances.
+- 1-click "Run Automated Settlement" for batch processing across all eligible tracks.
+- Track-level "Settle Now" triggers for immediate on-chain disbursement.
+- Real-time settlement notifications via Server-Sent Events (SSE).
 
 ### 6. Public Track Revenue & Settlement Auditor
-* Accessible from any track card to inspect gross pool intake, active locked split agreement hash, remainder dust allocation rules (Index 0 primary artist invariant), and verifiable payout ledger.
+
+- Accessible from any track card to inspect gross pool intake, active locked split agreement hash, remainder dust allocation rules (Index 0 primary artist invariant), and verifiable payout ledger.
 
 ---
 
@@ -168,27 +181,27 @@ Inspect per-track streaming revenue pools, verify immutable split terms, view th
 
 The frontend application features robust client-side validation, user feedback alerts, and error boundary containment:
 
-| Feature / Action | Error Condition | UI Message & Recovery Behavior |
-| :--- | :--- | :--- |
-| **Split Agreement Allocation** | Shares do not total 100.0% | Real-time red badge indicator: `"Total allocation must equal 100% (currently X%)"`. Save button remains disabled. |
-| **Collaborator Configuration** | Duplicate recipient address | Warning alert: `"Recipient wallet address is already added"`. Duplicates cannot be submitted. |
-| **Pass Purchase** | Insufficient balance or tx error | Error toast: `"Payment failed: [Error details]"`. User prompted to request Friendbot funding. |
-| **Audio Playback** | No valid access pass | Redirects to purchase modal: `"A confirmed Music Pass is required to stream this track"`. |
-| **Collaborator Signing** | Signer address mismatch | Error alert: `"Current wallet is not listed as an active contributor for this agreement"`. |
-| **Settlement Execution** | Agreement not yet locked | Guard modal: `"Settlement blocked: Agreement must be signed by all parties and LOCKED first"`. |
-| **Settlement Execution** | Zero pending revenue | Info banner: `"No pending revenue available in this track pool for distribution"`. |
-| **Realtime Updates** | SSE connection interruption | Automatic background reconnection with exponential backoff; no page refresh required. |
+| Feature / Action               | Error Condition                  | UI Message & Recovery Behavior                                                                                    |
+| :----------------------------- | :------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| **Split Agreement Allocation** | Shares do not total 100.0%       | Real-time red badge indicator: `"Total allocation must equal 100% (currently X%)"`. Save button remains disabled. |
+| **Collaborator Configuration** | Duplicate recipient address      | Warning alert: `"Recipient wallet address is already added"`. Duplicates cannot be submitted.                     |
+| **Pass Purchase**              | Insufficient balance or tx error | Error toast: `"Payment failed: [Error details]"`. User prompted to request Friendbot funding.                     |
+| **Audio Playback**             | No valid access pass             | Redirects to purchase modal: `"A confirmed Music Pass is required to stream this track"`.                         |
+| **Collaborator Signing**       | Signer address mismatch          | Error alert: `"Current wallet is not listed as an active contributor for this agreement"`.                        |
+| **Settlement Execution**       | Agreement not yet locked         | Guard modal: `"Settlement blocked: Agreement must be signed by all parties and LOCKED first"`.                    |
+| **Settlement Execution**       | Zero pending revenue             | Info banner: `"No pending revenue available in this track pool for distribution"`.                                |
+| **Realtime Updates**           | SSE connection interruption      | Automatic background reconnection with exponential backoff; no page refresh required.                             |
 
 ---
 
 ## 🛠️ Technology Stack
 
-* **Framework**: React 18 with TypeScript
-* **Build Tool**: Vite 6
-* **Styling**: Modern Vanilla CSS Design System with dark glassmorphism, tailored HSL color tokens, and smooth micro-animations
-* **Icons**: Lucide React
-* **Blockchain SDK**: `@stellar/stellar-sdk` & Soroban RPC client
-* **Deployment**: Netlify Edge CDN with automated CI/CD
+- **Framework**: React 18 with TypeScript
+- **Build Tool**: Vite 6
+- **Styling**: Modern Vanilla CSS Design System with dark glassmorphism, tailored HSL color tokens, and smooth micro-animations
+- **Icons**: Lucide React
+- **Blockchain SDK**: `@stellar/stellar-sdk` & Soroban RPC client
+- **Deployment**: Netlify Edge CDN with automated CI/CD
 
 ---
 
@@ -208,16 +221,17 @@ npm run build
 ```
 
 All 130 frontend automated tests across 18 test files pass with zero failures:
-* **Wallet Management**: Freighter connection, in-memory ephemeral keypairs, and session lifecycles (`src/context/WalletContext.test.tsx`)
-* **Audio Player & Streaming**: Playback state, stream session recording, and queue progression (`src/context/PlayerContext.test.tsx`, `src/utils/playlistQueue.test.ts`)
-* **Network & RPC Failover**: Automated Horizon server failover and RPC endpoint switching (`src/services/stellar.test.ts`)
-* **UI Components & Modals**: Error boundary crash recovery, image fallback handling, and responsive cards (`src/components/Components.test.tsx`)
-* **Keyboard Navigation**: Global keyboard shortcuts (Space, Arrow keys, M, L) (`src/hooks/useKeyboardShortcuts.test.ts`)
-* **Media Session API**: Lockscreen controls and system audio metadata binding (`src/utils/mediaSession.test.ts`)
-* **Form & Address Validation**: StrKey checksum validation, 10,000 basis points checks, and secret key entry warnings (`src/utils/validators.test.ts`)
-* **Search & Filters**: Multi-attribute filtering and play count sorting (`src/utils/searchFilter.test.ts`)
-* **Audio Gain & Formatting**: Decibel scaling, duration formatting, and balance normalization (`src/utils/audioGain.test.ts`, `src/utils/formatters.test.ts`, `src/utils/timeFormat.test.ts`)
-* **PWA & Network Probes**: Offline banner, service worker triggers, and latency estimation (`src/components/PwaInstallBanner.test.tsx`, `src/components/NetworkLatencyIndicator.test.tsx`, `src/services/toast.test.ts`)
+
+- **Wallet Management**: Freighter connection, in-memory ephemeral keypairs, and session lifecycles (`src/context/WalletContext.test.tsx`)
+- **Audio Player & Streaming**: Playback state, stream session recording, and queue progression (`src/context/PlayerContext.test.tsx`, `src/utils/playlistQueue.test.ts`)
+- **Network & RPC Failover**: Automated Horizon server failover and RPC endpoint switching (`src/services/stellar.test.ts`)
+- **UI Components & Modals**: Error boundary crash recovery, image fallback handling, and responsive cards (`src/components/Components.test.tsx`)
+- **Keyboard Navigation**: Global keyboard shortcuts (Space, Arrow keys, M, L) (`src/hooks/useKeyboardShortcuts.test.ts`)
+- **Media Session API**: Lockscreen controls and system audio metadata binding (`src/utils/mediaSession.test.ts`)
+- **Form & Address Validation**: StrKey checksum validation, 10,000 basis points checks, and secret key entry warnings (`src/utils/validators.test.ts`)
+- **Search & Filters**: Multi-attribute filtering and play count sorting (`src/utils/searchFilter.test.ts`)
+- **Audio Gain & Formatting**: Decibel scaling, duration formatting, and balance normalization (`src/utils/audioGain.test.ts`, `src/utils/formatters.test.ts`, `src/utils/timeFormat.test.ts`)
+- **PWA & Network Probes**: Offline banner, service worker triggers, and latency estimation (`src/components/PwaInstallBanner.test.tsx`, `src/components/NetworkLatencyIndicator.test.tsx`, `src/services/toast.test.ts`)
 
 ---
 
@@ -242,8 +256,8 @@ npm run build
 
 ## 🌐 Production Links
 
-* **Live Web Application**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
-* **Stellar Network**: Testnet
-* **Explorer**: [Stellar Expert Testnet Explorer](https://stellar.expert/explorer/testnet)
-* **Smart Contracts Repository**: [Stellar-Music/stellar-music-contracts](https://github.com/Stellar-Music/stellar-music-contracts)
-* **Backend Repository**: [Stellar-Music/stellar-music-backend](https://github.com/Stellar-Music/stellar-music-backend)
+- **Live Web Application**: [https://stellar-music-app.netlify.app](https://stellar-music-app.netlify.app)
+- **Stellar Network**: Testnet
+- **Explorer**: [Stellar Expert Testnet Explorer](https://stellar.expert/explorer/testnet)
+- **Smart Contracts Repository**: [Stellar-Music/stellar-music-contracts](https://github.com/Stellar-Music/stellar-music-contracts)
+- **Backend Repository**: [Stellar-Music/stellar-music-backend](https://github.com/Stellar-Music/stellar-music-backend)

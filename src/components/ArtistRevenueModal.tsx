@@ -33,7 +33,11 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
   const [loading, setLoading] = useState(true);
   const [settlingTrackId, setSettlingTrackId] = useState<string | null>(null);
   const [runningBatch, setRunningBatch] = useState(false);
-  const [actionMessage, setActionMessage] = useState<{ type: 'success' | 'error'; text: string; txHash?: string } | null>(null);
+  const [actionMessage, setActionMessage] = useState<{
+    type: 'success' | 'error';
+    text: string;
+    txHash?: string;
+  } | null>(null);
 
   const fetchArtistRevenue = async () => {
     if (!address) {
@@ -142,7 +146,14 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
         </button>
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
@@ -158,9 +169,12 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
               <TrendingUp size={26} color="#070913" />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>Artist Revenue Settlement Engine</h2>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>
+                Artist Revenue Settlement Engine
+              </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                Track streaming revenue pools, execute multi-recipient payouts & reconcile on Stellar
+                Track streaming revenue pools, execute multi-recipient payouts & reconcile on
+                Stellar
               </p>
             </div>
           </div>
@@ -219,16 +233,25 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
               alignItems: 'center',
               justifyContent: 'space-between',
               background:
-                actionMessage.type === 'success' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
+                actionMessage.type === 'success'
+                  ? 'rgba(16, 185, 129, 0.12)'
+                  : 'rgba(239, 68, 68, 0.12)',
               border: `1px solid ${
-                actionMessage.type === 'success' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'
+                actionMessage.type === 'success'
+                  ? 'rgba(16, 185, 129, 0.3)'
+                  : 'rgba(239, 68, 68, 0.3)'
               }`,
-              color: actionMessage.type === 'success' ? 'var(--accent-emerald)' : 'var(--accent-coral)',
+              color:
+                actionMessage.type === 'success' ? 'var(--accent-emerald)' : 'var(--accent-coral)',
               fontSize: '0.88rem',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {actionMessage.type === 'success' ? <CheckCircle2 size={16} /> : <AlertTriangle size={16} />}
+              {actionMessage.type === 'success' ? (
+                <CheckCircle2 size={16} />
+              ) : (
+                <AlertTriangle size={16} />
+              )}
               <span>{actionMessage.text}</span>
             </div>
             {actionMessage.txHash && (
@@ -270,9 +293,19 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
               border: '1px solid rgba(0, 242, 254, 0.25)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-cyan)', marginBottom: '8px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: 'var(--accent-cyan)',
+                marginBottom: '8px',
+              }}
+            >
               <TrendingUp size={16} />
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Gross Streaming Revenue</span>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>
+                Gross Streaming Revenue
+              </span>
             </div>
             <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
               {(summary?.total_revenue || 0).toFixed(4)}{' '}
@@ -291,9 +324,19 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
               border: '1px solid rgba(245, 158, 11, 0.25)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-amber)', marginBottom: '8px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: 'var(--accent-amber)',
+                marginBottom: '8px',
+              }}
+            >
               <Clock size={16} />
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Pending Settlement</span>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>
+                Pending Settlement
+              </span>
             </div>
             <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
               {(summary?.pending_settlement || 0).toFixed(4)}{' '}
@@ -312,9 +355,19 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
               border: '1px solid rgba(16, 185, 129, 0.25)',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-emerald)', marginBottom: '8px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: 'var(--accent-emerald)',
+                marginBottom: '8px',
+              }}
+            >
               <CheckCircle2 size={16} />
-              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Settled On-Chain</span>
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>
+                Settled On-Chain
+              </span>
             </div>
             <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
               {(summary?.settled_revenue || 0).toFixed(4)}{' '}
@@ -327,7 +380,14 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
         </div>
 
         {/* Track List */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '12px',
+          }}
+        >
           <h3 style={{ fontSize: '1rem', fontWeight: 600 }}>Track Revenue Distribution Status</h3>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             {summary?.tracks.length || 0} Tracks Monitored
@@ -358,7 +418,14 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
                   }}
                 >
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        marginBottom: '6px',
+                      }}
+                    >
                       <span style={{ fontWeight: 600, fontSize: '0.98rem' }}>{t.track_title}</span>
                       {t.is_locked ? (
                         <span
@@ -397,15 +464,29 @@ export const ArtistRevenueModal: React.FC<ArtistRevenueModalProps> = ({
                       )}
                     </div>
 
-                    <div style={{ display: 'flex', gap: '20px', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '20px',
+                        fontSize: '0.82rem',
+                        color: 'var(--text-muted)',
+                      }}
+                    >
                       <span>
-                        Total Revenue: <strong style={{ color: '#fff' }}>{t.total_revenue.toFixed(4)} XLM</strong>
+                        Total Revenue:{' '}
+                        <strong style={{ color: '#fff' }}>{t.total_revenue.toFixed(4)} XLM</strong>
                       </span>
                       <span>
-                        Pending Settlement: <strong style={{ color: 'var(--accent-amber)' }}>{t.pending.toFixed(4)} XLM</strong>
+                        Pending Settlement:{' '}
+                        <strong style={{ color: 'var(--accent-amber)' }}>
+                          {t.pending.toFixed(4)} XLM
+                        </strong>
                       </span>
                       <span>
-                        Disbursed: <strong style={{ color: 'var(--accent-emerald)' }}>{t.settled.toFixed(4)} XLM</strong>
+                        Disbursed:{' '}
+                        <strong style={{ color: 'var(--accent-emerald)' }}>
+                          {t.settled.toFixed(4)} XLM
+                        </strong>
                       </span>
                     </div>
                   </div>

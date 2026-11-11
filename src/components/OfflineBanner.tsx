@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { WifiOff, Wifi, RefreshCw } from 'lucide-react';
 
 export const OfflineBanner: React.FC = () => {
-  const [isOffline, setIsOffline] = useState(typeof navigator !== 'undefined' ? !navigator.onLine : false);
+  const [isOffline, setIsOffline] = useState(
+    typeof navigator !== 'undefined' ? !navigator.onLine : false
+  );
   const [justRestored, setJustRestored] = useState(false);
 
   useEffect(() => {
@@ -54,7 +56,10 @@ export const OfflineBanner: React.FC = () => {
       {isOffline ? (
         <>
           <WifiOff size={16} color="#fda4af" />
-          <span>You are currently offline. Audio streaming and Stellar blockchain transactions are paused until connection resumes.</span>
+          <span>
+            You are currently offline. Audio streaming and Stellar blockchain transactions are
+            paused until connection resumes.
+          </span>
           <button
             onClick={() => window.location.reload()}
             style={{

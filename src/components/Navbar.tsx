@@ -111,7 +111,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               Stellar Music
             </span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-              <span className="badge badge-testnet" style={{ fontSize: '0.68rem', padding: '2px 7px' }}>
+              <span
+                className="badge badge-testnet"
+                style={{ fontSize: '0.68rem', padding: '2px 7px' }}
+              >
                 ● Stellar Testnet
               </span>
             </div>
@@ -176,14 +179,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div className="desktop-only" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div
+            className="desktop-only"
+            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          >
             <button
               onClick={onOpenEarnings}
               className="btn btn-secondary btn-sm"
               style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
               title="Contributor royalty earnings and payout receipts"
             >
-              <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.9rem' }}>$</span>
+              <span style={{ color: 'var(--accent-emerald)', fontWeight: 700, fontSize: '0.9rem' }}>
+                $
+              </span>
               <span>Earnings</span>
             </button>
 
@@ -239,7 +247,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => setShowMobileDrawer(true)}
             className="btn btn-secondary btn-sm mobile-only"
-            style={{ padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            style={{
+              padding: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             aria-label="Open mobile navigation menu"
           >
             <Menu size={18} />
@@ -272,7 +285,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Balance</span>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>
+                  <span
+                    style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--accent-cyan)' }}
+                  >
                     {parseFloat(balance).toFixed(2)} XLM
                   </span>
                 </div>
@@ -322,7 +337,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                         marginBottom: '4px',
                       }}
                     >
-                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Connected Key</span>
+                      <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                        Connected Key
+                      </span>
                       <button
                         onClick={handleCopy}
                         style={{

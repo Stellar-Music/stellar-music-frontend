@@ -12,7 +12,7 @@ import {
   RefreshCw,
   Wallet,
   Sparkles,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 
 interface ContributorEarningsModalProps {
@@ -103,7 +103,14 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
         </button>
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '24px',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div
               style={{
@@ -119,7 +126,9 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
               <Coins size={26} color="#070913" />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>Contributor Earnings & Royalties</h2>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 700 }}>
+                Contributor Earnings & Royalties
+              </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                 Automated multi-recipient Stellar settlements backed by locked cryptographic splits
               </p>
@@ -158,8 +167,16 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
           >
             <Wallet size={40} style={{ color: 'var(--text-muted)', marginBottom: '12px' }} />
             <h3 style={{ fontSize: '1.1rem', marginBottom: '6px' }}>Connect Your Stellar Wallet</h3>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: '440px', margin: '0 auto' }}>
-              Connect your wallet to inspect your accrued royalties, pending revenue allocations, and on-chain settlement receipts.
+            <p
+              style={{
+                color: 'var(--text-muted)',
+                fontSize: '0.88rem',
+                maxWidth: '440px',
+                margin: '0 auto',
+              }}
+            >
+              Connect your wallet to inspect your accrued royalties, pending revenue allocations,
+              and on-chain settlement receipts.
             </p>
           </div>
         ) : loading && !earnings ? (
@@ -203,9 +220,21 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                   border: '1px solid rgba(16, 185, 129, 0.25)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-emerald)', marginBottom: '8px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: 'var(--accent-emerald)',
+                    marginBottom: '8px',
+                  }}
+                >
                   <CheckCircle2 size={16} />
-                  <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Settled on Stellar</span>
+                  <span
+                    style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}
+                  >
+                    Settled on Stellar
+                  </span>
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
                   {(earnings?.settled_revenue || 0).toFixed(4)}{' '}
@@ -224,9 +253,21 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                   border: '1px solid rgba(245, 158, 11, 0.25)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-amber)', marginBottom: '8px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: 'var(--accent-amber)',
+                    marginBottom: '8px',
+                  }}
+                >
                   <Clock size={16} />
-                  <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Pending Settlement</span>
+                  <span
+                    style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}
+                  >
+                    Pending Settlement
+                  </span>
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
                   {(earnings?.pending_revenue || 0).toFixed(4)}{' '}
@@ -245,9 +286,21 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                   border: '1px solid rgba(0, 242, 254, 0.25)',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-cyan)', marginBottom: '8px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: 'var(--accent-cyan)',
+                    marginBottom: '8px',
+                  }}
+                >
                   <Sparkles size={16} />
-                  <span style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}>Lifetime Allocated</span>
+                  <span
+                    style={{ fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase' }}
+                  >
+                    Lifetime Allocated
+                  </span>
                 </div>
                 <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#fff' }}>
                   {(earnings?.total_earned || 0).toFixed(4)}{' '}
@@ -345,8 +398,17 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                       }}
                     >
                       <div style={{ flex: 1 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                          <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>{t.track_title}</span>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            marginBottom: '4px',
+                          }}
+                        >
+                          <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>
+                            {t.track_title}
+                          </span>
                           <span
                             style={{
                               padding: '2px 8px',
@@ -372,12 +434,25 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                             {t.percentage}% share
                           </span>
                         </div>
-                        <div style={{ display: 'flex', gap: '16px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            gap: '16px',
+                            fontSize: '0.8rem',
+                            color: 'var(--text-muted)',
+                          }}
+                        >
                           <span>
-                            Settled: <strong style={{ color: 'var(--accent-emerald)' }}>{t.settled.toFixed(4)} XLM</strong>
+                            Settled:{' '}
+                            <strong style={{ color: 'var(--accent-emerald)' }}>
+                              {t.settled.toFixed(4)} XLM
+                            </strong>
                           </span>
                           <span>
-                            Pending: <strong style={{ color: 'var(--accent-amber)' }}>{t.pending.toFixed(4)} XLM</strong>
+                            Pending:{' '}
+                            <strong style={{ color: 'var(--accent-amber)' }}>
+                              {t.pending.toFixed(4)} XLM
+                            </strong>
                           </span>
                         </div>
                       </div>
@@ -443,7 +518,9 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                   </p>
                 ) : (
                   recentSettlements.map((s) => {
-                    const recipientData = s.recipients?.find((r: any) => r.wallet_address === address);
+                    const recipientData = s.recipients?.find(
+                      (r: any) => r.wallet_address === address
+                    );
                     return (
                       <div
                         key={s.id}
@@ -459,7 +536,14 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                         }}
                       >
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              marginBottom: '4px',
+                            }}
+                          >
                             <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>
                               Track: {s.track_id.substring(0, 8)}...
                             </span>
@@ -471,7 +555,10 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                                   s.status === 'CONFIRMED'
                                     ? 'rgba(16, 185, 129, 0.15)'
                                     : 'rgba(245, 158, 11, 0.15)',
-                                color: s.status === 'CONFIRMED' ? 'var(--accent-emerald)' : 'var(--accent-amber)',
+                                color:
+                                  s.status === 'CONFIRMED'
+                                    ? 'var(--accent-emerald)'
+                                    : 'var(--accent-amber)',
                                 fontSize: '0.72rem',
                                 fontWeight: 600,
                               }}
@@ -480,13 +567,24 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                             </span>
                           </div>
                           <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                            {new Date(s.created_at).toLocaleString()} • Agreement v{s.agreement_version}
+                            {new Date(s.created_at).toLocaleString()} • Agreement v
+                            {s.agreement_version}
                           </div>
                         </div>
 
                         <div style={{ textAlign: 'right' }}>
-                          <div style={{ fontWeight: 700, color: 'var(--accent-emerald)', fontSize: '1rem' }}>
-                            +{recipientData?.actual_amount ? recipientData.actual_amount.toFixed(4) : (0).toFixed(4)} XLM
+                          <div
+                            style={{
+                              fontWeight: 700,
+                              color: 'var(--accent-emerald)',
+                              fontSize: '1rem',
+                            }}
+                          >
+                            +
+                            {recipientData?.actual_amount
+                              ? recipientData.actual_amount.toFixed(4)
+                              : (0).toFixed(4)}{' '}
+                            XLM
                           </div>
                           {s.tx_hash ? (
                             <a
@@ -507,7 +605,9 @@ export const ContributorEarningsModal: React.FC<ContributorEarningsModalProps> =
                               <ExternalLink size={11} />
                             </a>
                           ) : (
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Processing</span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                              Processing
+                            </span>
                           )}
                         </div>
                       </div>

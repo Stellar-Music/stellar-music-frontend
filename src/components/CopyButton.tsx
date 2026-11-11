@@ -68,11 +68,17 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
       }}
     >
       {copied ? (
-        <Check size={size} color="var(--accent-emerald)" style={{ animation: 'scaleIn 0.2s ease-out' }} />
+        <Check
+          size={size}
+          color="var(--accent-emerald)"
+          style={{ animation: 'scaleIn 0.2s ease-out' }}
+        />
       ) : (
         <Copy size={size} />
       )}
-      {label && <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>{copied ? 'Copied' : label}</span>}
+      {label && (
+        <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>{copied ? 'Copied' : label}</span>
+      )}
     </button>
   );
 };

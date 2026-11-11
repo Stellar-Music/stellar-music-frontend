@@ -75,7 +75,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '14px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            borderBottom: '1px solid var(--border-subtle)',
+            paddingBottom: '14px',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div
               style={{
@@ -92,7 +100,9 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             >
               S
             </div>
-            <span style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '-0.02em' }}>Stellar Music</span>
+            <span style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '-0.02em' }}>
+              Stellar Music
+            </span>
           </div>
 
           <button
@@ -120,11 +130,22 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               border: '1px solid var(--border-subtle)',
             }}
           >
-            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Connected Account</div>
-            <div style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'var(--accent-cyan)' }}>
+            <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
+              Connected Account
+            </div>
+            <div
+              style={{ fontFamily: 'monospace', fontSize: '0.78rem', color: 'var(--accent-cyan)' }}
+            >
               {truncateAddress(address, 8, 6)}
             </div>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-emerald)', marginTop: '4px' }}>
+            <div
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: 'var(--accent-emerald)',
+                marginTop: '4px',
+              }}
+            >
               {parseFloat(balance).toFixed(2)} XLM
             </div>
           </div>
@@ -144,7 +165,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(() => onSelectTab('catalog'))}
             className={`btn ${activeTab === 'catalog' ? 'btn-primary' : 'btn-secondary'}`}
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <Music2 size={16} />
             <span>Catalog Discovery</span>
@@ -153,7 +179,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(() => onSelectTab('walkthrough'))}
             className={`btn ${activeTab === 'walkthrough' ? 'btn-primary' : 'btn-secondary'}`}
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <PlayCircle size={16} />
             <span>Tour & Walkthrough</span>
@@ -162,7 +193,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(onOpenPublish)}
             className="btn btn-secondary"
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <PlusCircle size={16} />
             <span>Publish New Track</span>
@@ -171,7 +207,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(onOpenSplits)}
             className="btn btn-secondary"
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <PieChart size={16} />
             <span>Revenue Split Studio</span>
@@ -180,7 +221,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(onOpenEarnings)}
             className="btn btn-secondary"
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <DollarSign size={16} />
             <span>Contributor Earnings</span>
@@ -189,7 +235,12 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
           <button
             onClick={() => handleNavClick(onOpenArtistRevenue)}
             className="btn btn-secondary"
-            style={{ width: '100%', justifyContent: 'flex-start', gap: '10px', padding: '10px 14px' }}
+            style={{
+              width: '100%',
+              justifyContent: 'flex-start',
+              gap: '10px',
+              padding: '10px 14px',
+            }}
           >
             <TrendingUp size={16} />
             <span>Artist Revenue Engine</span>
@@ -197,7 +248,15 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
         </div>
 
         {/* Footer info */}
-        <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-subtle)', paddingTop: '14px', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+        <div
+          style={{
+            marginTop: 'auto',
+            borderTop: '1px solid var(--border-subtle)',
+            paddingTop: '14px',
+            fontSize: '0.72rem',
+            color: 'var(--text-muted)',
+          }}
+        >
           <div>Stellar Music • Testnet Protocol</div>
           <div style={{ opacity: 0.8 }}>Non-Custodial Multi-Party Settlements</div>
         </div>

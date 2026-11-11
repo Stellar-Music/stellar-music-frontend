@@ -57,7 +57,11 @@ export const ImageFallback: React.FC<ImageFallbackProps> = ({
           }}
         />
 
-        <Disc3 size={iconSize} color="var(--accent-cyan)" style={{ opacity: 0.75, animation: 'spin 20s linear infinite' }} />
+        <Disc3
+          size={iconSize}
+          color="var(--accent-cyan)"
+          style={{ opacity: 0.75, animation: 'spin 20s linear infinite' }}
+        />
 
         {fallbackTitle && (
           <span

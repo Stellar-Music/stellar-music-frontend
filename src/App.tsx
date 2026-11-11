@@ -25,7 +25,15 @@ import { usePlayer } from './context/PlayerContext';
 import { api } from './services/api';
 import { WalkthroughTab } from './components/WalkthroughTab';
 import { Track, Artist } from './types';
-import { Sparkles, Search, Shield, Music2, ExternalLink, PlayCircle, ArrowUpDown } from 'lucide-react';
+import {
+  Sparkles,
+  Search,
+  Shield,
+  Music2,
+  ExternalLink,
+  PlayCircle,
+  ArrowUpDown,
+} from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address } = useWallet();
@@ -126,6 +134,9 @@ export const App: React.FC = () => {
     }
     try {
       const res = await fetch(`/api/passes?wallet=${encodeURIComponent(address)}`);
+      if (!res.ok) return;
+      const contentType = res.headers.get('content-type');
+      if (contentType && !contentType.includes('application/json')) return;
       const data = await res.json();
       if (data.data) {
         const ids = new Set<string>(data.data.map((p: any) => p.track_id));
@@ -180,7 +191,14 @@ export const App: React.FC = () => {
   });
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingBottom: '110px' }}>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingBottom: '110px',
+      }}
+    >
       <Navbar
         activeTab={activeTab}
         onSelectTab={(tab) => {
@@ -223,13 +241,16 @@ export const App: React.FC = () => {
               overflow: 'hidden',
               padding: '60px 48px',
               marginBottom: '48px',
-              background: 'linear-gradient(135deg, rgba(14, 18, 34, 0.9) 0%, rgba(20, 28, 54, 0.8) 100%)',
+              background:
+                'linear-gradient(135deg, rgba(14, 18, 34, 0.9) 0%, rgba(20, 28, 54, 0.8) 100%)',
               border: '1px solid rgba(0, 242, 254, 0.25)',
               boxShadow: 'var(--shadow-neon)',
             }}
           >
             <div style={{ maxWidth: '720px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}
+              >
                 <span className="badge badge-testnet">
                   <Sparkles size={13} />
                   <span>Automated Multi-Recipient Revenue Settlement</span>
@@ -265,7 +286,8 @@ export const App: React.FC = () => {
                   marginBottom: '28px',
                 }}
               >
-                Buy lifetime streaming passes directly on Stellar, listen instantly, and verify transparent multi-party royalty splits with zero intermediaries.
+                Buy lifetime streaming passes directly on Stellar, listen instantly, and verify
+                transparent multi-party royalty splits with zero intermediaries.
               </p>
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
@@ -327,15 +349,23 @@ export const App: React.FC = () => {
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
                 gap: '12px',
-                background: 'linear-gradient(135deg, rgba(14, 18, 34, 0.95) 0%, rgba(20, 28, 54, 0.95) 100%)',
+                background:
+                  'linear-gradient(135deg, rgba(14, 18, 34, 0.95) 0%, rgba(20, 28, 54, 0.95) 100%)',
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span className="badge badge-testnet" style={{ fontSize: '0.72rem', padding: '2px 8px' }}>
+                <div
+                  style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}
+                >
+                  <span
+                    className="badge badge-testnet"
+                    style={{ fontSize: '0.72rem', padding: '2px 8px' }}
+                  >
                     🎥 Live Product Video
                   </span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>1080p Full HD • 01:14 Runtime</span>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                    1080p Full HD • 01:14 Runtime
+                  </span>
                 </div>
                 <h2 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0 }}>
                   Platform Walkthrough & Automated Settlement
@@ -364,7 +394,14 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', background: '#000' }}>
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                background: '#000',
+              }}
+            >
               <video
                 controls
                 playsInline
@@ -390,10 +427,7 @@ export const App: React.FC = () => {
               }}
             >
               {/* Dynamic Genre Filter Pills */}
-              <GenreFilter
-                selectedGenre={selectedGenre}
-                onSelectGenre={setSelectedGenre}
-              />
+              <GenreFilter selectedGenre={selectedGenre} onSelectGenre={setSelectedGenre} />
 
               {/* Search & Sort Controls */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -402,7 +436,12 @@ export const App: React.FC = () => {
                   <Search
                     size={17}
                     color="var(--text-muted)"
-                    style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }}
+                    style={{
+                      position: 'absolute',
+                      left: '12px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                    }}
                   />
                   <input
                     type="text"
@@ -451,7 +490,14 @@ export const App: React.FC = () => {
 
           {/* Tracks Discovery Grid */}
           <section style={{ marginBottom: '56px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '20px',
+              }}
+            >
               <h2 style={{ fontSize: '1.5rem', fontWeight: 700 }}>Featured Tracks</h2>
               <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                 {sortedTracks.length} track{sortedTracks.length === 1 ? '' : 's'} available
@@ -477,11 +523,26 @@ export const App: React.FC = () => {
                   borderRadius: 'var(--radius-lg)',
                 }}
               >
-                <Music2 size={46} color="var(--accent-cyan)" style={{ margin: '0 auto 14px', opacity: 0.7 }} />
-                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>No tracks match your query</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '20px', maxWidth: '440px', margin: '0 auto 20px' }}>
+                <Music2
+                  size={46}
+                  color="var(--accent-cyan)"
+                  style={{ margin: '0 auto 14px', opacity: 0.7 }}
+                />
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>
+                  No tracks match your query
+                </h3>
+                <p
+                  style={{
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.88rem',
+                    marginBottom: '20px',
+                    maxWidth: '440px',
+                    margin: '0 auto 20px',
+                  }}
+                >
                   No tracks found for genre <strong>{selectedGenre}</strong>
-                  {debouncedSearch ? ` matching "${debouncedSearch}"` : ''}. Try broadening your search or resetting filters.
+                  {debouncedSearch ? ` matching "${debouncedSearch}"` : ''}. Try broadening your
+                  search or resetting filters.
                 </p>
                 <button
                   onClick={() => {
@@ -545,7 +606,14 @@ export const App: React.FC = () => {
                   onClick={() => setSelectedArtist(artist)}
                   title="Click to view artist profile and catalog"
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '12px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '14px',
+                      marginBottom: '12px',
+                    }}
+                  >
                     <div
                       style={{
                         width: '48px',
@@ -564,13 +632,22 @@ export const App: React.FC = () => {
                     </div>
                     <div>
                       <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>{artist.display_name}</h3>
-                      <div style={{ fontSize: '0.75rem', fontFamily: 'monospace', color: 'var(--text-muted)' }}>
-                        {artist.wallet_address.substring(0, 8)}...{artist.wallet_address.substring(artist.wallet_address.length - 6)}
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          fontFamily: 'monospace',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
+                        {artist.wallet_address.substring(0, 8)}...
+                        {artist.wallet_address.substring(artist.wallet_address.length - 6)}
                       </div>
                     </div>
                   </div>
 
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                  <p
+                    style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}
+                  >
                     {artist.bio || 'Independent music creator on Stellar.'}
                   </p>
                 </div>
@@ -600,32 +677,68 @@ export const App: React.FC = () => {
               <Shield size={20} color="var(--accent-cyan)" />
               <span>Architecture & Security Foundation</span>
             </h3>
-            <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
+            <p
+              style={{
+                fontSize: '0.88rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.6,
+                marginBottom: '16px',
+              }}
+            >
               Stellar Music is built on strict non-custodial principles:
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-              <div style={{ padding: '16px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '16px',
+              }}
+            >
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                }}
+              >
                 <div style={{ fontWeight: 700, color: 'var(--accent-cyan)', marginBottom: '4px' }}>
                   Smart Contracts Enforce Financial Rules
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Funds flow peer-to-peer or into transparent smart contract pools. The backend has no authority to move user funds.
+                  Funds flow peer-to-peer or into transparent smart contract pools. The backend has
+                  no authority to move user funds.
                 </div>
               </div>
-              <div style={{ padding: '16px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                }}
+              >
                 <div style={{ fontWeight: 700, color: 'var(--accent-blue)', marginBottom: '4px' }}>
                   Independent On-Chain Verification
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Every pass purchase is validated against Stellar Horizon ledger transactions with cryptographic replay prevention.
+                  Every pass purchase is validated against Stellar Horizon ledger transactions with
+                  cryptographic replay prevention.
                 </div>
               </div>
-              <div style={{ padding: '16px', borderRadius: 'var(--radius-sm)', backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
-                <div style={{ fontWeight: 700, color: 'var(--accent-purple)', marginBottom: '4px' }}>
+              <div
+                style={{
+                  padding: '16px',
+                  borderRadius: 'var(--radius-sm)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                }}
+              >
+                <div
+                  style={{ fontWeight: 700, color: 'var(--accent-purple)', marginBottom: '4px' }}
+                >
                   Streaming Accounting
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Playback duration is recorded through authenticated heartbeats to establish the foundation for automated multi-party settlement.
+                  Playback duration is recorded through authenticated heartbeats to establish the
+                  foundation for automated multi-party settlement.
                 </div>
               </div>
             </div>
@@ -661,9 +774,7 @@ export const App: React.FC = () => {
         />
       )}
 
-      {isWalletOpen && (
-        <WalletModal onClose={() => setIsWalletOpen(false)} />
-      )}
+      {isWalletOpen && <WalletModal onClose={() => setIsWalletOpen(false)} />}
 
       {splitModalTrack && (
         <RevenueSplitModal
@@ -711,10 +822,7 @@ export const App: React.FC = () => {
       )}
 
       {revenueTrackId && (
-        <TrackRevenueModal
-          trackId={revenueTrackId}
-          onClose={() => setRevenueTrackId(null)}
-        />
+        <TrackRevenueModal trackId={revenueTrackId} onClose={() => setRevenueTrackId(null)} />
       )}
 
       {selectedArtist && (
@@ -723,7 +831,8 @@ export const App: React.FC = () => {
           tracks={tracks}
           onClose={() => setSelectedArtist(null)}
           onPlayTrack={(t) => {
-            const hasPass = userPassTrackIds.has(t.id) || unlockedTrackIds.has(t.id) || t.price <= 0;
+            const hasPass =
+              userPassTrackIds.has(t.id) || unlockedTrackIds.has(t.id) || t.price <= 0;
             if (hasPass) {
               // stream unlocked
             } else {
@@ -739,10 +848,7 @@ export const App: React.FC = () => {
         onSelectTab={(t) => setActiveTab(t)}
       />
 
-      <KeyboardShortcutsModal
-        isOpen={isShortcutsOpen}
-        onClose={() => setIsShortcutsOpen(false)}
-      />
+      <KeyboardShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
     </div>
   );
 };

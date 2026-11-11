@@ -36,7 +36,8 @@ export const TrackSkeleton: React.FC<TrackSkeletonProps> = ({ count = 4 }) => {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)',
+                background:
+                  'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)',
                 animation: 'shimmer 1.8s infinite',
               }}
             />

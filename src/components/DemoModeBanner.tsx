@@ -36,9 +36,7 @@ export const DemoModeBanner: React.FC<DemoModeBannerProps> = ({ onTourOpen }) =>
     <div
       style={{
         width: '100%',
-        backgroundColor: isDemoActive
-          ? 'rgba(16, 185, 129, 0.12)'
-          : 'rgba(0, 242, 254, 0.12)',
+        backgroundColor: isDemoActive ? 'rgba(16, 185, 129, 0.12)' : 'rgba(0, 242, 254, 0.12)',
         borderBottom: isDemoActive
           ? '1px solid rgba(16, 185, 129, 0.3)'
           : '1px solid rgba(0, 242, 254, 0.25)',

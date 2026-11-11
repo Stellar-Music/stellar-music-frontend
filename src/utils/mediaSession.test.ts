@@ -61,7 +61,10 @@ describe('Media Session API Utility', () => {
 
     expect(navigator.mediaSession.setActionHandler).toHaveBeenCalledWith('play', onPlay);
     expect(navigator.mediaSession.setActionHandler).toHaveBeenCalledWith('pause', onPause);
-    expect(navigator.mediaSession.setActionHandler).toHaveBeenCalledWith('seekforward', onSeekForward);
+    expect(navigator.mediaSession.setActionHandler).toHaveBeenCalledWith(
+      'seekforward',
+      onSeekForward
+    );
   });
 
   it('updates position state when within valid duration bounds', () => {
